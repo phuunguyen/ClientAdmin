@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_tt_cuahang"
-        android:name="com.example.clientadmin.Fragment.ThongTinCuaHangFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThongTinCuaHangFragment"
         android:label="Thông Tin Cửa Hàng"
         tools:layout="@layout/fragment_thong_tin_cua_hang" />
 
     <fragment
         android:id="@+id/nav_tt_sanpham"
-        android:name="com.example.clientadmin.Fragment.ThongTinSanPhamFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
         tools:layout="@layout/fragment_thong_tin_san_pham" />
 
     <fragment
         android:id="@+id/nav_tt_giaohang"
-        android:name="com.example.clientadmin.Fragment.ThongTinGiaoHangFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThongTinGiaoHangFragment"
         android:label="Thông Tin Giao Hàng"
         tools:layout="@layout/fragment_thong_tin_giao_hang" />
 
     <fragment
         android:id="@+id/nav_donhang_dagiao"
-        android:name="com.example.clientadmin.Fragment.DonHangFragment"
+        android:name="com.example.clientadmin.Fragment.Store.DonHangFragment"
         android:label="Đơn Hàng Đã Giao"
         tools:layout="@layout/fragment_don_hang" />
 
     <fragment
         android:id="@+id/nav_danhgia"
-        android:name="com.example.clientadmin.Fragment.DanhGiaFragment"
+        android:name="com.example.clientadmin.Fragment.Store.DanhGiaFragment"
         android:label="Đánh Giá"
         tools:layout="@layout/fragment_danh_gia" />
 </navigation>

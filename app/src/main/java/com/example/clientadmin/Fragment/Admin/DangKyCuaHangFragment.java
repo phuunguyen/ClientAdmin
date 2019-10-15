@@ -1,4 +1,4 @@
-package com.example.clientadmin.Fragment;
+package com.example.clientadmin.Fragment.Admin;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.clientadmin.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DanhGiaFragment extends Fragment {
+public class DangKyCuaHangFragment extends Fragment {
 
 
-    public DanhGiaFragment() {
+    public DangKyCuaHangFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class DanhGiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_danh_gia, container, false);
+        return inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
     }
 
 }
