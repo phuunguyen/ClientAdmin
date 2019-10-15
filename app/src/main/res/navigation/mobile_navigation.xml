@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_tt_cuahang">
+
+    <fragment
+        android:id="@+id/nav_tt_cuahang"
+        android:name="com.example.clientadmin.Fragment.ThongTinCuaHangFragment"
+        android:label="Thông Tin Cửa Hàng"
+        tools:layout="@layout/fragment_thong_tin_cua_hang" />
+
+    <fragment
+        android:id="@+id/nav_tt_sanpham"
+        android:name="com.example.clientadmin.Fragment.ThongTinSanPhamFragment"
+        android:label="Thông Tin Sản Phẩm"
+        tools:layout="@layout/fragment_thong_tin_san_pham" />
+
+    <fragment
+        android:id="@+id/nav_tt_giaohang"
+        android:name="com.example.clientadmin.Fragment.ThongTinGiaoHangFragment"
+        android:label="Thông Tin Giao Hàng"
+        tools:layout="@layout/fragment_thong_tin_giao_hang" />
+
+    <fragment
+        android:id="@+id/nav_donhang_dagiao"
+        android:name="com.example.clientadmin.Fragment.DonHangFragment"
+        android:label="Đơn Hàng Đã Giao"
+        tools:layout="@layout/fragment_don_hang" />
+
+    <fragment
+        android:id="@+id/nav_danhgia"
+        android:name="com.example.clientadmin.Fragment.DanhGiaFragment"
+        android:label="Đánh Giá"
+        tools:layout="@layout/fragment_danh_gia" />
+</navigation>

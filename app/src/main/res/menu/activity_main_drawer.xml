@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tt_cuahang"
+            android:icon="@drawable/home"
+            android:title="Thông Tin Cửa Hàng" />
+        <item
+            android:id="@+id/nav_tt_sanpham"
+            android:icon="@drawable/sanpham"
+            android:title="Thông Tin Sản Phẩm" />
+        <item
+            android:id="@+id/nav_tt_giaohang"
+            android:icon="@drawable/moto"
+            android:title="Thông Tin Giao Hàng" />
+        <item
+            android:id="@+id/nav_donhang_dagiao"
+            android:icon="@drawable/donhang"
+            android:title="Đơn Hàng Đã Giao" />
+        <item
+            android:id="@+id/nav_danhgia"
+            android:icon="@drawable/danhgia"
+            android:title="Đánh Giá" />
+    </group>
+
+
+</menu>
