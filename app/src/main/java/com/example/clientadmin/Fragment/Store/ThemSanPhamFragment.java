@@ -2,7 +2,6 @@ package com.example.clientadmin.Fragment.Store;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
@@ -38,11 +37,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
 
-public class ThemSanPham extends Fragment {
+public class ThemSanPhamFragment extends Fragment {
 
     private View view;
     private ImageView imgSP;
@@ -65,7 +63,7 @@ public class ThemSanPham extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_them_san_pham, container, false);
+        view = inflater.inflate(R.layout.fragment_them_san_pham, container, false);
         setControl();
         return view;
     }

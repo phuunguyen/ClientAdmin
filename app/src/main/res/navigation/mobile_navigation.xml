@@ -37,7 +37,7 @@
         tools:layout="@layout/fragment_danh_gia" />
     <fragment
         android:id="@+id/themSanPham"
-        android:name="com.example.clientadmin.Fragment.Store.ThemSanPham"
+        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
         android:label="activity_them_san_pham"
-        tools:layout="@layout/activity_them_san_pham" />
+        tools:layout="@layout/fragment_them_san_pham" />
 </navigation>
