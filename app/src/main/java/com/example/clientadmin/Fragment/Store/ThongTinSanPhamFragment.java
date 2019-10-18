@@ -6,11 +6,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
 import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
@@ -29,6 +31,7 @@ public class ThongTinSanPhamFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private View root;
+    private Button btnAddProduct;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +51,12 @@ public class ThongTinSanPhamFragment extends Fragment {
     private void setEvent() {
         setupViewPager();
         tabLayout.setupWithViewPager(viewPager);
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_themSanPhamFragment);
+            }
+        });
     }
 
     private void setupViewPager() {
@@ -62,5 +71,6 @@ public class ThongTinSanPhamFragment extends Fragment {
     private void setControl() {
         viewPager = (ViewPager) root.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) root.findViewById(R.id.tabs);
+        btnAddProduct = (Button) root.findViewById(R.id.btnAddProduct);
     }
 }
