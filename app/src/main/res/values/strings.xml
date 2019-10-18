@@ -16,4 +16,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TTCH">Thông tin cửa hàng</string>
+    <string name="TTCuaHang">Tên cửa hàng</string>
+    <string name="DCCH">Địa chỉ</string>
+    <string name="SDTCH">Số điện thoại</string>
+    <string name="ChuCH">Chủ cửa hàng</string>
+    <string name="email">Email</string>
+    <string name="NDKDV">Ngày đăng kí dịch vụ</string>
+
 </resources>

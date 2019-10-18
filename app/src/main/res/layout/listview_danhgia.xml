@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/txtTenUserDG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nguyễn Văn A"
+            android:textSize="20dp" />
+
+        <RatingBar
+            android:id="@+id/rtbDanhGia"
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:isIndicator="true"
+            android:numStars="5">
+
+        </RatingBar>
+
+        <TextView
+            android:id="@+id/txtDanhGia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngon qua"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
