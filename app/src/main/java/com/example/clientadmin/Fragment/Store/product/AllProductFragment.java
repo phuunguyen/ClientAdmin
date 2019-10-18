@@ -16,6 +16,11 @@ import android.view.ViewGroup;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.ProductAdapter;
 import com.example.clientadmin.model.Product;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,8 @@ public class AllProductFragment extends Fragment {
     RecyclerView mRecyclerView;
     ProductAdapter productAdapter;
     List<Product> data;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference mData = database.getReference();
 
     View root;
 
@@ -51,17 +58,50 @@ public class AllProductFragment extends Fragment {
 
     private void setEvent() {
         data = new ArrayList<>();
-        khoiTao();
-        productAdapter = new ProductAdapter(data);
+        mData.child("Product").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                addProduct(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                data.clear();
+                addProduct(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                addProduct(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+//        khoiTao();
+        productAdapter = new ProductAdapter(data, getContext());
+        mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(productAdapter);
     }
 
-    private void khoiTao() {
-        data.add(new Product("https://vignette.wikia.nocookie.net/leagueoflegends/images/f/f5/So_Lame_Emote.png/revision/latest?cb=20180731211732", "Coffee đen", "50000"));
-        data.add(new Product("https://vignette.wikia.nocookie.net/leagueoflegends/images/c/c6/BORF_Emote.png/revision/latest?cb=20190305235647", "Coffee", "50000"));
-        data.add(new Product("https://vignette.wikia.nocookie.net/leagueoflegends/images/d/de/Me-ow_Emote.png/revision/latest?cb=20190522072833", "Trà sữa", "50000"));
+    private void addProduct(DataSnapshot dataSnapshot){
+        Product product = new Product();
+        product.setIdProduct(dataSnapshot.child("id_product").getValue().toString());
+        product.setImgProduct(dataSnapshot.child("Product_image").getValue().toString());
+        product.setTxtProductName(dataSnapshot.child("product_name").getValue().toString());
+        product.setTxtProductPrice(dataSnapshot.child("price").getValue().toString());
+        data.add(product);
+        productAdapter.notifyDataSetChanged();
     }
 }

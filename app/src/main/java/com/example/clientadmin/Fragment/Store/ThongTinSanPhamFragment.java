@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
+import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
 import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
+import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -52,6 +54,8 @@ public class ThongTinSanPhamFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new AllProductFragment(), "Tất cả");
         adapter.addFragment(new CoffeeFragment(), "Coffee");
+        adapter.addFragment(new BubbleTeaFragment(),"Trà Sữa");
+        adapter.addFragment(new ToppingFragment(), "Topping");
         viewPager.setAdapter(adapter);
     }
 

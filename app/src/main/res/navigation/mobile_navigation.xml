@@ -15,7 +15,8 @@
         android:id="@+id/nav_tt_sanpham"
         android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
-        tools:layout="@layout/fragment_thong_tin_san_pham" />
+        tools:layout="@layout/fragment_thong_tin_san_pham" >
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tt_giaohang"
