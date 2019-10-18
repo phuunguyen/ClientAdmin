@@ -54,7 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onClick(View v) {
                 String idProduct = data.get(position).getIdProduct();
-                showAlertDialog(data.get(position).getTxtProductName(), idProduct);
+                xoaSanPhamAlertDialog(data.get(position).getTxtProductName(), idProduct);
                 //myRef.child("Product").child("Product" + idProduct).removeValue();
             }
         });
@@ -80,7 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
-    public void showAlertDialog(String productName, final String idProduct){
+    public void xoaSanPhamAlertDialog(String productName, final String idProduct){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Xóa sản phẩm");
         builder.setMessage("Bạn có muốn xóa " + productName + " không?");
