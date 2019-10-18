@@ -23,8 +23,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.R;
+import com.example.clientadmin.database.Product;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -58,7 +58,6 @@ public class ThemSanPham extends Fragment {
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_Product = mData.child("Product");
-    Product product = new Product();
     int i;
 
 

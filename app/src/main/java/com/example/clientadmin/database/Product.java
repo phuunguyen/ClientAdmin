@@ -1,18 +1,20 @@
-package com.example.clientadmin.model;
+package com.example.clientadmin.database;
 
 public class Product {
     private String id_product;
     private String product_image;
     private String product_name;
+    private String id_menu;
     private double price;
 
     public Product() {
     }
 
-    public Product(String id_product, String product_image, String product_name, double price) {
+    public Product(String id_product, String product_image, String product_name, String id_menu, double price) {
         this.id_product = id_product;
         this.product_image = product_image;
         this.product_name = product_name;
+        this.id_menu = id_menu;
         this.price = price;
     }
 
@@ -38,6 +40,14 @@ public class Product {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
+    }
+
+    public String getId_menu() {
+        return id_menu;
+    }
+
+    public void setId_menu(String id_menu) {
+        this.id_menu = id_menu;
     }
 
     public double getPrice() {

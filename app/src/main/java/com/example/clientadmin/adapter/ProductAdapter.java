@@ -1,10 +1,8 @@
 package com.example.clientadmin.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.model.Product;
+import com.example.clientadmin.database.Product;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -47,14 +45,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, final int position) {
-        Picasso.get().load(data.get(position).getImgProduct()).into(holder.imgProduct);
-        holder.txtProductName.setText(data.get(position).getTxtProductName());
-        holder.txtProductPrice.setText(data.get(position).getTxtProductPrice() + " VND");
+        Picasso.get().load(data.get(position).getProduct_image()).into(holder.imgProduct);
+        holder.txtProductName.setText(data.get(position).getProduct_name());
+        holder.txtProductPrice.setText(data.get(position).getPrice() + " VND");
         holder.btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idProduct = data.get(position).getIdProduct();
-                xoaSanPhamAlertDialog(data.get(position).getTxtProductName(), idProduct);
+                String idProduct = data.get(position).getId_product();
+                xoaSanPhamAlertDialog(data.get(position).getProduct_name(), idProduct);
                 //myRef.child("Product").child("Product" + idProduct).removeValue();
             }
         });
