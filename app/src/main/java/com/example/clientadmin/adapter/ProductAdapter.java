@@ -1,6 +1,7 @@
 package com.example.clientadmin.adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> data = new ArrayList<>();
     private Context context;
+    private Dialog dialog;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
@@ -53,7 +55,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             public void onClick(View v) {
                 String idProduct = data.get(position).getId_product();
                 xoaSanPhamAlertDialog(data.get(position).getProduct_name(), idProduct);
-                //myRef.child("Product").child("Product" + idProduct).removeValue();
+            }
+        });
+
+        holder.btnEditProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -68,6 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView txtProductName;
         TextView txtProductPrice;
         Button btnDeleteProduct;
+        Button btnEditProduct;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -75,10 +84,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtProductName = (TextView) itemView.findViewById(R.id.txtProductName);
             txtProductPrice = (TextView) itemView.findViewById(R.id.txtProductPrice);
             btnDeleteProduct = (Button) itemView.findViewById(R.id.btnDelete);
+            btnEditProduct = (Button) itemView.findViewById(R.id.btnEdit);
         }
     }
 
-    public void xoaSanPhamAlertDialog(String productName, final String idProduct){
+    public void xoaSanPhamAlertDialog(String productName, final String idProduct) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Xóa sản phẩm");
         builder.setMessage("Bạn có muốn xóa " + productName + " không?");
@@ -100,4 +110,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+
 }

@@ -175,7 +175,7 @@ public class ThemSanPhamFragment extends Fragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 String photoLink = uri.toString();
-                                mData.child("Product").child("Product" + i).child("Product_image").setValue(photoLink);
+                                mData.child("Product").child("Product" + i).child("product_image").setValue(photoLink);
                             }
                         });
 

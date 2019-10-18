@@ -98,7 +98,7 @@ public class AllProductFragment extends Fragment {
     private void addProduct(DataSnapshot dataSnapshot){
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        product.setProduct_image(dataSnapshot.child("Product_image").getValue().toString());
+        product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
         product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
         data.add(product);
