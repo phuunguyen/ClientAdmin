@@ -15,5 +15,15 @@
     <string name="menu_send">Send</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TitleThemSP">Thêm Sản Phẩm</string>
+    <string name="GiaSP">Giá Sản Phẩm</string>
+    <string name="loaiSP">Loại Sản Phẩm</string>
+    <string name="TraSua">Trà Sữa</string>
+    <string name="coffee">Coffee</string>
+    <string name="TenSP">Tên Sản Phẩm</string>
+    <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idMenuTraSua">002</string>
+    <string name="idMenuCoffee">001</string>
 </resources>
