@@ -16,9 +16,6 @@
         android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
         tools:layout="@layout/fragment_thong_tin_san_pham" >
-        <action
-            android:id="@+id/action_nav_tt_sanpham_to_themSanPhamFragment"
-            app:destination="@id/themSanPhamFragment" />
     </fragment>
 
     <fragment

@@ -1,18 +1,20 @@
-package com.example.clientadmin.model;
+package com.example.clientadmin.Model;
 
 public class Product {
     private String id_product;
     private String product_image;
     private String product_name;
-    private double price;
+    private String id_menu;
+    private int price;
 
     public Product() {
     }
 
-    public Product(String id_product, String product_image, String product_name, double price) {
+    public Product(String id_product, String product_image, String product_name, String id_menu, int price) {
         this.id_product = id_product;
         this.product_image = product_image;
         this.product_name = product_name;
+        this.id_menu = id_menu;
         this.price = price;
     }
 
@@ -40,11 +42,19 @@ public class Product {
         this.product_name = product_name;
     }
 
-    public double getPrice() {
+    public String getId_menu() {
+        return id_menu;
+    }
+
+    public void setId_menu(String id_menu) {
+        this.id_menu = id_menu;
+    }
+
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

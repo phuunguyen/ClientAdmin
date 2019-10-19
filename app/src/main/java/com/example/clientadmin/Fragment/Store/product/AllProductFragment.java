@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.ProductAdapter;
-import com.example.clientadmin.database.Product;
+import com.example.clientadmin.Model.Product;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,7 +100,7 @@ public class AllProductFragment extends Fragment {
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
         product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
-        product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+        product.setPrice(Integer.parseInt(dataSnapshot.child("price").getValue().toString()));
         data.add(product);
         productAdapter.notifyDataSetChanged();
     }

@@ -54,7 +54,7 @@ public class ThongTinSanPhamFragment extends Fragment {
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_themSanPhamFragment);
+
             }
         });
     }
