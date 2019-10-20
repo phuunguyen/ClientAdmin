@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Picasso.get().load(data.get(position).getProduct_image()).into(holder.imgProduct);
         holder.txtProductName.setText(data.get(position).getProduct_name());
         holder.txtProductPrice.setText(data.get(position).getPrice() + " VND");
+
+        final String idProduct = data.get(position).getId_product();
+        final String productName = data.get(position).getProduct_name();
         holder.btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idProduct = data.get(position).getId_product();
-                String productName = data.get(position).getProduct_name();
                 xoaSanPhamAlertDialog(productName, idProduct, position);
             }
         });
@@ -64,6 +66,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.btnEditProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("SHARED_PREFERENCES_PRODUCT", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("IDPRODUCT", idProduct).apply();
                 Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_capNhatSanPhamFragment);
             }
         });
