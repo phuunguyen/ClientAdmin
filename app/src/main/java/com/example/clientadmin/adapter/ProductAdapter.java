@@ -1,5 +1,6 @@
 package com.example.clientadmin.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clientadmin.R;
 import com.example.clientadmin.Model.Product;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -27,7 +30,6 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> data = new ArrayList<>();
     private Context context;
-    private Dialog dialog;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
@@ -54,14 +56,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             @Override
             public void onClick(View v) {
                 String idProduct = data.get(position).getId_product();
-                xoaSanPhamAlertDialog(data.get(position).getProduct_name(), idProduct);
+                String productName = data.get(position).getProduct_name();
+                xoaSanPhamAlertDialog(productName, idProduct, position);
             }
         });
 
         holder.btnEditProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_capNhatSanPhamFragment);
             }
         });
     }
@@ -75,20 +78,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ImageView imgProduct;
         TextView txtProductName;
         TextView txtProductPrice;
-        Button btnDeleteProduct;
-        Button btnEditProduct;
+        MaterialButton btnDeleteProduct;
+        MaterialButton btnEditProduct;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
             txtProductName = (TextView) itemView.findViewById(R.id.txtProductName);
             txtProductPrice = (TextView) itemView.findViewById(R.id.txtProductPrice);
-            btnDeleteProduct = (Button) itemView.findViewById(R.id.btnDelete);
-            btnEditProduct = (Button) itemView.findViewById(R.id.btnEdit);
+            btnDeleteProduct = (MaterialButton) itemView.findViewById(R.id.btnDelete);
+            btnEditProduct = (MaterialButton) itemView.findViewById(R.id.btnEdit);
         }
     }
 
-    public void xoaSanPhamAlertDialog(String productName, final String idProduct) {
+    public void xoaSanPhamAlertDialog(String productName, final String idProduct, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Xóa sản phẩm");
         builder.setMessage("Bạn có muốn xóa " + productName + " không?");
@@ -104,6 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
                 myRef.child("Product").child("Product" + idProduct).removeValue();
+                remove(position);
                 Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
             }
         });
@@ -111,5 +115,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         alertDialog.show();
     }
 
-
+    private void remove(int postion) {
+        data.remove(postion);
+        notifyItemRemoved(postion);
+    }
 }

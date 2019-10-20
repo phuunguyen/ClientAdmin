@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".Fragment.Store.ThongTinSanPhamFragment">
 
@@ -21,6 +22,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         app:tabGravity="fill"
         app:tabMode="fixed">
 
@@ -46,14 +48,16 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddProduct"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Thêm sản phẩm">
+                android:text="Thêm sản phẩm"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button">
 
-            </Button>
+            </com.google.android.material.button.MaterialButton>
         </LinearLayout>
 
     </LinearLayout>

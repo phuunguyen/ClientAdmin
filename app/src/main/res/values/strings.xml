@@ -27,4 +27,6 @@
     <string name="HinhSP">Hình Sản Phẩm</string>
     <string name="idMenuTraSua">002</string>
     <string name="idMenuCoffee">001</string>
+    <string name="topping">Topping</string>
+    <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
 </resources>

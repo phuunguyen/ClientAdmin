@@ -13,13 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
 import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
 import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
 import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
+import com.example.clientadmin.MainActivity;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.ViewPagerAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -27,11 +30,10 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class ThongTinSanPhamFragment extends Fragment {
 
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private View root;
-    private Button btnAddProduct;
+    private MaterialButton btnAddProduct;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +73,6 @@ public class ThongTinSanPhamFragment extends Fragment {
     private void setControl() {
         viewPager = (ViewPager) root.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) root.findViewById(R.id.tabs);
-        btnAddProduct = (Button) root.findViewById(R.id.btnAddProduct);
+        btnAddProduct = (MaterialButton) root.findViewById(R.id.btnAddProduct);
     }
 }
