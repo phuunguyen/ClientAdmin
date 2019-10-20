@@ -104,7 +104,7 @@ public class CapNhatSanPhamFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
-                mData.child("Product").child("Product" + idProduct).child("price").setValue(edtGiaSP.getText().toString());
+                mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
                 if(spinTypeProduct.getSelectedItemPosition() == 0){
                     mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
                 }else if(spinTypeProduct.getSelectedItemPosition() == 1){
@@ -203,6 +203,7 @@ public class CapNhatSanPhamFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                Toast.makeText(getContext(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -215,9 +216,9 @@ public class CapNhatSanPhamFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String photoLink = uri.toString();
                         mData.child("Product").child("Product" + idProduct).child("product_image").setValue(photoLink);
-                        Log.d("---", photoLink);
                     }
                 });
+                Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
