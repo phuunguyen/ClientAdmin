@@ -1,7 +1,9 @@
 package com.example.clientadmin.Fragment.Store;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -84,7 +86,7 @@ public class CapNhatSanPhamFragment extends Fragment {
         edtGiaSP = (TextInputEditText) root.findViewById(R.id.edtGiaSP);
         edtTenSP = (TextInputEditText) root.findViewById(R.id.edtTenSanPham);
         spinTypeProduct = (Spinner) root.findViewById(R.id.spinTypeProduct);
-        btnUpdate = (MaterialButton)root.findViewById(R.id.btnUpdate);
+        btnUpdate = (MaterialButton) root.findViewById(R.id.btnUpdate);
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
@@ -103,16 +105,7 @@ public class CapNhatSanPhamFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
-                mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
-                if(spinTypeProduct.getSelectedItemPosition() == 0){
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
-                }else if(spinTypeProduct.getSelectedItemPosition() == 1){
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
-                }else {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
-                }
-                uploadImage(idProduct);
+                confirmDialog(idProduct);
             }
         });
     }
@@ -123,15 +116,16 @@ public class CapNhatSanPhamFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = dataSnapshot.getValue(Product.class);
                 products.add(product);
-                for (Product product1 : products) {
-                    if (product1.getId_product().equals(idProduct)) {
-                        Picasso.get().load(product1.getProduct_image()).into(imgProduct);
-                        edtTenSP.setText(product1.getProduct_name());
-                        edtGiaSP.setText(product1.getPrice() + "");
+                for (Product productTemp : products) {
+                    if (productTemp.getId_product().equals(idProduct)) {
+                        Picasso.get().load(productTemp.getProduct_image()).into(imgProduct);
+                        edtTenSP.setText(productTemp.getProduct_name());
+                        edtGiaSP.setText(productTemp.getPrice() + "");
 
-                        if (product1.getId_menu().equals("001")) {
+                        Log.d("---", productTemp.getId_menu());
+                        if (productTemp.getId_menu().equals("001")) {
                             spinTypeProduct.setSelection(0);
-                        } else if (product.getId_menu().equals("002")) {
+                        } else if (productTemp.getId_menu().equals("002")) {
                             spinTypeProduct.setSelection(1);
                         } else {
                             spinTypeProduct.setSelection(2);
@@ -221,5 +215,36 @@ public class CapNhatSanPhamFragment extends Fragment {
                 Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void confirmDialog(final String idProduct) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Cập nhật sản phẩm");
+        builder.setMessage("Bạn có muốn cập nhật sản phẩm này không?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
+                mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
+                if (spinTypeProduct.getSelectedItemPosition() == 0) {
+                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
+                } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
+                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
+                } else {
+                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
+                }
+                uploadImage(idProduct);
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
