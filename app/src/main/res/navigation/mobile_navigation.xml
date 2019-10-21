@@ -38,11 +38,7 @@
         android:name="com.example.clientadmin.Fragment.Store.DanhGiaFragment"
         android:label="Đánh Giá"
         tools:layout="@layout/fragment_danh_gia" />
-    <fragment
-        android:id="@+id/themSanPhamFragment"
-        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
-        android:label="fragment_them_san_pham"
-        tools:layout="@layout/fragment_them_san_pham" />
+
     <fragment
         android:id="@+id/capNhatSanPhamFragment"
         android:name="com.example.clientadmin.Fragment.Store.CapNhatSanPhamFragment"
