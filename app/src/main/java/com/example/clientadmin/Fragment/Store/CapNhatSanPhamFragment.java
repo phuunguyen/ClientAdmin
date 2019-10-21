@@ -120,7 +120,7 @@ public class CapNhatSanPhamFragment extends Fragment {
                     if (productTemp.getId_product().equals(idProduct)) {
                         Picasso.get().load(productTemp.getProduct_image()).into(imgProduct);
                         edtTenSP.setText(productTemp.getProduct_name());
-                        edtGiaSP.setText(productTemp.getPrice() + "");
+                        edtGiaSP.setText((int)productTemp.getPrice() + "");
 
                         Log.d("---", productTemp.getId_menu());
                         if (productTemp.getId_menu().equals("001")) {
