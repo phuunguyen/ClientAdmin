@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +77,7 @@ public class DangKyCuaHangFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
 
         setControl();
+        setEvent();
         return root;
     }
 
@@ -81,7 +85,7 @@ public class DangKyCuaHangFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setEvent();
+       // setEvent();
     }
 
     private void setControl() {
@@ -98,6 +102,21 @@ public class DangKyCuaHangFragment extends Fragment {
     }
 
     private void setEvent() {
+        mData.child("MaxID").child("MaxID_Store").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    i = 0;
+                } else {
+                    i = Integer.parseInt(dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         imgStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,21 +135,7 @@ public class DangKyCuaHangFragment extends Fragment {
         btnDK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mData.child("MaxID").child("MaxID_Store").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() == null) {
-                            i = 0;
-                        } else {
-                            i = Integer.parseInt(dataSnapshot.getValue().toString());
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
 
                 String tench = edtTenCH.getText().toString().trim();
                 String email = edtEmail.getText().toString().trim();
@@ -141,38 +146,71 @@ public class DangKyCuaHangFragment extends Fragment {
                 String mk = edtMatkhau.getText().toString().trim();
                 String nhaplaimk = edtNhapLaiMK.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getActivity(), "Nhap email", Toast.LENGTH_SHORT).show();
+                if(!isEmptyOrNull(tench)){
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên cửa hàng!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(diachi)) {
-                    Toast.makeText(getActivity(), "Nhap dia chi", Toast.LENGTH_SHORT).show();
+                if(!isEmptyOrNull(tenchuho)){
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên chủ hộ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(tench)) {
-                    Toast.makeText(getActivity(), "Nhap ten cua hang", Toast.LENGTH_SHORT).show();
+                if(!isEmptyOrNull(ngaydk)){
+                    Toast.makeText(getActivity(), "Vui lòng nhập ngày đang ký!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(tenchuho)) {
-                    Toast.makeText(getActivity(), "Nhap ten chu cua hang", Toast.LENGTH_SHORT).show();
+                if(!isEmptyOrNull(diachi)){
+                    Toast.makeText(getActivity(), "Vui lòng nhập địa chỉ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (sodt.length() == 0) {
-                    Toast.makeText(getActivity(), "Nhap so dien thoai", Toast.LENGTH_SHORT).show();
+                if(!isValidEmailID(email)){
+                    Toast.makeText(getActivity(), "Email không đúng định dạng!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (ngaydk.length() == 0) {
-                    Toast.makeText(getActivity(), "Chon ngay dang ky", Toast.LENGTH_SHORT).show();
+                if(!isValidPassword(mk)){
+                    Toast.makeText(getActivity(), "Mật khẩu của bạn phải từ 6 kí tự trở lên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (mk.length() < 6) {
-                    Toast.makeText(getActivity(), "Nhap mat khau", Toast.LENGTH_SHORT).show();
+                if(!isValidPassword(nhaplaimk)){
+                    Toast.makeText(getActivity(), "Mật khẩu nhập lại của bạn phải từ 6 kí tự trở lên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (nhaplaimk.length() < 6) {
-                    Toast.makeText(getActivity(), "Nhap lai mat khau", Toast.LENGTH_SHORT).show();
+                if (!isValidPhoneNumber(sodt)) {
+                    Toast.makeText(getActivity(), "Vui lòng kiểm tra lại số điện thoại của bạn!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+//                if (TextUtils.isEmpty(email)) {
+//                    Toast.makeText(getActivity(), "Nhap email", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(diachi)) {
+//                    Toast.makeText(getActivity(), "Nhap dia chi", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(tench)) {
+//                    Toast.makeText(getActivity(), "Nhap ten cua hang", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(tenchuho)) {
+//                    Toast.makeText(getActivity(), "Nhap ten chu cua hang", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (sodt.length() == 0) {
+//                    Toast.makeText(getActivity(), "Nhap so dien thoai", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (ngaydk.length() == 0) {
+//                    Toast.makeText(getActivity(), "Chon ngay dang ky", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (mk.length() < 6) {
+//                    Toast.makeText(getActivity(), "Nhap mat khau", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (nhaplaimk.length() < 6) {
+//                    Toast.makeText(getActivity(), "Nhap lai mat khau", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 i++;
                 store.setId_Store("Store_Account" + i);
@@ -233,29 +271,35 @@ public class DangKyCuaHangFragment extends Fragment {
 
     }
 
-    public void choosePhoto() {
+    public void choosePhoto(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == getActivity().RESULT_OK){
+            if (resultCode == REQUEST_CHOOSE_PHOTO) {
 
-            try {
-                Uri imgeUri = data.getData();
-                InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                imgStore.setImageBitmap(bitmap);
+                try {
+                    Uri imgeUri = data.getData();
+                    InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    imgStore.setImageBitmap(bitmap);
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
+                }
+
+
             }
         }
+
     }
+
 
     public void chonngay() {
         final Calendar calendar = Calendar.getInstance();
@@ -272,5 +316,32 @@ public class DangKyCuaHangFragment extends Fragment {
             }
         }, ngay, thang, nam);
         datePickerDialog.show();
+    }
+    private boolean isEmptyOrNull(String text) {
+        if (text != null && !TextUtils.isEmpty(text)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidEmailID(String email) {
+        String PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidPassword(String password) {
+        if (password != null && password.length() > 6) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidPhoneNumber(String phone) {
+        if (phone != null && (phone.length() >= 6 || phone.length() < 13)) {
+            return PhoneNumberUtils.isGlobalPhoneNumber(phone);
+        }
+        return false;
     }
 }

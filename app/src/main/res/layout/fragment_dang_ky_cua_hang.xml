@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/imgStore"
-                android:src="@drawable/logoapp"
-                android:layout_width="114dp"
+                android:src="@drawable/ic_account_circle_black_24dp"
+                android:layout_width="100dp"
                 android:layout_height="100dp">
 
             </ImageView>
