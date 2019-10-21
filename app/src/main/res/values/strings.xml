@@ -16,4 +16,23 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    //Login
+    <string name="dangnhap">"Đăng nhập"</string>
+    <string name="Quanly">"Quản lý"</string>
+    <string name="Cuahang">"Cửa hàng"</string>
+    <string name="taikhoan">"Tài khoản"</string>
+    <string name="matkhau">"Mật khẩu"</string>
+    <string name="matkhau1">"Nhập lại mật khẩu"</string>
+    <string name="dkch">"Đăng ký cửa hàng"</string>
+
+    //Dangky
+    <string name="dangky">"Đăng ký"</string>
+    <string name="tencuahang">"Tên cửa hàng"</string>
+    <string name="diachi">"Địa chỉ"</string>
+    <string name="tenchusuhuu">"Tên chủ sở hữu"</string>
+    <string name="email">"Email"</string>
+    <string name="sodt">"Số điện thoại"</string>
+    <string name="ngaydk">Ngày đăng ký</string>
 </resources>
