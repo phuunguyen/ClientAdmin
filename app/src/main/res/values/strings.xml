@@ -23,4 +23,13 @@
     <string name="coffee">Coffee</string>
     <string name="TenSP">Tên Sản Phẩm</string>
     <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idCoffee">001</string>
+    <string name="idTrasua">002</string>
+    <string name="idTopping">003</string>
+
+    <string-array name="spinner_type_product">
+        <item name="value1"> Coffee </item>
+        <item name="value2"> Trà sữa </item>
+        <item name="value3"> Topping </item>
+    </string-array>
 </resources>

@@ -15,7 +15,11 @@
         android:id="@+id/nav_tt_sanpham"
         android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
-        tools:layout="@layout/fragment_thong_tin_san_pham" />
+        tools:layout="@layout/fragment_thong_tin_san_pham" >
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_themSanPhamFragment"
+            app:destination="@id/themSanPhamFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tt_giaohang"
@@ -34,4 +38,9 @@
         android:name="com.example.clientadmin.Fragment.Store.DanhGiaFragment"
         android:label="Đánh Giá"
         tools:layout="@layout/fragment_danh_gia" />
+    <fragment
+        android:id="@+id/themSanPhamFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
+        android:label="fragment_them_san_pham"
+        tools:layout="@layout/fragment_them_san_pham" />
 </navigation>
