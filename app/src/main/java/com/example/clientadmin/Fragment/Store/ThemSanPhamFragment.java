@@ -62,7 +62,7 @@ public class ThemSanPhamFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.activity_them_san_pham, container, false);
+        root = inflater.inflate(R.layout.fragment_them_san_pham, container, false);
         setControl();
         return root;
     }
