@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clientadmin.R;
 import com.example.clientadmin.object.Rating;
@@ -46,6 +48,7 @@ public class ThongTinCuaHangFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_thong_tin_cua_hang, container, false);
         setControl();
+
         return view;
     }
 
@@ -53,6 +56,7 @@ public class ThongTinCuaHangFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         showStore();
+        ratingStore();
     }
 
     public void setControl(){
@@ -91,7 +95,31 @@ public class ThongTinCuaHangFragment extends Fragment {
     }
 
     public void ratingStore(){
-        loadRating();
+        //loadRating();
+
+        Table_Comment.child("Store1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double total = 0.0;
+                double count = 0.0;
+                double average = 0.0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    double rating = Double.parseDouble(ds.child("rating").getValue().toString());
+                    total = total + rating;
+                    count = count + 1;
+                    average = total / count;
+                }
+                String s = String.valueOf(average);
+                Log.d("---", s);
+                //ratingBar.setRating(Float.parseFloat(String.valueOf(average[0])));
+                Table_Store.child("Store1").child("rating").setValue(average);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
