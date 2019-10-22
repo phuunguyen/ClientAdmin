@@ -1,5 +1,6 @@
 package com.example.clientadmin;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,14 +36,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_tt_cuahang, R.id.nav_tt_sanpham, R.id.nav_tt_giaohang,
-                R.id.nav_donhang_dagiao, R.id.nav_danhgia)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+
+            mAppBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.nav_tt_cuahang, R.id.nav_tt_sanpham, R.id.nav_tt_giaohang,
+                    R.id.nav_donhang_dagiao, R.id.nav_danhgia)
+                    .setDrawerLayout(drawer)
+                    .build();
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+            NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override

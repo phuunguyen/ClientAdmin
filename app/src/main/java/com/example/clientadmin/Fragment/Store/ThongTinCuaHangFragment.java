@@ -1,6 +1,8 @@
 package com.example.clientadmin.Fragment.Store;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,6 +43,8 @@ public class ThongTinCuaHangFragment extends Fragment {
     DatabaseReference Table_Store = mData.child("Store");
     DatabaseReference Table_Comment = mData.child("Comment");
     ArrayList<Rating> arrRating = new ArrayList();
+    SharedPreferences sharedPreferences;
+    String idLogin = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,33 +52,38 @@ public class ThongTinCuaHangFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_thong_tin_cua_hang, container, false);
         setControl();
-
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         showStore();
         ratingStore();
     }
 
-    public void setControl(){
-        imgA = (ImageView)view.findViewById(R.id.imvAvt);
-        txtTenCH = (TextView)view.findViewById(R.id.txtTenCH);
-        txtDC = (TextView)view.findViewById(R.id.txtDiaChi);
-        txtSDT = (TextView)view.findViewById(R.id.txtSDT);
-        txtTenChu = (TextView)view.findViewById(R.id.txtTenChu);
-        txtEmail = (TextView)view.findViewById(R.id.txtEmail);
-        txtNDK = (TextView)view.findViewById(R.id.txtNDK);
-        ratingBar = (RatingBar)view.findViewById(R.id.rtB);
+    public void setControl() {
+        imgA = (ImageView) view.findViewById(R.id.imvAvt);
+        txtTenCH = (TextView) view.findViewById(R.id.txtTenCH);
+        txtDC = (TextView) view.findViewById(R.id.txtDiaChi);
+        txtSDT = (TextView) view.findViewById(R.id.txtSDT);
+        txtTenChu = (TextView) view.findViewById(R.id.txtTenChu);
+        txtEmail = (TextView) view.findViewById(R.id.txtEmail);
+        txtNDK = (TextView) view.findViewById(R.id.txtNDK);
+        ratingBar = (RatingBar) view.findViewById(R.id.rtB);
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
+        idLogin = sharedPreferences.getString("ID_Login", "");
     }
 
-    public void showStore(){
-        Table_Store.child("Store1").addValueEventListener(new ValueEventListener() {
+    public void showStore() {
+
+        Table_Store.child(idLogin).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() != null){
+                if (dataSnapshot.getValue() != null) {
                     txtTenCH.setText(dataSnapshot.child("store_Name").getValue().toString());
                     txtDC.setText(dataSnapshot.child("address").getValue().toString());
                     txtSDT.setText(dataSnapshot.child("phone").getValue().toString());
@@ -94,16 +103,16 @@ public class ThongTinCuaHangFragment extends Fragment {
         });
     }
 
-    public void ratingStore(){
+    public void ratingStore() {
         //loadRating();
-
-        Table_Comment.child("Store1").addValueEventListener(new ValueEventListener() {
+//        final String idLogin = sharedPreferences.getString("ID_Login", "");
+        Table_Comment.child(idLogin).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double total = 0.0;
                 double count = 0.0;
                 double average = 0.0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     double rating = Double.parseDouble(ds.child("rating").getValue().toString());
                     total = total + rating;
                     count = count + 1;
@@ -112,7 +121,7 @@ public class ThongTinCuaHangFragment extends Fragment {
                 String s = String.valueOf(average);
                 Log.d("---", s);
                 //ratingBar.setRating(Float.parseFloat(String.valueOf(average[0])));
-                Table_Store.child("Store1").child("rating").setValue(average);
+                Table_Store.child(idLogin).child("rating").setValue(average);
             }
 
             @Override
@@ -124,7 +133,7 @@ public class ThongTinCuaHangFragment extends Fragment {
 
     }
 
-    private void loadRating(){
+    private void loadRating() {
         Table_Comment.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

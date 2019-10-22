@@ -1,6 +1,8 @@
 package com.example.clientadmin.Fragment.Store;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,9 @@ public class DanhGiaFragment extends Fragment {
     ListView lv;
     ArrayList<Rating> data = new ArrayList();
     Adapter_DanhGia adapter = null;
+    SharedPreferences sharedPreferences;
+    String idLogin = "";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +64,7 @@ public class DanhGiaFragment extends Fragment {
 
     }
     public  void loadData(){
-        Table_Cmt.child("Store1").addChildEventListener(new ChildEventListener() {
+        Table_Cmt.child(idLogin).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Rating rating = new Rating();
@@ -94,11 +99,12 @@ public class DanhGiaFragment extends Fragment {
 }
 
     public void showDanhGia(){
-        Table_Store.child("Store1").addValueEventListener(new ValueEventListener() {
+        Table_Store.child(idLogin).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null){
-                    txtRating.setText(dataSnapshot.child("rating").getValue().toString());
+
+                    txtRating.setText((int)(double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                     rtDG.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
                 }
             }
@@ -116,5 +122,8 @@ public class DanhGiaFragment extends Fragment {
         rtDG = (RatingBar)view.findViewById(R.id.rtbDG);
         rtDG1 = (RatingBar)view.findViewById(R.id.rtbDanhGia);
         lv = (ListView)view.findViewById(R.id.lvDG);
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
+        idLogin = sharedPreferences.getString("ID_Login", "");
     }
 }

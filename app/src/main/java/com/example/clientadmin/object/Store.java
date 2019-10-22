@@ -5,17 +5,17 @@ public class Store {
     String store_Name;
     String bossName;
     String address;
-    int phone;
+    String phone;
     String image;
     String rigsterDay;
     float rating;
-    String userName;
+    String username;
     String password;
 
     public Store() {
     }
 
-    public Store(String id_Store, String store_Name, String bossName, String address, int phone, String image, String rigsterDay, float rating, String userName, String password) {
+    public Store(String id_Store, String store_Name, String bossName, String address, String phone, String image, String rigsterDay, float rating, String username, String password) {
         this.id_Store = id_Store;
         this.store_Name = store_Name;
         this.bossName = bossName;
@@ -24,7 +24,7 @@ public class Store {
         this.image = image;
         this.rigsterDay = rigsterDay;
         this.rating = rating;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
 
@@ -60,11 +60,11 @@ public class Store {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -93,11 +93,11 @@ public class Store {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getPassword() {
