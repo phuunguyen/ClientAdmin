@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_nav_tt_sanpham_to_capNhatSanPhamFragment"
             app:destination="@id/capNhatSanPhamFragment" />
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_themSanPhamFragment"
+            app:destination="@id/themSanPhamFragment" />
     </fragment>
 
     <fragment
@@ -44,4 +47,9 @@
         android:name="com.example.clientadmin.Fragment.Store.CapNhatSanPhamFragment"
         android:label="Cập nhật sản phẩm"
         tools:layout="@layout/fragment_cap_nhat_san_pham" />
+    <fragment
+        android:id="@+id/themSanPhamFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
+        android:label="fragment_them_san_pham"
+        tools:layout="@layout/fragment_them_san_pham" />
 </navigation>

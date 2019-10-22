@@ -96,9 +96,21 @@ public class AllProductFragment extends Fragment {
     private void addProduct(DataSnapshot dataSnapshot){
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
-        product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
-        product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+        if(dataSnapshot.child("product_image").getValue() == null){
+            product.setProduct_image("");
+        }else {
+            product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
+        }
+        if (dataSnapshot.child("product_name").getValue() == null){
+            product.setProduct_name("");
+        }else {
+            product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
+        }
+        if(dataSnapshot.child("price").getValue() == null){
+            product.setPrice(0.0);
+        }else {
+            product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+        }
         data.add(product);
         productAdapter.notifyDataSetChanged();
     }

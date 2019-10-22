@@ -8,16 +8,6 @@
     android:orientation="vertical"
     tools:context=".Fragment.Store.ThongTinSanPhamFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Thông tin sản phẩm"
-        android:textSize="20sp"
-        android:textStyle="bold">
-
-    </TextView>
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"

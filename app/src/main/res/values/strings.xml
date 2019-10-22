@@ -29,6 +29,7 @@
     <string name="idMenuCoffee">001</string>
     <string name="topping">Topping</string>
     <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
+    <string name="btnThemSP">Thêm sản phẩm</string>
 
     <string-array name="spinner_type_product">
         <item name="value1">Coffee</item>

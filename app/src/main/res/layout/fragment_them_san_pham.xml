@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".Fragment.Store.CapNhatSanPhamFragment">
+    tools:context=".Fragment.Store.ThemSanPhamFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -149,7 +149,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/btnUpdateProduct"
+            android:text="@string/btnThemSP"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textColor="@color/white">
 
