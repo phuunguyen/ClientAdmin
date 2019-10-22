@@ -1,34 +1,39 @@
 package com.example.clientadmin.Fragment.Store;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.clientadmin.database.Product;
+import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,17 +42,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ThemSanPhamFragment extends Fragment {
 
     private ImageView imgSP;
-    private EditText edtNameSP, edtGiaSP, edtLoaiSP;
-    private RadioGroup radioGroup;
-    private RadioButton radTraSua, radCoffee;
+    private EditText edtNameSP, edtGiaSP;
     private Button btnThem;
     private Spinner spinner;
 
@@ -55,8 +63,8 @@ public class ThemSanPhamFragment extends Fragment {
     DatabaseReference Table_Product = mData.child("Product");
     Product product = new Product();
     View root;
-    final int REQUEST_CHOOSE_PHOTO = 123;
-    private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+    final int REQUEST_CHOOSE_PHOTO = 321;
+    private StorageReference mStorageRef;
     int i;
 
     @Nullable
@@ -79,9 +87,13 @@ public class ThemSanPhamFragment extends Fragment {
         edtGiaSP = (EditText)root.findViewById(R.id.edtGia);
         btnThem = (Button)root.findViewById(R.id.btnThem);
         spinner = (Spinner)root.findViewById(R.id.spinner_type_product);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     public void setEvent(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_PRODUCT", Context.MODE_PRIVATE);
+        final String idProduct= sharedPreferences.getString("IDPRODUCT", "");
+
         mData.child("MaxID").child("MaxID_Product").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,71 +116,61 @@ public class ThemSanPhamFragment extends Fragment {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nameSP = edtNameSP.getText().toString().trim();
-                String giaSP = edtGiaSP.getText().toString().trim();
 
-                if(!isEmptyOrNull(nameSP)){
-                    Toast.makeText(getContext(), "Vui lòng nhập tên món", Toast.LENGTH_SHORT).show();
-                }
-                if(!isEmptyOrNull(giaSP)){
-                    Toast.makeText(getContext(), "Vui lòng nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
-                }
+                upLoadImg(i);
 
-                if (spinner.getSelectedItemPosition() == 0){
-                    product.setTypeProduct(getString(R.string.idCoffee));
-                }else if (spinner.getSelectedItemPosition() == 1){
-                    product.setTypeProduct(getString(R.string.idTrasua));
-                }else{
-                    product.setTypeProduct(getString(R.string.idTopping));
-                }
-
-                i++;
-                product.setNameProduct(edtNameSP.getText().toString());
-                product.setTypeProduct(edtLoaiSP.getText().toString());
-                product.setPriceProduct(Double.parseDouble(edtGiaSP.getText().toString()));
-
-                Table_Product.child("Product" + i).setValue(product);
                 Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
+                i++;
+            }
+        });
+        imgSP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePhoto();
+            }
+        });
+    }
 
-                mData.child("MaxID").child("MaxID_Product").setValue(i);
+    private void upLoadImg(final int i){
+        Calendar calendar = Calendar.getInstance();
+        final StorageReference mountainsRef = mStorageRef.child("image" + calendar.getTimeInMillis() + ".png");
+        // Get the data from an ImageView as bytes
+        imgSP.setDrawingCacheEnabled(true);
+        imgSP.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imgSP.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
 
-                Calendar calendar = Calendar.getInstance();
-                StorageReference mountainsRef = mStorageRef.child("Store " + calendar.getTimeInMillis() + ".png");
-                imgSP.setDrawingCacheEnabled(true);
-                imgSP.buildDrawingCache();
-
-                Bitmap bitmap = ((BitmapDrawable) imgSP.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] data = baos.toByteArray();
-
-                UploadTask uploadTask = mountainsRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Fail !!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String photoLink = uri.toString();
-                                mData.child("Product").child("Product" + i).child("product_image").setValue(photoLink);
-                            }
-                        });
-
+                    public void onSuccess(Uri uri) {
+                        String photoLink = uri.toString();
+                        mData.child("Product").child("Product"+i).child("product_image").setValue(photoLink);
+                        mData.child("Product").child("Product" + i).child("id_product").setValue(i);
+                        mData.child("Product").child("Product" + i).child("product_name").setValue(edtNameSP.getText().toString());
+                        mData.child("Product").child("Product" + i).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
+                        if (spinner.getSelectedItemPosition() == 0){
+                            mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuCoffee));
+                        }else if (spinner.getSelectedItemPosition() == 1){
+                            mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuTraSua));
+                        }else{
+                            mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuTopping));
+                        }
                     }
                 });
-
             }
-
         });
-
-
-
     }
 
     private boolean isEmptyOrNull(String text) {
@@ -187,16 +189,14 @@ public class ThemSanPhamFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
-            if (requestCode == REQUEST_CHOOSE_PHOTO){
-                try{
-                    Uri imageUri = data.getData();
-                    InputStream is = getActivity().getContentResolver().openInputStream(imageUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    imgSP.setImageBitmap(bitmap);
-                }catch (Exception e){
-                    e.getMessage();
-                }
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CHOOSE_PHOTO){
+            try{
+                Uri imageUri = data.getData();
+                InputStream is = getActivity().getContentResolver().openInputStream(imageUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                imgSP.setImageBitmap(bitmap);
+            }catch (Exception e){
+                e.getMessage();
             }
         }
     }
