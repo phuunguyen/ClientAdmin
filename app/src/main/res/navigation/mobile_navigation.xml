@@ -15,7 +15,14 @@
         android:id="@+id/nav_tt_sanpham"
         android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
-        tools:layout="@layout/fragment_thong_tin_san_pham" />
+        tools:layout="@layout/fragment_thong_tin_san_pham" >
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_themSanPhamFragment"
+            app:destination="@id/themSanPhamFragment" />
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_capNhatSanPhamFragment"
+            app:destination="@id/capNhatSanPhamFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tt_giaohang"
@@ -43,7 +50,7 @@
     <fragment
         android:id="@+id/themSanPhamFragment"
         android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
-        android:label="fragment_them_san_pham"
+        android:label="Thêm sản phẩm"
         tools:layout="@layout/fragment_them_san_pham" />
 
     <fragment

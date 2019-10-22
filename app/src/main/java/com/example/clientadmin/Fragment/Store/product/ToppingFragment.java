@@ -1,6 +1,8 @@
 package com.example.clientadmin.Fragment.Store.product;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,12 +61,15 @@ public class ToppingFragment extends Fragment {
     }
 
     private void setEvent() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
+        final String idStore = sharedPreferences.getString("ID_Login", null);
         data = new ArrayList<>();
         mData.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot.child("id_menu").getValue() != null) {
-                    if (dataSnapshot.child("id_menu").getValue().toString().equals("003")) {
+                if (dataSnapshot.child("id_store").getValue() != null) {
+                    if (dataSnapshot.child("id_menu").getValue().toString().equals("003") && dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
                         addProduct(dataSnapshot);
                     }
                 }
@@ -103,17 +108,17 @@ public class ToppingFragment extends Fragment {
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
         if(dataSnapshot.child("product_image").getValue() == null){
-            product.setProduct_image("");
+
         }else {
             product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         }
         if (dataSnapshot.child("product_name").getValue() == null){
-            product.setProduct_name("");
+
         }else {
             product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
         }
         if(dataSnapshot.child("price").getValue() == null){
-            product.setPrice(0.0);
+
         }else {
             product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
         }

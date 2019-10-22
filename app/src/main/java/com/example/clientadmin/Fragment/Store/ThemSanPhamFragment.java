@@ -2,7 +2,9 @@ package com.example.clientadmin.Fragment.Store;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -182,6 +184,9 @@ public class ThemSanPhamFragment extends Fragment {
     }
 
     private void addToDatabase(int idProduct){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
+        final String idStore = sharedPreferences.getString("ID_Login", null);
         mData.child("Product").child("Product" + idProduct).child("id_product").setValue(String.valueOf(idProduct));
         mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
         mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
@@ -192,5 +197,6 @@ public class ThemSanPhamFragment extends Fragment {
         } else {
             mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
         }
+        mData.child("Product").child("Product" + idProduct).child("id_store").setValue(idStore);
     }
 }
