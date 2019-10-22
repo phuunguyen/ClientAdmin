@@ -1,6 +1,7 @@
 package com.example.clientadmin.Fragment.Store;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -166,11 +167,11 @@ public class CapNhatSanPhamFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CHOOSE_PHOTO) {
                 try {
                     Uri imageUri = data.getData();
-                    InputStream is = getActivity().getContentResolver().openInputStream(imageUri);
+                    InputStream is = getContext().getContentResolver().openInputStream(imageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     imgProduct.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
