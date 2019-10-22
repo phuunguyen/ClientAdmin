@@ -44,4 +44,29 @@
         <item name="value3">Topping</item>
     </string-array>
 
+    <string name="TTCH">Thông tin cửa hàng</string>
+    <string name="TTCuaHang">Tên cửa hàng</string>
+    <string name="DCCH">Địa chỉ</string>
+    <string name="SDTCH">Số điện thoại</string>
+    <string name="ChuCH">Chủ cửa hàng</string>
+    <string name="email1">Email</string>
+    <string name="NDKDV">Ngày đăng kí dịch vụ</string>
+    //Login
+    <string name="dangnhap">"Đăng nhập"</string>
+    <string name="Quanly">"Quản lý"</string>
+    <string name="Cuahang">"Cửa hàng"</string>
+    <string name="taikhoan">"Tài khoản"</string>
+    <string name="matkhau">"Mật khẩu"</string>
+    <string name="matkhau1">"Nhập lại mật khẩu"</string>
+    <string name="dkch">"Đăng ký cửa hàng"</string>
+
+    //Dangky
+    <string name="dangky">"Đăng ký"</string>
+    <string name="tencuahang">"Tên cửa hàng"</string>
+    <string name="diachi">"Địa chỉ"</string>
+    <string name="tenchusuhuu">"Tên chủ sở hữu"</string>
+    <string name="email">"Email"</string>
+    <string name="sodt">"Số điện thoại"</string>
+    <string name="ngaydk">Ngày đăng ký</string>
+
 </resources>
