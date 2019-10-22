@@ -15,7 +15,9 @@
     <string name="menu_send">Send</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Logout</string>
     <string name="TitleThemSP">Thêm Sản Phẩm</string>
     <string name="GiaSP">Giá Sản Phẩm</string>
     <string name="loaiSP">Loại Sản Phẩm</string>
@@ -23,4 +25,22 @@
     <string name="coffee">Coffee</string>
     <string name="TenSP">Tên Sản Phẩm</string>
     <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idMenuTraSua">002</string>
+    <string name="idMenuCoffee">001</string>
+    <string name="topping">Topping</string>
+    <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
+
+    <string-array name="spinner_type_product">
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
+
+    <string-array name="menu_product_value">
+        <item name="value0">Tất cả</item>
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
+
 </resources>
