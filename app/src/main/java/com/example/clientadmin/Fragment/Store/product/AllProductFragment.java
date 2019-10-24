@@ -52,7 +52,6 @@ public class AllProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setEvent();
     }
 
     private void setControl() {
@@ -118,4 +117,18 @@ public class AllProductFragment extends Fragment {
         data.add(product);
         productAdapter.notifyDataSetChanged();
     }
+
+    private class loadData extends Thread{
+        @Override
+        public void run() {
+            setEvent();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        new loadData().start();
+    }
+
 }

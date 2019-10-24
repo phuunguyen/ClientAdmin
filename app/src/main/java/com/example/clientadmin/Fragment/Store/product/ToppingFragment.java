@@ -53,7 +53,7 @@ public class ToppingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setEvent();
+        new loadData().start();
     }
 
     private void setControl() {
@@ -120,4 +120,10 @@ public class ToppingFragment extends Fragment {
         productAdapter.notifyDataSetChanged();
     }
 
+    private class loadData extends Thread{
+        @Override
+        public void run() {
+            setEvent();
+        }
+    }
 }
