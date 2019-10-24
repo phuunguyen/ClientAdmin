@@ -106,19 +106,13 @@ public class AllProductFragment extends Fragment {
     private void addProduct(DataSnapshot dataSnapshot) {
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        if (dataSnapshot.child("product_image").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("product_image").getValue() != null) {
             product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         }
-        if (dataSnapshot.child("product_name").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("product_name").getValue() != null) {
             product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
         }
-        if (dataSnapshot.child("price").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("price").getValue() != null) {
             product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
         }
         data.add(product);
