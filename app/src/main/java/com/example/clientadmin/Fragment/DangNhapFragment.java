@@ -4,6 +4,7 @@ package com.example.clientadmin.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -70,6 +71,7 @@ public class DangNhapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         setEvent();
     }
 
@@ -113,7 +115,9 @@ public class DangNhapFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                arrStore.clear();
+                Store store = dataSnapshot.getValue(Store.class);
+                arrStore.add(store);
             }
 
             @Override
@@ -193,6 +197,7 @@ public class DangNhapFragment extends Fragment {
                        // Log.d("admin", arrAdmin.get(i).getName());
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
                             Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                             break;
@@ -237,4 +242,6 @@ public class DangNhapFragment extends Fragment {
         imgStore = (ImageView) root.findViewById(R.id.imgStore);
 
     }
+
+
 }
