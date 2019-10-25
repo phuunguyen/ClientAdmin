@@ -46,9 +46,7 @@ public class DangNhapFragment extends Fragment {
     EditText edtTaiKhoan, edtMatKhau;
     Button btnDangNhap;
     RadioButton rbquanly, rbcuahang;
-    ImageView imgStore;
     View root;
-    int REQUEST_CHOOSE_PHOTO = 1;
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     ArrayList<Store> arrStore = new ArrayList<>();
@@ -62,6 +60,7 @@ public class DangNhapFragment extends Fragment {
 
 
         setConTrol();
+
 
 
         return root;
@@ -133,41 +132,12 @@ public class DangNhapFragment extends Fragment {
             }
         });
     }
-    public void choosePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-            try {
-                Uri imgeUri = data.getData();
-                InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                imgStore.setImageBitmap(bitmap);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
-            }
 
 
-        }
-    }
 
     private void setEvent() {
         LoadDataStore();
         LoadDataAdmin();
-        imgStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                choosePhoto();
-            }
-        });
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,91 +160,40 @@ public class DangNhapFragment extends Fragment {
 //                }
 
                 if (rbquanly.isChecked()) {
-                    mData.child("Admin").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            try {
-                                for (int i = 0; i < arrAdmin.size(); i++) {
-                                    Log.d("admin", arrAdmin.get(i).getName());
-                                    if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
-                                            && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                    try {
+                        for (int i = 0; i < arrAdmin.size(); i++) {
+                            Log.d("admin", arrAdmin.get(i).getName());
+                            if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
+                                    && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
 
-                                        Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                                        Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
-                                        break;
-                                    } else {
-                                        Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
+                                //Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
+                                break;
+                            } else {
+                                Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
                             }
-
-
                         }
 
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
                 } else if (rbcuahang.isChecked()) {
-                    mData.child("Store_Account").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            try {
-                                for (int i = 0; i < arrStore.size(); i++) {
-                                    if (arrStore.get(i).getBossName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
-                                        Log.d("store", arrStore.get(i).getBossName());
-                                        Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
-                                        break;
-                                    } else {
-                                        Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    try {
+                        for (int i = 0; i < arrStore.size(); i++) {
+                            if (arrStore.get(i).getBossName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                                Log.d("store", arrStore.get(i).getBossName());
+                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
+                                break;
+                            } else {
+                                Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
                             }
-
-
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
                 } else {
                     Toast.makeText(getActivity(), "Chon loai dang nhap", Toast.LENGTH_LONG).show();
                 }
@@ -284,7 +203,6 @@ public class DangNhapFragment extends Fragment {
     }
 
     private void setConTrol() {
-        imgStore = (ImageView) root.findViewById(R.id.imgStore);
         rbcuahang = (RadioButton) root.findViewById(R.id.rbcuahang);
         rbquanly = (RadioButton) root.findViewById(R.id.rbquanly);
         edtTaiKhoan = (EditText) root.findViewById(R.id.edtName);

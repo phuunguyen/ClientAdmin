@@ -3,92 +3,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Fragment.DangNhapFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/imgStore"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/logoapp">
 
-        </ImageView>
-
-        <RadioGroup
-            android:layout_marginTop="40dp"
+        <LinearLayout
+            android:layout_width="245dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rbquanly"
+            <ImageView
+                android:id="@+id/imgStore"
+                android:layout_width="216dp"
+                android:layout_height="193dp"
+                android:background="@drawable/logoapp">
+
+            </ImageView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="480dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/layoutdangnhap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/Quanly"></RadioButton>
-            <RadioButton
-                android:id="@+id/rbcuahang"
-                android:layout_marginLeft="40dp"
-                android:text="@string/Cuahang"
+                android:gravity="center"
+                android:text="@string/dangnhap">
+
+            </TextView>
+
+            <RadioGroup
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioButton>
-        </RadioGroup>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rbquanly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/Quanly"></RadioButton>
 
-            <EditText
-                android:background="@drawable/btnall"
-                android:id="@+id/edtName"
-                android:hint="@string/taikhoan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rbcuahang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="@string/Cuahang"></RadioButton>
+            </RadioGroup>
 
-            </EditText>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btnall"
+                    android:hint="@string/taikhoan">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btnall"
+                    android:hint="@string/matkhau"
+                    android:inputType="textPassword">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnDangNhap"
+                android:layout_width="103dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btnthaydoi"
+                android:text="@string/dangnhap">
+
+            </Button>
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:background="@drawable/btnall"
-                android:hint="@string/matkhau"
-                android:id="@+id/edtPassword"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </EditText>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnDangNhap"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btnthaydoi"
-            android:text="@string/dangnhap">
-
-        </Button>
-
-
-
-
     </LinearLayout>
 
 </FrameLayout>

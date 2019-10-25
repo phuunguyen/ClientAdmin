@@ -8,7 +8,7 @@ public class Store {
     String image;
     String password;
     int phone;
-    String rating;
+    float rating;
     String registerDay;
     String store_Name;
     String username;
@@ -16,7 +16,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String id_Store, String address, String bossName, String email, String image, String password, int phone, String rating, String registerDay, String store_Name, String username) {
+    public Store(String id_Store, String address, String bossName, String email, String image, String password, int phone, float rating, String registerDay, String store_Name, String username) {
         this.id_Store = id_Store;
         this.address = address;
         this.bossName = bossName;
@@ -86,11 +86,11 @@ public class Store {
         this.phone = phone;
     }
 
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

@@ -49,24 +49,23 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DangKyCuaHangFragment extends Fragment {
-
-    private static final int RESULT_OK = 0;
     View root;
     EditText edtTenCH, edtDiaChi, edtEmail, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
     Button btnDK;
     ImageView imgStore;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_Store = mData.child("Store_Account");
-    //Store1 store1 = new Store1();
     Store store = new Store();
 
 
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-    private final int REQUEST_CHOOSE_PHOTO = 1;
+    int REQUEST_CHOOSE_PHOTO = 1;
     int i;
 
 
@@ -77,7 +76,7 @@ public class DangKyCuaHangFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
 
         setControl();
-        setEvent();
+       // setEvent();
         return root;
     }
 
@@ -85,11 +84,38 @@ public class DangKyCuaHangFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       // setEvent();
+
+        setEvent();
     }
 
+    public void choosePhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            try {
+                Uri imgeUri = data.getData();
+                InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                imgStore.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
+            }
+
+
+        }
+    }
+
+
     private void setControl() {
-        imgStore = (ImageView) root.findViewById(R.id.imgStore);
         edtTenCH = (EditText) root.findViewById(R.id.edttencuahang);
         edtDiaChi = (EditText) root.findViewById(R.id.edtdiachi);
         edtEmail = (EditText) root.findViewById(R.id.edtemail);
@@ -99,6 +125,7 @@ public class DangKyCuaHangFragment extends Fragment {
         btnDK = (Button) root.findViewById(R.id.btndangky);
         edtMatkhau = (EditText) root.findViewById(R.id.edtmatkhau);
         edtNhapLaiMK = (EditText) root.findViewById(R.id.edtmatkhau1);
+        imgStore = (ImageView)root.findViewById(R.id.img);
     }
 
     private void setEvent() {
@@ -179,39 +206,6 @@ public class DangKyCuaHangFragment extends Fragment {
                     return;
                 }
 
-//                if (TextUtils.isEmpty(email)) {
-//                    Toast.makeText(getActivity(), "Nhap email", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(diachi)) {
-//                    Toast.makeText(getActivity(), "Nhap dia chi", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(tench)) {
-//                    Toast.makeText(getActivity(), "Nhap ten cua hang", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(tenchuho)) {
-//                    Toast.makeText(getActivity(), "Nhap ten chu cua hang", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (sodt.length() == 0) {
-//                    Toast.makeText(getActivity(), "Nhap so dien thoai", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (ngaydk.length() == 0) {
-//                    Toast.makeText(getActivity(), "Chon ngay dang ky", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (mk.length() < 6) {
-//                    Toast.makeText(getActivity(), "Nhap mat khau", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (nhaplaimk.length() < 6) {
-//                    Toast.makeText(getActivity(), "Nhap lai mat khau", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
                 i++;
                 store.setId_Store("Store_Account" + i);
                 store.setAddress(edtDiaChi.getText().toString());
@@ -236,9 +230,6 @@ public class DangKyCuaHangFragment extends Fragment {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
-                        //String uri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                         Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
                         task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
@@ -270,36 +261,6 @@ public class DangKyCuaHangFragment extends Fragment {
 
 
     }
-
-    public void choosePhoto(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK){
-            if (resultCode == REQUEST_CHOOSE_PHOTO) {
-
-                try {
-                    Uri imgeUri = data.getData();
-                    InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    imgStore.setImageBitmap(bitmap);
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-        }
-
-    }
-
 
     public void chonngay() {
         final Calendar calendar = Calendar.getInstance();

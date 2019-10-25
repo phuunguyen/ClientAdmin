@@ -4,226 +4,233 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:screenOrientation="landscape"
     tools:context=".Fragment.Admin.DangKyCuaHangFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center|top"
+        android:gravity="center"
         android:orientation="vertical">
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgStore"
-                android:src="@drawable/ic_account_circle_black_24dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp">
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/ic_account_circle_black_24dp">
 
-            </ImageView>
-
-        </LinearLayout>
-
-
+        </ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="425dp"
-            android:orientation="vertical"
-            android:padding="4dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_width="357dp"
+                android:layout_height="223dp"
+                android:orientation="vertical"
+                android:padding="6dp">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tencuahang">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edttencuahang"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnall">
+                    android:padding="5dp">
 
-                </EditText>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tencuahang">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/edttencuahang"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/diachi">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/edtdiachi"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tenchusuhuu">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/edttenchuho"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall">
+
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/edtemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall"
+                        android:inputType="textEmailAddress">
+
+                    </EditText>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/diachi">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edtdiachi"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnall">
+                    android:padding="5dp">
 
-                </EditText>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sodt">
 
-            </LinearLayout>
+                    </TextView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                    <EditText
+                        android:id="@+id/edtsdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall"
+                        android:inputType="phone">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tenchusuhuu">
+                    </EditText>
 
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edttenchuho"
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnall">
+                    android:padding="5dp">
 
-                </EditText>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ngaydk">
 
-            </LinearLayout>
+                    </TextView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                    <EditText
+                        android:id="@+id/edtngaydk"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall"
+                        android:inputType="datetime">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email">
+                    </EditText>
 
-                </TextView>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edtemail"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnall"
-                    android:inputType="textEmailAddress">
+                    android:padding="5dp">
 
-                </EditText>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/matkhau">
 
-            </LinearLayout>
+                    </TextView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                    <EditText
+                        android:id="@+id/edtmatkhau"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall"
+                        android:inputType="datetime">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sodt">
+                    </EditText>
 
-                </TextView>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edtsdt"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnall"
-                    android:inputType="phone">
+                    android:padding="5dp">
 
-                </EditText>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="43dp"
+                        android:text="@string/matkhau1">
 
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/edtmatkhau1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btnall"
+                        android:inputType="datetime">
+
+                    </EditText>
+
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ngaydk">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edtngaydk"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btnall"
-                    android:inputType="datetime">
-
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/matkhau">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edtmatkhau"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btnall"
-                    android:inputType="datetime">
-
-                </EditText>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/matkhau1">
-
-                </TextView>
-
-                <EditText
-                    android:id="@+id/edtmatkhau1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btnall"
-                    android:inputType="datetime">
-
-                </EditText>
-
-            </LinearLayout>
-
         </LinearLayout>
-
 
 
         <Button
             android:id="@+id/btndangky"
-            android:text="@string/dangky"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnthaydoi"
+            android:text="@string/dangky">
 
         </Button>
 
