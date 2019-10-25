@@ -91,9 +91,6 @@ public class ThemSanPhamFragment extends Fragment {
     }
 
     public void setEvent(){
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_PRODUCT", Context.MODE_PRIVATE);
-        final String idProduct= sharedPreferences.getString("IDPRODUCT", "");
-
         mData.child("MaxID").child("MaxID_Product").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,11 +113,22 @@ public class ThemSanPhamFragment extends Fragment {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (edtNameSP.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Hãy nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+                }
+                if (edtGiaSP.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Hãy nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
+                }
+                if (imgSP.getDrawable() == null){
+                    Toast.makeText(getContext(), "Hãy chọn hình ảnh", Toast.LENGTH_SHORT).show();
+                }
 
-                upLoadImg(i);
+                if (!edtNameSP.getText().toString().isEmpty() && !edtGiaSP.getText().toString().isEmpty() && imgSP.getDrawable() != null){
+                    upLoadImg(i);
+                    Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
+                    i++;
+                }
 
-                Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
-                i++;
             }
         });
         imgSP.setOnClickListener(new View.OnClickListener() {
@@ -156,9 +164,13 @@ public class ThemSanPhamFragment extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         String photoLink = uri.toString();
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                                Context.MODE_PRIVATE);
+                        final String idStore = sharedPreferences.getString("ID_Login", null);
                         mData.child("Product").child("Product"+i).child("product_image").setValue(photoLink);
                         mData.child("Product").child("Product" + i).child("id_product").setValue(String.valueOf(i));
                         mData.child("Product").child("Product" + i).child("product_name").setValue(edtNameSP.getText().toString());
+                        mData.child("Product").child("Product" + i).child("id_store ").setValue(String.valueOf(idStore));
                         mData.child("Product").child("Product" + i).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
                         if (spinner.getSelectedItemPosition() == 0){
                             mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuCoffee));
