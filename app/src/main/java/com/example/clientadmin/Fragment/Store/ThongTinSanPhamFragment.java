@@ -36,6 +36,7 @@ public class ThongTinSanPhamFragment extends Fragment {
     private MaterialButton btnAddProduct;
 
     private String[] menu_product;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class ThongTinSanPhamFragment extends Fragment {
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_themSanPhamFragment2);
+                Navigation.findNavController(v).navigate(R.id.action_nav_tt_sanpham_to_themSanPhamFragment);
             }
         });
     }
@@ -67,7 +68,7 @@ public class ThongTinSanPhamFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new AllProductFragment(), menu_product[0]);
         adapter.addFragment(new CoffeeFragment(), menu_product[1]);
-        adapter.addFragment(new BubbleTeaFragment(),menu_product[2]);
+        adapter.addFragment(new BubbleTeaFragment(), menu_product[2]);
         adapter.addFragment(new ToppingFragment(), menu_product[3]);
         viewPager.setAdapter(adapter);
     }
