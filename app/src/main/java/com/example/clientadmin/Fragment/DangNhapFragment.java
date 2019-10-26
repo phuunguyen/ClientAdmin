@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -64,6 +65,7 @@ public class DangNhapFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
         setConTrol();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         return root;
     }
 
@@ -113,7 +115,9 @@ public class DangNhapFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                arrStore.clear();
+                Store store = dataSnapshot.getValue(Store.class);
+                arrStore.add(store);
             }
 
             @Override

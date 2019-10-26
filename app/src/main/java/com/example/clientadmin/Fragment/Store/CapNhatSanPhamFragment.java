@@ -106,7 +106,13 @@ public class CapNhatSanPhamFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmDialog(idProduct);
+                if (edtGiaSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
+                } else if (edtTenSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời bạn nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+                } else {
+                    confirmDialog(idProduct);
+                }
             }
         });
     }
@@ -121,7 +127,7 @@ public class CapNhatSanPhamFragment extends Fragment {
                     if (productTemp.getId_product().equals(idProduct)) {
                         Picasso.get().load(productTemp.getProduct_image()).into(imgProduct);
                         edtTenSP.setText(productTemp.getProduct_name());
-                        edtGiaSP.setText((int)productTemp.getPrice() + "");
+                        edtGiaSP.setText((int) productTemp.getPrice() + "");
 
                         Log.d("---", productTemp.getId_menu());
                         if (productTemp.getId_menu().equals("001")) {

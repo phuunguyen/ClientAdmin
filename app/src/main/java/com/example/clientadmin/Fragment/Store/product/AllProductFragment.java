@@ -33,7 +33,7 @@ import java.util.List;
 public class AllProductFragment extends Fragment {
     RecyclerView mRecyclerView;
     ProductAdapter productAdapter;
-    List<Product> data;
+    List<Product> data = new ArrayList<>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
 
@@ -52,6 +52,9 @@ public class AllProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        new loadData().start();
+        setEvent();
     }
 
     private void setControl() {
@@ -61,38 +64,7 @@ public class AllProductFragment extends Fragment {
     }
 
     private void setEvent() {
-        final String idStore = sharedPreferences.getString("ID_Login", null);
-        data = new ArrayList<>();
-        mData.child("Product").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot.child("id_store").getValue() != null) {
-                    if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
-                        addProduct(dataSnapshot);
-                    }
-                }
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 //        khoiTao();
         productAdapter = new ProductAdapter(data, getContext());
         mRecyclerView.setHasFixedSize(true);
@@ -118,17 +90,46 @@ public class AllProductFragment extends Fragment {
         productAdapter.notifyDataSetChanged();
     }
 
-    private class loadData extends Thread{
+    private class loadData extends Thread {
         @Override
         public void run() {
-            setEvent();
+            data.clear();
+            final String idStore = sharedPreferences.getString("ID_Login", null);
+            mData.child("Product").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (dataSnapshot.child("id_store").getValue() != null) {
+                        if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
+                            addProduct(dataSnapshot);
+                        }
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        new loadData().start();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-
 }
