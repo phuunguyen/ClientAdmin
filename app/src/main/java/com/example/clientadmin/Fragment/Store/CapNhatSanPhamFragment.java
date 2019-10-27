@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -225,33 +226,31 @@ public class CapNhatSanPhamFragment extends Fragment {
     }
 
     public void confirmDialog(final String idProduct) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Cập nhật sản phẩm");
-        builder.setMessage("Bạn có muốn cập nhật sản phẩm này không?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Cập nhật sản phẩm")
+                .setMessage("Bạn có muốn cập nhật sản phẩm này không?")
+                .setCancelable(false)
+                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
-                mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
-                if (spinTypeProduct.getSelectedItemPosition() == 0) {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
-                } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
-                } else {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
-                }
-                uploadImage(idProduct);
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+                    }
+                })
+                .setNegativeButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
+                        mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
+                        if (spinTypeProduct.getSelectedItemPosition() == 0) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
+                        } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
+                        } else {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
+                        }
+                        uploadImage(idProduct);
+                    }
+                }).show();
     }
 }

@@ -25,9 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.clientadmin.DrawerLocker;
 import com.example.clientadmin.R;
 import com.example.clientadmin.object.Admin;
 import com.example.clientadmin.object.Store;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +48,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangNhapFragment extends Fragment {
 
-    EditText edtTaiKhoan, edtMatKhau;
-    Button btnDangNhap;
+    TextInputEditText edtTaiKhoan, edtMatKhau;
+    MaterialButton btnDangNhap;
     RadioButton rbquanly, rbcuahang;
     ImageView imgStore;
     View root;
@@ -66,6 +69,7 @@ public class DangNhapFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
         setConTrol();
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
     }
 
@@ -235,10 +239,16 @@ public class DangNhapFragment extends Fragment {
     private void setConTrol() {
         rbcuahang = (RadioButton) root.findViewById(R.id.rbcuahang);
         rbquanly = (RadioButton) root.findViewById(R.id.rbquanly);
-        edtTaiKhoan = (EditText) root.findViewById(R.id.edtName);
-        edtMatKhau = (EditText) root.findViewById(R.id.edtPassword);
-        btnDangNhap = (Button) root.findViewById(R.id.btnDangNhap);
+        edtTaiKhoan = (TextInputEditText) root.findViewById(R.id.edtName);
+        edtMatKhau = (TextInputEditText) root.findViewById(R.id.edtPassword);
+        btnDangNhap = (MaterialButton) root.findViewById(R.id.btnDangNhap);
         imgStore = (ImageView) root.findViewById(R.id.imgStore);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((DrawerLocker)getActivity()).setDrawerLocked(false);
     }
 }
