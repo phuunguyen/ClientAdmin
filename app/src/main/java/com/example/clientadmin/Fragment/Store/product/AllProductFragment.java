@@ -52,8 +52,6 @@ public class AllProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        new loadData().start();
         setEvent();
     }
 
@@ -64,7 +62,37 @@ public class AllProductFragment extends Fragment {
     }
 
     private void setEvent() {
+        final String idStore = sharedPreferences.getString("ID_Login", null);
+        mData.child("Product").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (dataSnapshot.child("id_store").getValue() != null) {
+                    if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
+                        addProduct(dataSnapshot);
+                    }
+                }
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 //        khoiTao();
         productAdapter = new ProductAdapter(data, getContext());
         mRecyclerView.setHasFixedSize(true);
@@ -88,44 +116,6 @@ public class AllProductFragment extends Fragment {
         }
         data.add(product);
         productAdapter.notifyDataSetChanged();
-    }
-
-    private class loadData extends Thread {
-        @Override
-        public void run() {
-            data.clear();
-            final String idStore = sharedPreferences.getString("ID_Login", null);
-            mData.child("Product").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if (dataSnapshot.child("id_store").getValue() != null) {
-                        if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
-                            addProduct(dataSnapshot);
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
     @Override

@@ -53,7 +53,6 @@ public class CoffeeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new loadData().start();
         setEvent();
     }
 
@@ -62,7 +61,39 @@ public class CoffeeFragment extends Fragment {
     }
 
     private void setEvent() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
+        final String idStore = sharedPreferences.getString("ID_Login", null);
+        mData.child("Product").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (dataSnapshot.child("id_store").getValue() != null) {
+                    if (dataSnapshot.child("id_menu").getValue().toString().equals("001") && dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
+                        addProduct(dataSnapshot);
+                    }
+                }
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 //        khoiTao();
         productAdapter = new ProductAdapter(data, getContext());
         mRecyclerView.setHasFixedSize(true);
@@ -88,43 +119,4 @@ public class CoffeeFragment extends Fragment {
         productAdapter.notifyDataSetChanged();
     }
 
-    private class loadData extends Thread{
-        @Override
-        public void run() {
-            data.clear();
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
-                    Context.MODE_PRIVATE);
-            final String idStore = sharedPreferences.getString("ID_Login", null);
-            mData.child("Product").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if (dataSnapshot.child("id_store").getValue() != null) {
-                        if (dataSnapshot.child("id_menu").getValue().toString().equals("001") && dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
-                            addProduct(dataSnapshot);
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
 }
