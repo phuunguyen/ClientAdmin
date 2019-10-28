@@ -1,14 +1,11 @@
 package com.example.clientadmin.Fragment;
 
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -19,10 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.clientadmin.DrawerLocker;
+import com.example.clientadmin.MainActivity;
 import com.example.clientadmin.Object.Admin;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
@@ -32,11 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,11 +51,10 @@ public class DangNhapFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
-
-
         setConTrol();
 
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((DrawerLocker)getActivity()).setDrawerLocked(true);
 
         return root;
     }
@@ -74,6 +67,8 @@ public class DangNhapFragment extends Fragment {
         setEvent();
 
     }
+
+
     private void LoadDataAdmin() {
         mData.child("Admin").addChildEventListener(new ChildEventListener() {
             @Override
@@ -167,7 +162,7 @@ public class DangNhapFragment extends Fragment {
                                     && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
 
                                 Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
+                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                                 //Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                                 break;
                             } else {
@@ -211,4 +206,9 @@ public class DangNhapFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((DrawerLocker)getActivity()).setDrawerLocked(false);
+    }
 }

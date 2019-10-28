@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/dangNhapFragment">
+    app:startDestination="@+id/dangNhapFragment">
 
     <fragment
         android:id="@+id/nav_tt_cuahang"
@@ -15,7 +15,14 @@
         android:id="@+id/nav_tt_sanpham"
         android:name="com.example.clientadmin.Fragment.Store.ThongTinSanPhamFragment"
         android:label="Thông Tin Sản Phẩm"
-        tools:layout="@layout/fragment_thong_tin_san_pham" />
+        tools:layout="@layout/fragment_thong_tin_san_pham" >
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_capNhatSanPhamFragment"
+            app:destination="@id/capNhatSanPhamFragment" />
+        <action
+            android:id="@+id/action_nav_tt_sanpham_to_themSanPhamFragment"
+            app:destination="@id/themSanPhamFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tt_giaohang"
@@ -38,7 +45,7 @@
         android:id="@+id/dangNhapFragment"
         android:name="com.example.clientadmin.Fragment.DangNhapFragment"
         android:label="Đăng nhập"
-        tools:layout="@layout/fragment_dang_nhap" >
+        tools:layout="@layout/fragment_dang_nhap">
         <action
             android:id="@+id/action_dangNhapFragment_to_dangkyFragment"
             app:destination="@id/dangkyFragment" />
@@ -51,4 +58,14 @@
         android:name="com.example.clientadmin.Fragment.Admin.DangKyCuaHangFragment"
         android:label="Đăng ký"
         tools:layout="@layout/fragment_dang_ky_cua_hang" />
+    <fragment
+        android:id="@+id/themSanPhamFragment"
+        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
+        android:label="fragment_them_san_pham"
+        tools:layout="@layout/fragment_them_san_pham" />
+    <fragment
+        android:id="@+id/capNhatSanPhamFragment"
+        android:name="com.example.clientadmin.Fragment.Store.CapNhatSanPhamFragment"
+        android:label="Cập nhật sản phẩm"
+        tools:layout="@layout/fragment_cap_nhat_san_pham" />
 </navigation>

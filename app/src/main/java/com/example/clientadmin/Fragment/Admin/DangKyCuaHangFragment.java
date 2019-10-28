@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.clientadmin.DrawerLocker;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -76,7 +78,8 @@ public class DangKyCuaHangFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
 
         setControl();
-       // setEvent();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
     }
 
@@ -305,4 +308,10 @@ public class DangKyCuaHangFragment extends Fragment {
         }
         return false;
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((DrawerLocker)getActivity()).setDrawerLocked(false);
+    }
+
 }

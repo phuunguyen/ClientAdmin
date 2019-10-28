@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:screenOrientation="landscape"
+    android:screenOrientation="portrait"
     tools:context=".Fragment.Admin.DangKyCuaHangFragment">
 
     <LinearLayout
+        android:screenOrientation="portrait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -24,13 +25,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="362dp"
+            android:orientation="vertical">
 
 
             <LinearLayout
-                android:layout_width="357dp"
-                android:layout_height="223dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="6dp">
 
@@ -123,14 +124,6 @@
 
                 </LinearLayout>
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -153,6 +146,7 @@
                     </EditText>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -221,7 +215,10 @@
                     </EditText>
 
                 </LinearLayout>
+
+
             </LinearLayout>
+
         </LinearLayout>
 
 
