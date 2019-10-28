@@ -113,20 +113,22 @@ public class ThemSanPhamFragment extends Fragment {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (edtNameSP.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Hãy nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
                 }
                 if (edtGiaSP.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Hãy nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
                 }
-                if (imgSP.getDrawable() == null){
+                if (imgSP.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_launcher_background).getConstantState()){
                     Toast.makeText(getContext(), "Hãy chọn hình ảnh", Toast.LENGTH_SHORT).show();
                 }
 
                 if (!edtNameSP.getText().toString().isEmpty() && !edtGiaSP.getText().toString().isEmpty() && imgSP.getDrawable() != null){
+                    i++;
                     upLoadImg(i);
                     Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
-                    i++;
+
                 }
 
             }
@@ -150,6 +152,8 @@ public class ThemSanPhamFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
+
+
         UploadTask uploadTask = mountainsRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -167,6 +171,7 @@ public class ThemSanPhamFragment extends Fragment {
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                                 Context.MODE_PRIVATE);
                         final String idStore = sharedPreferences.getString("ID_Login", null);
+                        mData.child("MaxID").child("MaxID_Product").setValue(i);
                         mData.child("Product").child("Product"+i).child("product_image").setValue(photoLink);
                         mData.child("Product").child("Product" + i).child("id_product").setValue(String.valueOf(i));
                         mData.child("Product").child("Product" + i).child("product_name").setValue(edtNameSP.getText().toString());
