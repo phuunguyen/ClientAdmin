@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment;
+import com.example.clientadmin.Fragment.Admin.ThongTinChiTietCuaHangFragment;
 import com.example.clientadmin.R;
 import com.example.clientadmin.object.Admin;
 import com.example.clientadmin.object.Store;
@@ -194,7 +197,7 @@ public class DangNhapFragment extends Fragment {
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_danhSachCuaHangFragment);
                             break;
                         } else {
                             Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
@@ -226,6 +229,15 @@ public class DangNhapFragment extends Fragment {
             }
 
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        View view;
+        if (item.getItemId() == R.id.thongtincuahang){
+            Toast.makeText(getContext(), "dasdd",Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setConTrol() {

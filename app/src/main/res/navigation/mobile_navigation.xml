@@ -59,11 +59,11 @@
         android:label="Đăng nhập"
         tools:layout="@layout/fragment_dang_nhap" >
         <action
-            android:id="@+id/action_dangNhapFragment_to_dangkyFragment"
-            app:destination="@id/dangkyFragment" />
-        <action
             android:id="@+id/action_dangNhapFragment_to_nav_tt_cuahang"
             app:destination="@id/nav_tt_cuahang" />
+        <action
+            android:id="@+id/action_dangNhapFragment_to_danhSachCuaHangFragment"
+            app:destination="@id/danhSachCuaHangFragment" />
     </fragment>
 
     <fragment
@@ -71,4 +71,18 @@
         android:name="com.example.clientadmin.Fragment.Admin.DangKyCuaHangFragment"
         android:label="Đăng ký"
         tools:layout="@layout/fragment_dang_ky_cua_hang" />
+    <fragment
+        android:id="@+id/danhSachCuaHangFragment"
+        android:name="com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment"
+        android:label="fragment_danh_sach_cua_hang"
+        tools:layout="@layout/fragment_danh_sach_cua_hang" >
+        <action
+            android:id="@+id/action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment"
+            app:destination="@id/thongTinChiTietCuaHangFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thongTinChiTietCuaHangFragment"
+        android:name="com.example.clientadmin.Fragment.Admin.ThongTinChiTietCuaHangFragment"
+        android:label="fragment_thong_tin_chi_tiet_cua_hang"
+        tools:layout="@layout/fragment_thong_tin_chi_tiet_cua_hang" />
 </navigation>

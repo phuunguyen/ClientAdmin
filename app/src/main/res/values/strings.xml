@@ -45,6 +45,12 @@
         <item name="value3">Topping</item>
     </string-array>
 
+    <string-array name="Sort">
+        <item name="value0">Sắp xếp theo</item>
+        <item name="value1">Đánh giá</item>
+        <item name="value2">Tên cửa hàng</item>
+    </string-array>
+
     <string name="TTCH">Thông tin cửa hàng</string>
     <string name="TTCuaHang">Tên cửa hàng</string>
     <string name="DCCH">Địa chỉ</string>
@@ -69,5 +75,7 @@
     <string name="email">"Email"</string>
     <string name="sodt">"Số điện thoại"</string>
     <string name="ngaydk">Ngày đăng ký</string>
+    <string name="nameStore">Tên cửa hàng</string>
+    <string name="adminAdress">Địa chỉ cửa hàng</string>
 
 </resources>
