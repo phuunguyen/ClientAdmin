@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.object.Rating;
+import com.example.clientadmin.Object.Rating;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,14 +67,14 @@ public class ThongTinCuaHangFragment extends Fragment {
     }
 
     public void setControl() {
-        imgA = (ImageView) view.findViewById(R.id.imvAvt);
-        txtTenCH = (TextView) view.findViewById(R.id.txtTenCH);
-        txtDC = (TextView) view.findViewById(R.id.txtDiaChi);
-        txtSDT = (TextView) view.findViewById(R.id.txtSDT);
-        txtTenChu = (TextView) view.findViewById(R.id.txtTenChu);
-        txtEmail = (TextView) view.findViewById(R.id.txtEmail);
-        txtNDK = (TextView) view.findViewById(R.id.txtNDK);
-        ratingBar = (RatingBar) view.findViewById(R.id.rtB);
+//        imgA = (ImageView) view.findViewById(R.id.imvAvt);
+//        txtTenCH = (TextView) view.findViewById(R.id.txtTenCH);
+//        txtDC = (TextView) view.findViewById(R.id.txtDiaChi);
+//        txtSDT = (TextView) view.findViewById(R.id.txtSDT);
+//        txtTenChu = (TextView) view.findViewById(R.id.txtTenChu);
+//        txtEmail = (TextView) view.findViewById(R.id.txtEmail);
+//        txtNDK = (TextView) view.findViewById(R.id.txtNDK);
+//        ratingBar = (RatingBar) view.findViewById(R.id.rtB);
         sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         idLogin = sharedPreferences.getString("ID_Login", "");

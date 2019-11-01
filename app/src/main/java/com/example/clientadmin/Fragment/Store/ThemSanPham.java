@@ -100,9 +100,9 @@ public class ThemSanPham extends AppCompatActivity {
                 }
 
                 i++;
-                product.setNameProduct(edtNameSP.getText().toString());
-                product.setTypeProduct(edtLoaiSP.getText().toString());
-                product.setPriceProduct(Integer.parseInt(edtGiaSP.getText().toString()));
+//                product.setNameProduct(edtNameSP.getText().toString());
+//                product.setTypeProduct(edtLoaiSP.getText().toString());
+//                product.setPriceProduct(Integer.parseInt(edtGiaSP.getText().toString()));
 
                 Table_Product.child("Product" + i).setValue(product);
                 Toast.makeText(getApplicationContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();

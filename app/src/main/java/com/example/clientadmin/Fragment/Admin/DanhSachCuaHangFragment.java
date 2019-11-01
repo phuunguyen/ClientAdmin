@@ -1,131 +1,123 @@
 package com.example.clientadmin.Fragment.Admin;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.clientadmin.Model.CuaHang;
+import com.example.clientadmin.Model.Product;
+import com.example.clientadmin.Model.Store;
 import com.example.clientadmin.R;
-import com.example.clientadmin.adapter.CuaHangAdapter;
+import com.example.clientadmin.adapter.StoreAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import static com.example.clientadmin.R.*;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DanhSachCuaHangFragment extends Fragment {
 
-    View root;
-    ListView lvDSCH;
+    TextView tvNameStore, tvAdress, rating;
+    ImageView img;
+    ListView listView;
+    ArrayList<Store> data = new ArrayList<>();
+    StoreAdapter storeAdapter;
+    View view;
 
-    ArrayList<CuaHang> data = new ArrayList<>();
-    CuaHangAdapter adapter = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mData;
+    DatabaseReference mData = database.getReference();
+    SharedPreferences sharedPreferences;
+    String idStore = "";
 
-    private ArrayList<String> listStoreName = new ArrayList<>();
-    private ArrayAdapter adapterStoreName;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setControl();
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setEvent();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(layout.fragment_danh_sach_cua_hang, container, false);
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        mData = database.getReference();
-        
-        setEvent();
-
-        return root;
-
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_danh_sach_cua_hang, container, false);
+        setControl();
+        return view;
     }
 
-    private void setEvent() {
-        adapter = new CuaHangAdapter(getContext(),R.layout.listview_item_cuahang,data);
-       // lvDSCH.setAdapter(adapter);
-        loadNameStore();
+    public void setControl(){
+//        tvNameStore = (TextView)view.findViewById(R.id.edtNameStore);
+//        tvAdress = (TextView)view.findViewById(R.id.edtAddressAdmin);
+//        rating = (TextView)view.findViewById(R.id.ratingAdmin);
+//        img = (ImageView)view.findViewById(R.id.imgStore);
+        listView = (ListView)view.findViewById(R.id.lvDSCH);
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_ID_STORE",
+                Context.MODE_PRIVATE);
+    }
+
+
+    public void setEvent(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        storeAdapter = new StoreAdapter(getContext(),R.layout.list_view_item_admin, data);
+        listView.setAdapter(storeAdapter);
         loadData();
 
-//        lvDSCH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Navigation.findNavController(view).navigate(R.id.action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment);
-//            }
-//        });
-    }
-
-    private void setControl() {
-        lvDSCH = root.findViewById(id.lvDSCH);
-    }
-
-    private void loadData() {
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                final CuaHang store = new CuaHang();
-                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
-                store.setImageCuaHang(dataSnapshot.child("image").getValue().toString());
-                store.setShopName(dataSnapshot.child("store_Name").getValue().toString());
-                store.setShopAddress(dataSnapshot.child("address").getValue().toString());
-                data.add(store);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFERENCES_ID_STORE", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("ID_STORE", data.get(position).getIdStore()).apply();
+                Navigation.findNavController(view).navigate(R.id.action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment);
 
             }
         });
     }
 
-    private void loadNameStore() {
+    public void loadData(){
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                listStoreName.add(dataSnapshot.child("store_Name").getValue().toString());
+                Store store = new Store();
+                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
+                store.setImage(dataSnapshot.child("image").getValue().toString());
+                store.setNameStore(dataSnapshot.child("store_Name").getValue().toString());
+                store.setAddress(dataSnapshot.child("address").getValue().toString());
+                store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
+                data.add(store);
+                storeAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -149,6 +141,4 @@ public class DanhSachCuaHangFragment extends Fragment {
             }
         });
     }
-
-
 }

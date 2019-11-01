@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.clientadmin.DrawerLocker;
+import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,7 +45,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.example.clientadmin.object.Store;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -265,7 +265,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 }
                 store.setStore_Name(edtTenCH.getText().toString());
                 store.setBossName(edtTenChuSoHuu.getText().toString());
-                store.setRigsterDay(edtNgDK.getText().toString());
+                store.setRegisterDay(edtNgDK.getText().toString());
                 store.setPassword(edtMatkhau.getText().toString());
                 if (edtMatkhau.getText().toString().equals(edtNhapLaiMK.getText().toString())) {
                     Table_Store.child("Store" + i).setValue(store);

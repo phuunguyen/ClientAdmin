@@ -2,12 +2,14 @@ package com.example.clientadmin.Fragment.Admin;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,9 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,7 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientadmin.DrawerLocker;
+import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,9 +43,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.example.clientadmin.object.Store;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -56,7 +72,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     int REQUEST_CHOOSE_PHOTO = 1;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     SharedPreferences sharedPreferences;
-    String idLogin = "";
+    String idStore = "";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -99,7 +115,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
         edtSoDT = (EditText) root.findViewById(R.id.edtsdt);
         edtNgayDK = (EditText) root.findViewById(R.id.edtngaydk);
 
-        imgStore = (ImageView) root.findViewById(R.id.imgStore);
+        imgStore = (ImageView) root.findViewById(R.id.imgStore1);
         imgVEdit = (ImageButton) root.findViewById(R.id.imgedit);
         imgVSave = (ImageButton) root.findViewById(R.id.imgsave);
         imgDelete = (ImageButton) root.findViewById(R.id.imgdelete);
@@ -134,14 +150,21 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                 //    edtTongDH.setVisibility(View.VISIBLE);
 
 
-            imgchoosephoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    choosePhoto();
-                }
-            });
+                imgchoosephoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        choosePhoto();
+                    }
+                });
 
-                Table_Store.child(idLogin).addValueEventListener(new ValueEventListener() {
+                edtNgayDK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        chonngay();
+                    }
+                });
+
+                Table_Store.child(idStore).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         edtTenCH.setText(dataSnapshot.child("store_Name").getValue().toString());
@@ -149,9 +172,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                         edtSoDT.setText(dataSnapshot.child("phone").getValue().toString());
                         edtTenChuSH.setText(dataSnapshot.child("bossName").getValue().toString());
                         edtTenDN.setText(dataSnapshot.child("userName").getValue().toString());
-                        txtNgayDK.setText(dataSnapshot.child("registerDay").getValue().toString());
-
-
+                        edtNgayDK.setText(dataSnapshot.child("registerDay").getValue().toString());
                     }
 
                     @Override
@@ -161,13 +182,47 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                 });
 
 
-
             }
         });
 
         imgVSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                String tench = edtTenCH.getText().toString().trim();
+                String tendangnhap = edtTenDN.getText().toString().trim();
+                String diachi = edtDiaChi.getText().toString().trim();
+                String sodt = edtSoDT.getText().toString().trim();
+                String tenchuho = edtTenChuSH.getText().toString().trim();
+                String ngaydk = edtNgayDK.getText().toString().trim();
+
+
+                if (!isEmptyOrNull(tench)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên cửa hàng!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmptyOrNull(tenchuho)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên chủ hộ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isValidPhoneNumber(sodt)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập số điện thoai!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmptyOrNull(tendangnhap)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên đăng nhập!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmptyOrNull(ngaydk)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập ngày đăng ký!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmptyOrNull(diachi)) {
+                    Toast.makeText(getActivity(), "Vui lòng nhập địa chỉ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 imgVEdit.setVisibility(View.VISIBLE);
                 imgVSave.setVisibility(View.GONE);
                 imgchoosephoto.setVisibility(View.GONE);
@@ -188,12 +243,47 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                 edtNgayDK.setVisibility(View.GONE);
                 //    edtTongDH.setVisibility(View.VISIBLE);
 
-                mData.child("Store").child(idLogin).child("store_Name").setValue(edtTenCH.getText().toString());
-                mData.child("Store").child(idLogin).child("address").setValue(edtDiaChi.getText().toString());
-                mData.child("Store").child(idLogin).child("phone").setValue(edtSoDT.getText().toString());
-                mData.child("Store").child(idLogin).child("bossName").setValue(edtTenChuSH.getText().toString());
-                mData.child("Store").child(idLogin).child("userName").setValue(edtTenDN.getText().toString());
-                mData.child("Store").child(idLogin).child("registerDay").setValue(edtNgayDK.getText().toString());
+                mData.child("Store").child(idStore).child("store_Name").setValue(edtTenCH.getText().toString());
+                mData.child("Store").child(idStore).child("address").setValue(edtDiaChi.getText().toString());
+                mData.child("Store").child(idStore).child("phone").setValue(edtSoDT.getText().toString());
+                mData.child("Store").child(idStore).child("bossName").setValue(edtTenChuSH.getText().toString());
+                mData.child("Store").child(idStore).child("userName").setValue(edtTenDN.getText().toString());
+                mData.child("Store").child(idStore).child("registerDay").setValue(edtNgayDK.getText().toString());
+
+                if (imgStore.getDrawable() == null) {
+                    Toast.makeText(getActivity(), "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    Calendar calendar = Calendar.getInstance();
+                    StorageReference mountainsRef = mStorageRef.child("User " + calendar.getTimeInMillis() + ".png");
+                    imgStore.setDrawingCacheEnabled(true);
+                    imgStore.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) imgStore.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] data = baos.toByteArray();
+
+                    UploadTask uploadTask = mountainsRef.putBytes(data);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String photoLink = uri.toString();
+                                    mData.child("Store").child(idStore).child("image").setValue(photoLink);
+                                }
+                            });
+
+                        }
+                    });
+                }
             }
         });
 
@@ -201,10 +291,10 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     }
 
     public void showStore() {
-        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_ID_STORE",
                 Context.MODE_PRIVATE);
-        idLogin = sharedPreferences.getString("ID_Login", "");
-        Table_Store.child(idLogin).addValueEventListener(new ValueEventListener() {
+        idStore = sharedPreferences.getString("ID_STORE", "");
+        Table_Store.child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
@@ -217,7 +307,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                     if (dataSnapshot.child("image").getValue() == null) {
                         //Toast.makeText(ThongTinUserActivity.this, "Khong co du lieu", Toast.LENGTH_SHORT).show();
                     } else {
-//                        Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(imgStore);
+                        Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(imgStore);
 
                     }
                 }
@@ -231,6 +321,22 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
 
     }
 
+    public void chonngay() {
+        final Calendar calendar = Calendar.getInstance();
+        int ngay = calendar.get(Calendar.DATE);
+        int thang = calendar.get(Calendar.MONTH);
+        int nam = calendar.get(Calendar.YEAR);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                calendar.set(i, i1, i2);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                edtNgayDK.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        }, ngay, thang, nam);
+        datePickerDialog.show();
+    }
 
     public void choosePhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -258,6 +364,27 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
         }
     }
 
+
+    private boolean isEmptyOrNull(String text) {
+        if (text != null && !TextUtils.isEmpty(text)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidEmailID(String email) {
+        String PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidPhoneNumber(String phone) {
+        if (phone != null && (phone.length() >= 6 || phone.length() < 13)) {
+            return PhoneNumberUtils.isGlobalPhoneNumber(phone);
+        }
+        return false;
+    }
 
     @Override
     public void onDestroyView() {

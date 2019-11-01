@@ -25,10 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.clientadmin.Object.Admin;
+import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.DrawerLocker;
 import com.example.clientadmin.R;
-import com.example.clientadmin.object.Admin;
-import com.example.clientadmin.object.Store;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
@@ -140,11 +140,6 @@ public class DangNhapFragment extends Fragment {
         });
     }
 
-    public void choosePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -169,12 +164,6 @@ public class DangNhapFragment extends Fragment {
     private void setEvent() {
         LoadDataStore();
         LoadDataAdmin();
-        imgStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                choosePhoto();
-            }
-        });
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +191,7 @@ public class DangNhapFragment extends Fragment {
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_thongTinChiTietCuaHangFragment);
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_danhSachCuaHangFragment);
                             break;
                         } else {
                             Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();

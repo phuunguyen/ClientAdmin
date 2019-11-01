@@ -1,59 +1,60 @@
 package com.example.clientadmin.Model;
 
 public class Product {
-    private String idProduct;
-    private String imgProduct;
-    private String nameProduct;
-    private String typeProduct;
-    private double priceProduct;
+    private String id_product;
+    private String product_image;
+    private String product_name;
+    private String id_menu;
+    private double price;
 
     public Product() {
     }
 
-    public Product(String idProduct, String imgProduct, String nameProduct, String typeProduct, double priceProduct) {
-        this.idProduct = idProduct;
-        this.imgProduct = imgProduct;
-        this.nameProduct = nameProduct;
-        this.typeProduct = typeProduct;
-        this.priceProduct = priceProduct;
+    public Product(String id_product, String product_image, String product_name, String id_menu, double price) {
+        this.id_product = id_product;
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.id_menu = id_menu;
+        this.price = price;
     }
 
-    public String getIdProduct() {
-        return idProduct;
+    public String getId_product() {
+        return id_product;
     }
 
-    public void setIdProduct(String idProduct) {
-        this.idProduct = idProduct;
+    public void setId_product(String id_product) {
+        this.id_product = id_product;
     }
 
-    public String getImgProduct() {
-        return imgProduct;
+    public String getProduct_image() {
+        return product_image;
     }
 
-    public void setImgProduct(String imgProduct) {
-        this.imgProduct = imgProduct;
+    public void setProduct_image(String product_image) {
+        this.product_image = product_image;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
-    public double getPriceProduct() {
-        return priceProduct;
+    public String getId_menu() {
+        return id_menu;
     }
 
-    public void setPriceProduct(double priceProduct) {
-        this.priceProduct = priceProduct;
-    }
-    public String getTypeProduct() {
-        return typeProduct;
+    public void setId_menu(String id_menu) {
+        this.id_menu = id_menu;
     }
 
-    public void setTypeProduct(String typeProduct) {
-        this.typeProduct = typeProduct;
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
