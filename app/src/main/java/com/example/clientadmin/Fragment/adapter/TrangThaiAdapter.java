@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,20 +43,33 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.Tran
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrangThaiViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final TrangThaiViewHolder holder, final int position) {
         holder.txtMaDH.setText(data.get(position).getId_DonHang());
         holder.txtNgay.setText(data.get(position).getDate());
-        if (holder.cbXacNhanDH.isChecked()){
-            mData.child("check").setValue("Ok");
-        }
 
-        if (holder.cbGiaoHang.isChecked()){
-            mData.child("delivery").setValue("Ok");
-        }
+        holder.cbXacNhanDH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.cbXacNhanDH.setBackgroundResource(R.drawable.hlcheck);
+                mData.child(data.get(position).getId_DonHang()).child("check").setValue("yes");
+            }
+        });
 
-        if (holder.cbXacNhanDH.isChecked()){
-            mData.child("finish").setValue("Ok");
-        }
+        holder.cbGiaoHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mData.child(data.get(position).getId_DonHang()).child("delivery").setValue("yes");
+                holder.cbGiaoHang.setBackgroundResource(R.drawable.hlcheck);
+            }
+        });
+
+        holder.cbHoanThanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mData.child(data.get(position).getId_DonHang()).child("finish").setValue("yes");
+                holder.cbHoanThanh.setBackgroundResource(R.drawable.hlcheck);
+            }
+        });
     }
 
     @Override
@@ -65,7 +79,7 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.Tran
 
     public class TrangThaiViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaDH, txtNgay;
-        CheckBox cbXacNhanDH, cbGiaoHang, cbHoanThanh;
+        ImageButton cbXacNhanDH, cbGiaoHang, cbHoanThanh;;
 
         public TrangThaiViewHolder (View itemView) {
             super(itemView);

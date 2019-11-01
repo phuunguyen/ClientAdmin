@@ -72,13 +72,14 @@ public class ThongTinGiaoHangFragment extends Fragment {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (id_Store.equals(dataSnapshot.child("id_store").getValue())) {
-                    Cart cart = new Cart();
-                    cart.setId_DonHang(dataSnapshot.child("id_donhang").getValue().toString());
-                    cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
-                    data.add(cart);
-                    adapter.notifyDataSetChanged();
-                }
+                    if (id_Store.equals(dataSnapshot.child("id_store").getValue())) {
+                        Cart cart = new Cart();
+                        cart.setId_DonHang(dataSnapshot.child("id_donhang").getValue().toString());
+                        cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
+                        data.add(cart);
+                        adapter.notifyDataSetChanged();
+                    }
+
             }
 
             @Override
