@@ -6,9 +6,28 @@
     tools:context=".Fragment.Admin.DanhSachCuaHangFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DANH SÁCH CỬA HÀNG">
+        </TextView>
+
+        <ListView
+            android:id="@+id/lvDSCH"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="20.0sp">
+
+        </ListView>
+    </LinearLayout>
 
 </FrameLayout>

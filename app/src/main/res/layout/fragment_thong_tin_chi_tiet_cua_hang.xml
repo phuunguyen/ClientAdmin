@@ -3,8 +3,399 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:screenOrientation="portrait"
     tools:context=".Fragment.Admin.ThongTinChiTietCuaHangFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:screenOrientation="portrait">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgstore"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp">
+
+            </ImageView>
+            <ImageButton
+                android:visibility="gone"
+                android:id="@+id/imgaddphoto"
+                android:background="@drawable/ic_add_to_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </ImageButton>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="424dp"
+            android:layout_height="117dp"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/tencuahang">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txttencuahang"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:text="Gong Cha">
+
+                </TextView>
+
+                <EditText
+                    android:id="@+id/edttencuahang"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/btnall"
+                    android:visibility="visible">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/diachi">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtdiachi"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:text="53 Vo Van Ngan">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edtdiachi"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/tenchusuhuu">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txttenchuho"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:text="Nguyen Van An">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edttenchuho"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/email">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txttendn"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:inputType="textEmailAddress"
+                    android:text="An@gmail.com">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edtTenDN"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="textEmailAddress"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/sodt">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtsdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:inputType="phone"
+                    android:text="0908878456">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edtsdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="phone"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/ngaydk">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtngaydk"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:inputType="datetime"
+                    android:text="1/11/2019">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edtngaydk"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="datetime"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/tongdonhang">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txttongdonhang"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:text="7">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edttongdonhang"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="@string/tienhoahong">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txttienhoahong"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center|left"
+                    android:inputType="datetime"
+                    android:text="2000">
+
+                </TextView>
+
+                <EditText
+                    android:background="@drawable/btnall"
+                    android:id="@+id/edttienhoahong"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="datetime"
+                    android:visibility="gone">
+
+                </EditText>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/imgedit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_edit">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/imgsave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_save">
+
+                </ImageButton>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="125dp"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/cbxacnhantt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/xacnhanthanhtoan"
+                    android:textColorHighlight="#F4511E"
+                    android:textColorLink="#F4511E">
+
+                </CheckBox>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:gravity="right"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/imgdelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_delete">
+
+                </ImageButton>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </FrameLayout>

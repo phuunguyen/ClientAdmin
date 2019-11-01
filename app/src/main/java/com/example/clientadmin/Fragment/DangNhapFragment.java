@@ -1,6 +1,8 @@
 package com.example.clientadmin.Fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -100,7 +102,7 @@ public class DangNhapFragment extends Fragment {
     }
 
     private void LoadDataStore() {
-        mData.child("Store_Account").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Store store = dataSnapshot.getValue(Store.class);
@@ -162,8 +164,8 @@ public class DangNhapFragment extends Fragment {
                                     && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
 
                                 Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                                 //Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
+                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                                 break;
                             } else {
                                 Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
@@ -177,9 +179,18 @@ public class DangNhapFragment extends Fragment {
                 } else if (rbcuahang.isChecked()) {
                     try {
                         for (int i = 0; i < arrStore.size(); i++) {
-                            if (arrStore.get(i).getBossName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
-                                Log.d("store", arrStore.get(i).getBossName());
-                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
+                            if (arrStore.get(i).getUserName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                                Log.d("store", arrStore.get(i).getUserName());
+
+                                String idLogin = arrStore.get(i).getId_Store();
+                                SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("ID_Login", idLogin).apply();
+                                Log.d("--1", idLogin);
+
+                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_thongTinChiTietCuaHangFragment);
+//
                                 break;
                             } else {
                                 Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();

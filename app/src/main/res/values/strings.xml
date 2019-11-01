@@ -33,6 +33,7 @@
     <string name="tencuahang">"Tên cửa hàng"</string>
     <string name="diachi">"Địa chỉ"</string>
     <string name="tenchusuhuu">"Tên chủ sở hữu"</string>
+    <string name="tendangnhap">"Tên đăng nhập"</string>
     <string name="email">"Email"</string>
     <string name="sodt">"Số điện thoại"</string>
     <string name="ngaydk">Ngày đăng ký</string>
@@ -48,6 +49,17 @@
     <string name="idMenuCoffee">001</string>
     <string name="topping">Topping</string>
     <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
+
+    //Thông tin chi tiết cửa hàng
+    <string name="tongdonhang">Tổng đơn hàng</string>
+    <string name="tienhoahong">Tiền hoa hồng</string>
+    <string name="xacnhanthanhtoan">Xác nhận thanh toán</string>
+
+    //actionbar
+    <string name="dktk">Đăng ký tài khoản</string>
+    <string name="dscuahang">Danh sách cửa hàng</string>
+    <string name="lichsu">Lịch sử giao dịch</string>
+    <string name="dangxuat">Đăng xuất</string>
 
     <string-array name="spinner_type_product">
         <item name="value1">Coffee</item>

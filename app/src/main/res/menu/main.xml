@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    </menu>
+
+        <item
+            android:id="@+id/dktk"
+            android:icon="@drawable/home"
+             android:title="@string/dktk" />
+        <item
+            android:id="@+id/dsch"
+            android:icon="@drawable/sanpham"
+            android:title="@string/dscuahang" />
+        <item
+            android:id="@+id/lsgd"
+            android:icon="@drawable/moto"
+            android:title="@string/lichsu" />
+        <item
+            android:id="@+id/dangxuat"
+            android:icon="@drawable/donhang"
+            android:title="@string/dangxuat" />
+
+</menu>

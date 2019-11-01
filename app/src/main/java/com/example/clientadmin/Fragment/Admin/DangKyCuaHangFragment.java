@@ -1,9 +1,11 @@
 package com.example.clientadmin.Fragment.Admin;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,11 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -58,12 +62,13 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangKyCuaHangFragment extends Fragment {
     View root;
-    EditText edtTenCH, edtDiaChi, edtEmail, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
+    EditText edtTenCH, edtDiaChi, edtTenDangNhap, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
     Button btnDK;
     ImageView imgStore;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference Table_Store = mData.child("Store_Account");
+    DatabaseReference Table_Store = mData.child("Store");
     Store store = new Store();
+
 
 
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -76,8 +81,8 @@ public class DangKyCuaHangFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
-
         setControl();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
@@ -87,7 +92,10 @@ public class DangKyCuaHangFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Activity a = getActivity();
+        if(a != null) {
+            a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         setEvent();
     }
 
@@ -112,8 +120,6 @@ public class DangKyCuaHangFragment extends Fragment {
                 e.printStackTrace();
                 Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
             }
-
-
         }
     }
 
@@ -121,7 +127,7 @@ public class DangKyCuaHangFragment extends Fragment {
     private void setControl() {
         edtTenCH = (EditText) root.findViewById(R.id.edttencuahang);
         edtDiaChi = (EditText) root.findViewById(R.id.edtdiachi);
-        edtEmail = (EditText) root.findViewById(R.id.edtemail);
+        edtTenDangNhap = (EditText) root.findViewById(R.id.edtTenDangNhap);
         edtTenChuSoHuu = (EditText) root.findViewById(R.id.edttenchuho);
         edtSDT = (EditText) root.findViewById(R.id.edtsdt);
         edtNgDK = (EditText) root.findViewById(R.id.edtngaydk);
@@ -147,6 +153,8 @@ public class DangKyCuaHangFragment extends Fragment {
 
             }
         });
+
+
         imgStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +176,7 @@ public class DangKyCuaHangFragment extends Fragment {
 
 
                 String tench = edtTenCH.getText().toString().trim();
-                String email = edtEmail.getText().toString().trim();
+                String tendangnhap = edtTenDangNhap.getText().toString().trim();
                 String diachi = edtDiaChi.getText().toString().trim();
                 String sodt = edtSDT.getText().toString().trim();
                 String tenchuho = edtTenChuSoHuu.getText().toString().trim();
@@ -184,6 +192,10 @@ public class DangKyCuaHangFragment extends Fragment {
                     Toast.makeText(getActivity(), "Vui lòng nhập tên chủ hộ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(!isEmptyOrNull(tendangnhap)){
+                    Toast.makeText(getActivity(), "Vui lòng nhập tên đăng nhập!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(!isEmptyOrNull(ngaydk)){
                     Toast.makeText(getActivity(), "Vui lòng nhập ngày đang ký!", Toast.LENGTH_SHORT).show();
                     return;
@@ -192,10 +204,10 @@ public class DangKyCuaHangFragment extends Fragment {
                     Toast.makeText(getActivity(), "Vui lòng nhập địa chỉ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!isValidEmailID(email)){
-                    Toast.makeText(getActivity(), "Email không đúng định dạng!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if(!isValidEmailID(email)){
+//                    Toast.makeText(getActivity(), "Email không đúng định dạng!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if(!isValidPassword(mk)){
                     Toast.makeText(getActivity(), "Mật khẩu của bạn phải từ 6 kí tự trở lên!", Toast.LENGTH_SHORT).show();
                     return;
@@ -210,49 +222,53 @@ public class DangKyCuaHangFragment extends Fragment {
                 }
 
                 i++;
-                store.setId_Store("Store_Account" + i);
+                store.setId_Store("Store" + i);
                 store.setAddress(edtDiaChi.getText().toString());
-                store.setPhone(Integer.parseInt(edtSDT.getText().toString()));
-                store.setEmail(edtEmail.getText().toString());
+                store.setPhone(edtSDT.getText().toString());
+               // store.setEmail(edtEmail.getText().toString());
+                store.setUserName(edtTenDangNhap.getText().toString());
 
-                Calendar calendar = Calendar.getInstance();
-                StorageReference mountainsRef = mStorageRef.child("Store_Account " + calendar.getTimeInMillis() + ".png");
-                imgStore.setDrawingCacheEnabled(true);
-                imgStore.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) imgStore.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] data = baos.toByteArray();
+                if (imgStore.getDrawable() == null){
+                    Toast.makeText(getActivity(), "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    Calendar calendar = Calendar.getInstance();
+                    StorageReference mountainsRef = mStorageRef.child("Store" + calendar.getTimeInMillis() + ".png");
+                    imgStore.setDrawingCacheEnabled(true);
+                    imgStore.buildDrawingCache();
+                    Bitmap bitmap = ((BitmapDrawable) imgStore.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] data = baos.toByteArray();
 
-                UploadTask uploadTask = mountainsRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String photoLink = uri.toString();
-                                mData.child("Store_Account").child("Store_Account" + i).child("image").setValue(photoLink);
+                    UploadTask uploadTask = mountainsRef.putBytes(data);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String photoLink = uri.toString();
+                                    mData.child("Store").child("Store" + i).child("image").setValue(photoLink);
 
-                            }
-                        });
+                                }
+                            });
 
-                    }
-                });
+                        }
+                    });
+                }
                 store.setStore_Name(edtTenCH.getText().toString());
                 store.setBossName(edtTenChuSoHuu.getText().toString());
                 store.setRegisterDay(edtNgDK.getText().toString());
                 store.setPassword(edtMatkhau.getText().toString());
-
-
                 if (edtMatkhau.getText().toString().equals(edtNhapLaiMK.getText().toString())) {
-                    Table_Store.child("Store_Account" + i).setValue(store);
+                    Table_Store.child("Store" + i).setValue(store);
                     Toast.makeText(getContext(), "Dang ki thanh cong", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -313,5 +329,6 @@ public class DangKyCuaHangFragment extends Fragment {
         super.onDestroyView();
         ((DrawerLocker)getActivity()).setDrawerLocked(false);
     }
+
 
 }
