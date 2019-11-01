@@ -2,32 +2,30 @@ package com.example.clientadmin.Object;
 
 public class Store {
     String id_Store;
-    String address;
-    String bossName;
-    String email;
-    String image;
-    String password;
-    int phone;
-    float rating;
-    String registerDay;
     String store_Name;
+    String bossName;
+    String address;
+    String phone;
+    String image;
+    String registerDay;
+    float rating;
     String username;
+    String password;
 
     public Store() {
     }
 
-    public Store(String id_Store, String address, String bossName, String email, String image, String password, int phone, float rating, String registerDay, String store_Name, String username) {
+    public Store(String id_Store, String store_Name, String bossName, String address, String phone, String image, String registerDay, float rating, String username, String password) {
         this.id_Store = id_Store;
-        this.address = address;
-        this.bossName = bossName;
-        this.email = email;
-        this.image = image;
-        this.password = password;
-        this.phone = phone;
-        this.rating = rating;
-        this.registerDay = registerDay;
         this.store_Name = store_Name;
+        this.bossName = bossName;
+        this.address = address;
+        this.phone = phone;
+        this.image = image;
+        this.registerDay = registerDay;
+        this.rating = rating;
         this.username = username;
+        this.password = password;
     }
 
     public String getId_Store() {
@@ -38,12 +36,12 @@ public class Store {
         this.id_Store = id_Store;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStore_Name() {
+        return store_Name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStore_Name(String store_Name) {
+        this.store_Name = store_Name;
     }
 
     public String getBossName() {
@@ -54,12 +52,20 @@ public class Store {
         this.bossName = bossName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAddress() {
+        return address;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getImage() {
@@ -70,20 +76,12 @@ public class Store {
         this.image = image;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRegisterDay() {
+        return registerDay;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
+    public void setRegisterDay(String registerDay) {
+        this.registerDay = registerDay;
     }
 
     public float getRating() {
@@ -94,28 +92,20 @@ public class Store {
         this.rating = rating;
     }
 
-    public String getRegisterDay() {
-        return registerDay;
-    }
-
-    public void setRegisterDay(String registerDay) {
-        this.registerDay = registerDay;
-    }
-
-    public String getStore_Name() {
-        return store_Name;
-    }
-
-    public void setStore_Name(String store_Name) {
-        this.store_Name = store_Name;
-    }
-
-    public String getUsername() {
+    public String getUserName() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.username = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
