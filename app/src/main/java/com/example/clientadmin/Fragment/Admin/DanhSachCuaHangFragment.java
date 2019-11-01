@@ -95,10 +95,32 @@ public class DanhSachCuaHangFragment extends Fragment {
         recyclerView.setAdapter(storeAdapter);
 
         loadData();
+        edtSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        data.clear();
+                        if (edtSearch.getText().toString().isEmpty()) {
+                            loadData();
+                        } else {
+                            loadDataSearch(edtSearch.getText().toString());
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     public void loadData(){
-        //final String idStore = sharedPreferences.getString("ID_Login", null);
+
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -136,9 +158,8 @@ public class DanhSachCuaHangFragment extends Fragment {
     }
 
     public void loadDataSearch(final String storeName){
-
-
-        mData.addChildEventListener(new ChildEventListener() {
+        final String idStore = sharedPreferences.getString("ID_Login", null);
+        mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 final Store store = new Store();

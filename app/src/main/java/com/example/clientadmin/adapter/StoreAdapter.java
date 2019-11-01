@@ -29,7 +29,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
-    public StoreAdapter( List<Store> data, Context context) {
+    public StoreAdapter(List<Store> data, Context context) {
         this.context = context;
         this.data = data;
     }
