@@ -26,11 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientadmin.DrawerLocker;
-import com.example.clientadmin.Model.Product;
-import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
-import com.example.clientadmin.adapter.CuaHangAdapter;
-import com.example.clientadmin.adapter.ProductAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,12 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
+import com.example.clientadmin.object.Store;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 

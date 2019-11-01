@@ -2,15 +2,12 @@ package com.example.clientadmin.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,21 +15,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.clientadmin.DrawerLocker;
-import com.example.clientadmin.MainActivity;
-import com.example.clientadmin.Object.Admin;
-import com.example.clientadmin.Object.Store;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.clientadmin.R;
+import com.example.clientadmin.object.Admin;
+import com.example.clientadmin.object.Store;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,11 +47,16 @@ public class DangNhapFragment extends Fragment {
     EditText edtTaiKhoan, edtMatKhau;
     Button btnDangNhap;
     RadioButton rbquanly, rbcuahang;
+    ImageView imgStore;
     View root;
+    int REQUEST_CHOOSE_PHOTO = 1;
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference Table_Admin = mData.child("Admin");
+    DatabaseReference Table_Store = mData.child("Store");
     ArrayList<Store> arrStore = new ArrayList<>();
     ArrayList<Admin> arrAdmin = new ArrayList<>();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,25 +64,17 @@ public class DangNhapFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
         setConTrol();
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((DrawerLocker)getActivity()).setDrawerLocked(true);
-
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         setEvent();
-
     }
 
-
     private void LoadDataAdmin() {
-        mData.child("Admin").addChildEventListener(new ChildEventListener() {
+        Table_Admin.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Admin admin = dataSnapshot.getValue(Admin.class);
@@ -102,7 +104,7 @@ public class DangNhapFragment extends Fragment {
     }
 
     private void LoadDataStore() {
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        Table_Store.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Store store = dataSnapshot.getValue(Store.class);
@@ -130,11 +132,41 @@ public class DangNhapFragment extends Fragment {
         });
     }
 
+    public void choosePhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            try {
+                Uri imgeUri = data.getData();
+                InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                imgStore.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
+            }
+
+
+        }
+    }
 
     private void setEvent() {
         LoadDataStore();
         LoadDataAdmin();
+        imgStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePhoto();
+            }
+        });
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,47 +189,35 @@ public class DangNhapFragment extends Fragment {
 //                }
 
                 if (rbquanly.isChecked()) {
-                    try {
-                        for (int i = 0; i < arrAdmin.size(); i++) {
-                            Log.d("admin", arrAdmin.get(i).getName());
-                            if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
-                                    && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
-
-                                Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                                //Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
-                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
-                                break;
-                            } else {
-                                Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
-                            }
+                    for (int i = 0; i < arrAdmin.size(); i++) {
+                       // Log.d("admin", arrAdmin.get(i).getName());
+                        if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
+                                && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                            Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_thongTinChiTietCuaHangFragment);
+                            break;
+                        } else {
+                            Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
                         }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-
                 } else if (rbcuahang.isChecked()) {
-                    try {
-                        for (int i = 0; i < arrStore.size(); i++) {
-                            if (arrStore.get(i).getUserName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
-                                Log.d("store", arrStore.get(i).getUserName());
+                    for (int i = 0; i < arrStore.size(); i++) {
+                        if (arrStore.get(i).getUserName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                            //Log.d("store", arrStore.get(i).getBossName());
 
-                                String idLogin = arrStore.get(i).getId_Store();
-                                SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
-                                        Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("ID_Login", idLogin).apply();
-                                Log.d("--1", idLogin);
+                            String idLogin = arrStore.get(i).getId_Store();
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("ID_Login", idLogin).apply();
+                            Log.d("--1", idLogin);
 
-                                Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_thongTinChiTietCuaHangFragment);
-//
-                                break;
-                            } else {
-                                Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
-                            }
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
+                            break;
+                        } else {
+                            Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
 
                 } else {
@@ -208,18 +228,14 @@ public class DangNhapFragment extends Fragment {
         });
     }
 
+
     private void setConTrol() {
         rbcuahang = (RadioButton) root.findViewById(R.id.rbcuahang);
         rbquanly = (RadioButton) root.findViewById(R.id.rbquanly);
         edtTaiKhoan = (EditText) root.findViewById(R.id.edtName);
         edtMatKhau = (EditText) root.findViewById(R.id.edtPassword);
         btnDangNhap = (Button) root.findViewById(R.id.btnDangNhap);
+        imgStore = (ImageView) root.findViewById(R.id.imgStore);
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ((DrawerLocker)getActivity()).setDrawerLocked(false);
     }
 }
