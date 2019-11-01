@@ -1,12 +1,6 @@
 package com.example.clientadmin;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -62,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLocker {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_tt_cuahang, R.id.nav_tt_sanpham, R.id.nav_tt_giaohang,
                 R.id.nav_donhang_dagiao, R.id.nav_danhgia)
@@ -71,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements DrawerLocker {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLocker {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     @Override
     public void setDrawerLocked(boolean shouldLock) {
         if (shouldLock) {

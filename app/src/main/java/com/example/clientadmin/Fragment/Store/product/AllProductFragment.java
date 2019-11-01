@@ -1,6 +1,8 @@
 package com.example.clientadmin.Fragment.Store.product;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,11 +33,12 @@ import java.util.List;
 public class AllProductFragment extends Fragment {
     RecyclerView mRecyclerView;
     ProductAdapter productAdapter;
-    List<Product> data;
+    List<Product> data = new ArrayList<>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
 
     View root;
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,14 +57,20 @@ public class AllProductFragment extends Fragment {
 
     private void setControl() {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recyclerView_AllProduct);
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
+                Context.MODE_PRIVATE);
     }
 
     private void setEvent() {
-        data = new ArrayList<>();
+        final String idStore = sharedPreferences.getString("ID_Login", null);
         mData.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                addProduct(dataSnapshot);
+                if (dataSnapshot.child("id_store").getValue() != null) {
+                    if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
+                        addProduct(dataSnapshot);
+                    }
+                }
             }
 
             @Override
@@ -93,13 +102,24 @@ public class AllProductFragment extends Fragment {
         mRecyclerView.setAdapter(productAdapter);
     }
 
-    private void addProduct(DataSnapshot dataSnapshot){
+    private void addProduct(DataSnapshot dataSnapshot) {
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
-        product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
-        product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+        if (dataSnapshot.child("product_image").getValue() != null) {
+            product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
+        }
+        if (dataSnapshot.child("product_name").getValue() != null) {
+            product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
+        }
+        if (dataSnapshot.child("price").getValue() != null) {
+            product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+        }
         data.add(product);
         productAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }
