@@ -13,14 +13,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,20 +47,15 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class DanhSachCuaHangFragment extends Fragment {
-
-    TextView tvNameStore, tvAdress, rating;
-    ImageView img;
-    ListView listView;
-    ArrayList<Store> data = new ArrayList<>();
+    RecyclerView recyclerView;
+    List<Store> data = new ArrayList<>();
+    AutoCompleteTextView edtSearch;
     StoreAdapter storeAdapter;
     View view;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
     SharedPreferences sharedPreferences;
-    String idLogin = "";
-
-
 
     public DanhSachCuaHangFragment() {
         // Required empty public constructor
@@ -80,36 +79,26 @@ public class DanhSachCuaHangFragment extends Fragment {
     }
 
     public void setControl(){
-//        tvNameStore = (TextView)view.findViewById(R.id.edtNameStore);
-//        tvAdress = (TextView)view.findViewById(R.id.edtAddressAdmin);
-//        rating = (TextView)view.findViewById(R.id.ratingAdmin);
-//        img = (ImageView)view.findViewById(R.id.imgStore);
-        listView = (ListView)view.findViewById(R.id.lvDSCH);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_AllProduct);
+        edtSearch = (AutoCompleteTextView)view.findViewById(R.id.searchBox);
         sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
     }
 
 
     public void setEvent(){
-        final String idStore = sharedPreferences.getString("ID_Store", null);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        storeAdapter = new StoreAdapter(getContext(),R.layout.list_view_item_admin, data);
-        listView.setAdapter(storeAdapter);
-        loadData();
+        storeAdapter = new StoreAdapter(data, getContext());
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(storeAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Navigation.findNavController(view).navigate(R.id.action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment);
-                
-            }
-        });
+        loadData();
     }
 
     public void loadData(){
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFERENCES_IDSTORE", Context.MODE_PRIVATE);
-        final String idStore = sharedPreferences.getString("IDSTORE", null);
+        //final String idStore = sharedPreferences.getString("ID_Login", null);
         mData.child("Store").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -118,11 +107,9 @@ public class DanhSachCuaHangFragment extends Fragment {
                 store.setImage(dataSnapshot.child("image").getValue().toString());
                 store.setNameStore(dataSnapshot.child("store_Name").getValue().toString());
                 store.setAddress(dataSnapshot.child("address").getValue().toString());
-                store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
+                store.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
+
                 data.add(store);
-                storeAdapter.notifyDataSetChanged();
-
-
                 storeAdapter.notifyDataSetChanged();
             }
 
@@ -146,5 +133,54 @@ public class DanhSachCuaHangFragment extends Fragment {
 
             }
         });
+    }
+
+    public void loadDataSearch(final String storeName){
+
+
+        mData.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                final Store store = new Store();
+                if (dataSnapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                    store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
+                    store.setImage(dataSnapshot.child("image").getValue().toString());
+                    store.setNameStore(dataSnapshot.child("store_Name").getValue().toString());
+                    store.setAddress(dataSnapshot.child("address").getValue().toString());
+                    store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
+                    data.add(store);
+                }
+                storeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    boolean shouldAllowBack = false;
+    public void onBackPressed(){
+        if (!shouldAllowBack){
+
+        }else {
+            onBackPressed();
+        }
     }
 }
