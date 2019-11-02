@@ -4,7 +4,6 @@ package com.example.clientadmin.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -45,8 +44,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangNhapFragment extends Fragment {
 
-    EditText edtTaiKhoan, edtMatKhau;
-    Button btnDangNhap;
+    TextInputEditText edtTaiKhoan, edtMatKhau;
+    MaterialButton btnDangNhap;
     RadioButton rbquanly, rbcuahang;
     ImageView imgStore;
     View root;
@@ -65,6 +64,8 @@ public class DangNhapFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
         setConTrol();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
     }
 
@@ -197,7 +198,6 @@ public class DangNhapFragment extends Fragment {
                        // Log.d("admin", arrAdmin.get(i).getName());
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
                             Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_dangkyFragment);
                             break;
@@ -236,12 +236,16 @@ public class DangNhapFragment extends Fragment {
     private void setConTrol() {
         rbcuahang = (RadioButton) root.findViewById(R.id.rbcuahang);
         rbquanly = (RadioButton) root.findViewById(R.id.rbquanly);
-        edtTaiKhoan = (EditText) root.findViewById(R.id.edtName);
-        edtMatKhau = (EditText) root.findViewById(R.id.edtPassword);
-        btnDangNhap = (Button) root.findViewById(R.id.btnDangNhap);
+        edtTaiKhoan = (TextInputEditText) root.findViewById(R.id.edtName);
+        edtMatKhau = (TextInputEditText) root.findViewById(R.id.edtPassword);
+        btnDangNhap = (MaterialButton) root.findViewById(R.id.btnDangNhap);
         imgStore = (ImageView) root.findViewById(R.id.imgStore);
 
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((DrawerLocker)getActivity()).setDrawerLocked(false);
+    }
 }

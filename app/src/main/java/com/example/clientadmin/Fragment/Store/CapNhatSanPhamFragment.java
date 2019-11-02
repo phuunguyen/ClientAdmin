@@ -2,7 +2,9 @@ package com.example.clientadmin.Fragment.Store;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,15 +32,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -47,7 +53,7 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThemSanPhamFragment extends Fragment {
+public class CapNhatSanPhamFragment extends Fragment {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
@@ -62,13 +68,11 @@ public class ThemSanPhamFragment extends Fragment {
 
     private ArrayList<Product> products = new ArrayList<Product>();
 
-    int idProduct;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_them_san_pham, container, false);
+        root = inflater.inflate(R.layout.fragment_cap_nhat_san_pham, container, false);
         setControl();
         return root;
     }
@@ -89,22 +93,9 @@ public class ThemSanPhamFragment extends Fragment {
     }
 
     private void setEvent() {
-
-        mData.child("MaxID").child("MaxID_Product").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() == null){
-                    idProduct = 0;
-                }else {
-                    idProduct = Integer.parseInt(dataSnapshot.getValue().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_PRODUCT", Context.MODE_PRIVATE);
+        final String idProduct = sharedPreferences.getString("IDPRODUCT", "");
+        loadProduct(idProduct);
 
         imgProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,11 +107,63 @@ public class ThemSanPhamFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                idProduct++;
-                addToDatabase(idProduct);
-                uploadImage(idProduct);
+                if (edtGiaSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
+                } else if (edtTenSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời bạn nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+                } else {
+                    confirmDialog(idProduct);
+                }
             }
         });
+    }
+
+    private void loadProduct(final String idProduct) {
+        mData.child("Product").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Product product = dataSnapshot.getValue(Product.class);
+                products.add(product);
+                for (Product productTemp : products) {
+                    if (productTemp.getId_product().equals(idProduct)) {
+                        Picasso.get().load(productTemp.getProduct_image()).into(imgProduct);
+                        edtTenSP.setText(productTemp.getProduct_name());
+                        edtGiaSP.setText((int) productTemp.getPrice() + "");
+
+                        Log.d("---", productTemp.getId_menu());
+                        if (productTemp.getId_menu().equals("001")) {
+                            spinTypeProduct.setSelection(0);
+                        } else if (productTemp.getId_menu().equals("002")) {
+                            spinTypeProduct.setSelection(1);
+                        } else {
+                            spinTypeProduct.setSelection(2);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
     }
 
     private void choosePhoto() {
@@ -145,10 +188,10 @@ public class ThemSanPhamFragment extends Fragment {
         }
     }
 
-    private void uploadImage(final int idProduct) {
+    private void uploadImage(final String idProduct) {
 
         Calendar calendar = Calendar.getInstance();
-        StorageReference mountainsRef = mStorageRef.child("Product" + calendar.getTimeInMillis() + ".png");
+        StorageReference mountainsRef = mStorageRef.child("image" + calendar.getTimeInMillis() + ".png");
         // Get the data from an ImageView as bytes
         imgProduct.setDrawingCacheEnabled(true);
         imgProduct.buildDrawingCache();
@@ -162,7 +205,7 @@ public class ThemSanPhamFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                Toast.makeText(getContext(), "Thêm sản phẩm thành công thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -175,28 +218,39 @@ public class ThemSanPhamFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String photoLink = uri.toString();
                         mData.child("Product").child("Product" + idProduct).child("product_image").setValue(photoLink);
-                        mData.child("MaxID").child("MaxID_Product").setValue(idProduct);
                     }
                 });
-                Toast.makeText(getContext(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void addToDatabase(int idProduct){
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
-                Context.MODE_PRIVATE);
-        final String idStore = sharedPreferences.getString("ID_Login", null);
-        mData.child("Product").child("Product" + idProduct).child("id_product").setValue(String.valueOf(idProduct));
-        mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
-        mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
-        if (spinTypeProduct.getSelectedItemPosition() == 0) {
-            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
-        } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
-            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
-        } else {
-            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
-        }
-        mData.child("Product").child("Product" + idProduct).child("id_store").setValue(idStore);
+    public void confirmDialog(final String idProduct) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Cập nhật sản phẩm")
+                .setMessage("Bạn có muốn cập nhật sản phẩm này không?")
+                .setCancelable(false)
+                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
+                        mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
+                        if (spinTypeProduct.getSelectedItemPosition() == 0) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
+                        } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
+                        } else {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
+                        }
+                        uploadImage(idProduct);
+                    }
+                }).show();
     }
 }

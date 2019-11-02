@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -52,6 +53,7 @@ public class ThongTinCuaHangFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_thong_tin_cua_hang, container, false);
         setControl();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         return view;
     }
 
