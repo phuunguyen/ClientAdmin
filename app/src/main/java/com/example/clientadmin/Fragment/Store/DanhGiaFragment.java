@@ -68,7 +68,7 @@ public class DanhGiaFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Rating rating = new Rating();
-                rating.setId_User(dataSnapshot.child("id_User").getValue().toString());
+                rating.setId_User(dataSnapshot.child("id_Name").getValue().toString());
                 rating.setComment(dataSnapshot.child("comment").getValue().toString());
                 rating.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
                 data.add(rating);
