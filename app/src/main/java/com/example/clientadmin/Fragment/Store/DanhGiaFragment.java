@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.Adapter_DanhGia;
-import com.example.clientadmin.object.Rating;
+import com.example.clientadmin.Object.Rating;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

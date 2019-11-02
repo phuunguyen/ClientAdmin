@@ -1,4 +1,4 @@
-package com.example.clientadmin.object;
+package com.example.clientadmin.Object;
 
 public class Rating {
 
