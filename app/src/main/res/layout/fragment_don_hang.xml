@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragment.Store.DonHangFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        android:text="Đơn Hàng Đã Giao"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"/>
 
-</FrameLayout>
+    <ListView
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/khung"
+        android:id="@+id/lvDonHang"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+       />
+
+
+</LinearLayout>
