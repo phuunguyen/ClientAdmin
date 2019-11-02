@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.object.Rating;
+import com.example.clientadmin.Object.Rating;
 
 import java.util.ArrayList;
 
