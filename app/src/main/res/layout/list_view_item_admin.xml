@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1">
+
             <ImageView
+                android:id="@+id/imgStore"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_background"
-                android:id="@+id/imgStore">
+                android:src="@drawable/ic_launcher_background">
 
             </ImageView>
         </LinearLayout>
@@ -24,27 +26,26 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="2"
             android:gravity="center|left"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/edtNameStore"
-                android:text="@string/tencuahang"
-                android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/edtNameStore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/tencuahang"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
                 android:id="@+id/edtAddressAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/diachi"
                 android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -52,21 +53,39 @@
             android:layout_height="100dp"
             android:layout_weight="1"
             android:gravity="center">
+
             <TextView
+                android:id="@+id/ratingAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:text="2"
                 android:textSize="20sp"
-                android:id="@+id/ratingAdmin"
-                android:text="2">
+                android:textStyle="bold">
 
             </TextView>
+
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_star_black_24dp">
 
             </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="Xóa"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button">
+
+            </com.google.android.material.button.MaterialButton>
         </LinearLayout>
     </LinearLayout>
 

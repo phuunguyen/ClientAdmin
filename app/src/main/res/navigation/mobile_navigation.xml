@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_dangNhapFragment_to_thongTinChiTietCuaHangFragment"
             app:destination="@id/thongTinChiTietCuaHangFragment" />
+        <action
+            android:id="@+id/action_dangNhapFragment_to_dangkyFragment"
+            app:destination="@id/dangkyFragment" />
     </fragment>
 
     <fragment

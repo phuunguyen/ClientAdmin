@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.clientadmin.DrawerLocker;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
+import com.example.clientadmin.adapter.StoreAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -73,6 +74,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     SharedPreferences sharedPreferences;
     String idStore = "";
+    StoreAdapter storeAdapter ;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -124,6 +126,13 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     }
 
     private void setEvent() {
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
         imgVEdit.setOnClickListener(new View.OnClickListener() {
             @Override

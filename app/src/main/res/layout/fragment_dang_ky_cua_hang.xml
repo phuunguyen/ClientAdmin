@@ -162,8 +162,7 @@
                         android:id="@+id/edtngaydk"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:background="@drawable/btnall"
-                        android:inputType="datetime">
+                        android:background="@drawable/btnall">
 
                     </EditText>
 
@@ -185,8 +184,7 @@
                         android:id="@+id/edtmatkhau"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:background="@drawable/btnall"
-                        android:inputType="datetime">
+                        android:background="@drawable/btnall">
 
                     </EditText>
 
@@ -208,8 +206,7 @@
                         android:id="@+id/edtmatkhau1"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:background="@drawable/btnall"
-                        android:inputType="datetime">
+                        android:background="@drawable/btnall">
 
                     </EditText>
 
