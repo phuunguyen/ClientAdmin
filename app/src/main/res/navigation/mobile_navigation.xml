@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_tt_cuahang">
+    app:startDestination="@+id/dangNhapFragment">
 
     <fragment
         android:id="@+id/nav_tt_cuahang"
@@ -34,9 +34,23 @@
         android:name="com.example.clientadmin.Fragment.Store.DanhGiaFragment"
         android:label="Đánh Giá"
         tools:layout="@layout/fragment_danh_gia" />
+
     <fragment
-        android:id="@+id/themSanPham"
-        android:name="com.example.clientadmin.Fragment.Store.ThemSanPhamFragment"
-        android:label="activity_them_san_pham"
-        tools:layout="@layout/fragment_them_san_pham" />
+        android:id="@+id/dangNhapFragment"
+        android:name="com.example.clientadmin.Fragment.DangNhapFragment"
+        android:label="Đăng nhập"
+        tools:layout="@layout/fragment_dang_nhap" >
+        <action
+            android:id="@+id/action_dangNhapFragment_to_dangkyFragment"
+            app:destination="@id/dangkyFragment" />
+        <action
+            android:id="@+id/action_dangNhapFragment_to_nav_tt_cuahang"
+            app:destination="@id/nav_tt_cuahang" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dangkyFragment"
+        android:name="com.example.clientadmin.Fragment.Admin.DangKyCuaHangFragment"
+        android:label="Đăng ký"
+        tools:layout="@layout/fragment_dang_ky_cua_hang" />
 </navigation>
