@@ -13,7 +13,7 @@
         android:text="Thông Tin Giao Hàng"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="20sp"></TextView>
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +28,7 @@
 
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:text="Mã Đơn Hàng"
@@ -35,6 +36,7 @@
                 android:gravity="center"/>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:text="Ngày"
@@ -42,19 +44,23 @@
                 android:gravity="center"/>
 
             <TextView
-                android:layout_width="160dp"
+                android:textStyle="bold"
+                android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:text="Xác Nhận Đơn Hàng"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
             <TextView
-                android:layout_width="110dp"
+                android:textStyle="bold"
+
+                android:layout_width="115dp"
                 android:layout_height="30dp"
                 android:text="Giao Hàng"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="110dp"
                 android:layout_height="30dp"
                 android:text="Hoàn Thành"

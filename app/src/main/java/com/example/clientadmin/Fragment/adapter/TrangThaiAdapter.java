@@ -58,16 +58,16 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.Tran
         holder.cbGiaoHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mData.child(data.get(position).getId_DonHang()).child("delivery").setValue("yes");
                 holder.cbGiaoHang.setBackgroundResource(R.drawable.hlcheck);
+                mData.child(data.get(position).getId_DonHang()).child("delivery").setValue("yes");
             }
         });
 
         holder.cbHoanThanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mData.child(data.get(position).getId_DonHang()).child("finish").setValue("yes");
                 holder.cbHoanThanh.setBackgroundResource(R.drawable.hlcheck);
+                mData.child(data.get(position).getId_DonHang()).child("finish").setValue("yes");
             }
         });
     }
