@@ -42,5 +42,18 @@
     <string name="sodt">"Số điện thoại"</string>
     <string name="ngaydk">Ngày đăng ký</string>
 
+    <string name="logout">Logout</string>
+    <string name="TitleThemSP">Thêm Sản Phẩm</string>
+    <string name="GiaSP">Giá Sản Phẩm</string>
+    <string name="loaiSP">Loại Sản Phẩm</string>
+    <string name="TraSua">Trà Sữa</string>
+    <string name="coffee">Coffee</string>
+    <string name="TenSP">Tên Sản Phẩm</string>
+    <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idMenuTraSua">002</string>
+    <string name="idMenuCoffee">001</string>
+    <string name="topping">Topping</string>
+    <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
+    <string name="btnThemSP">Thêm sản phẩm</string>
 
 </resources>
