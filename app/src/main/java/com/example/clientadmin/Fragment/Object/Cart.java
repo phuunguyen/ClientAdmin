@@ -11,6 +11,8 @@ public class Cart {
     int price;
     String date;
 
+    String total_price;
+
 
     String check;
     String delivery;
@@ -18,7 +20,7 @@ public class Cart {
 
     public Cart(){}
 
-    public Cart(String id_DonHang, String id_User, String id_Store, String id_Product, int quantity, int price, String date, String check, String delivery, String finish) {
+    public Cart(String id_DonHang, String id_User, String id_Store, String id_Product, int quantity, int price, String date, String check, String delivery, String finish, String total_price) {
         this.id_DonHang = id_DonHang;
         this.id_User = id_User;
         this.id_Store = id_Store;
@@ -29,6 +31,7 @@ public class Cart {
         this.check = check;
         this.delivery = delivery;
         this.finish = finish;
+        this.total_price = total_price;
     }
 
     public String getId_DonHang() {
@@ -109,5 +112,13 @@ public class Cart {
 
     public void setFinish(String finish) {
         this.finish = finish;
+    }
+
+    public String getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(String total_price) {
+        this.total_price = total_price;
     }
 }
