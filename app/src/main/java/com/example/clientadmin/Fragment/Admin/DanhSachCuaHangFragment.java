@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -228,8 +229,6 @@ public class DanhSachCuaHangFragment extends Fragment {
 
         }
     }
-
-
 
     @Override
     public void onResume() {
