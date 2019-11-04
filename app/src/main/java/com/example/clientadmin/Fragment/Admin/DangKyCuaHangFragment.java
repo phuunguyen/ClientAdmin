@@ -37,6 +37,7 @@ import com.example.clientadmin.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +62,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangKyCuaHangFragment extends Fragment {
     View root;
-    EditText edtTenCH, edtDiaChi, edtTenDangNhap, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
+    TextInputEditText edtTenCH, edtDiaChi, edtTenDangNhap, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
     Button btnDK;
     ImageView imgStore;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
@@ -125,15 +126,15 @@ public class DangKyCuaHangFragment extends Fragment {
 
 
     private void setControl() {
-        edtTenCH = (EditText) root.findViewById(R.id.edttencuahang);
-        edtDiaChi = (EditText) root.findViewById(R.id.edtdiachi);
-        edtTenDangNhap = (EditText) root.findViewById(R.id.edtTenDangNhap);
-        edtTenChuSoHuu = (EditText) root.findViewById(R.id.edttenchuho);
-        edtSDT = (EditText) root.findViewById(R.id.edtsdt);
-        edtNgDK = (EditText) root.findViewById(R.id.edtngaydk);
+        edtTenCH = (TextInputEditText) root.findViewById(R.id.edttencuahang);
+        edtDiaChi = (TextInputEditText) root.findViewById(R.id.edtdiachi);
+        edtTenDangNhap = (TextInputEditText) root.findViewById(R.id.edtTenDangNhap);
+        edtTenChuSoHuu = (TextInputEditText) root.findViewById(R.id.edttenchuho);
+        edtSDT = (TextInputEditText) root.findViewById(R.id.edtsdt);
+        edtNgDK = (TextInputEditText) root.findViewById(R.id.edtngaydk);
         btnDK = (Button) root.findViewById(R.id.btndangky);
-        edtMatkhau = (EditText) root.findViewById(R.id.edtmatkhau);
-        edtNhapLaiMK = (EditText) root.findViewById(R.id.edtmatkhau1);
+        edtMatkhau = (TextInputEditText) root.findViewById(R.id.edtmatkhau);
+        edtNhapLaiMK = (TextInputEditText) root.findViewById(R.id.edtmatkhau1);
         imgStore = (ImageView)root.findViewById(R.id.img);
     }
 

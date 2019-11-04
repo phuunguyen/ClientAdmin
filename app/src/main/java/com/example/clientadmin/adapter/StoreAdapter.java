@@ -68,12 +68,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 //            }
 //        });
 
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                xoaStoreAlertDialog(storeName,idStore,position);
-            }
-        });
+
 
 
 
@@ -87,16 +82,12 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     public class StoreViewHolder extends RecyclerView.ViewHolder{
         ImageView img;
-        Button btnDelete;
-        ImageView imgDelete;
         TextView txtNameAdminStore;
         TextView txtAdminAddress;
         TextView txtAdminRating;
 
         public StoreViewHolder(final View itemView) {
             super(itemView);
-            btnDelete = (Button)itemView.findViewById(R.id.btnDelete);
-            imgDelete = (ImageView)itemView.findViewById(R.id.imgdelete);
             img = (ImageView)itemView.findViewById(R.id.imgStore);
             txtAdminAddress = (TextView)itemView.findViewById(R.id.edtAddressAdmin);
             txtNameAdminStore = (TextView)itemView.findViewById(R.id.edtNameStore);
@@ -124,34 +115,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-    public void xoaStoreAlertDialog(String storeName, final String idStore, final int position) {
-        new MaterialAlertDialogBuilder(context)
-                .setTitle("Xóa cửa hàng")
-                .setMessage("Bạn có muốn xóa " + storeName + " không?")
-                .setCancelable(false)
-                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setNegativeButton("Xóa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        myRef.child("Store").child(idStore).removeValue();
-                        remove(position);
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
-    }
-
-    private void remove(int postion) {
-        data.remove(postion);
-        notifyItemRemoved(postion);
-    }
-
 
 
 

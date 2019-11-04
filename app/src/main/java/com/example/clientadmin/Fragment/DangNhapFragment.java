@@ -180,11 +180,6 @@ public class DangNhapFragment extends Fragment {
                     Toast.makeText(getContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if (pass.length() < 6) {
-//                    Toast.makeText(getContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
                 if (rbquanly.isChecked()) {
                     for (int i = 0; i < arrAdmin.size(); i++) {
                        // Log.d("admin", arrAdmin.get(i).getName());
@@ -202,14 +197,6 @@ public class DangNhapFragment extends Fragment {
                     for (int i = 0; i < arrStore.size(); i++) {
                         if (arrStore.get(i).getUserName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             //Log.d("store", arrStore.get(i).getBossName());
-
-                            String idLogin = arrStore.get(i).getId_Store();
-                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("ID_Login", idLogin).apply();
-                            Log.d("--1", idLogin);
-
                             Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
                             break;
                         } else {

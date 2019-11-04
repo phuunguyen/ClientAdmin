@@ -2,6 +2,7 @@ package com.example.clientadmin.Fragment.Admin;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,11 +29,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.clientadmin.DrawerLocker;
 import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.StoreAdapter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,6 +75,9 @@ public class DanhSachCuaHangFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_danh_sach_cua_hang, container, false);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((DrawerLocker) getActivity()).setDrawerLocked(true);
         setControl();
         return view;
     }
@@ -90,7 +98,7 @@ public class DanhSachCuaHangFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(storeAdapter);
 
-        loadData();
+
 //        edtSearch.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View view, MotionEvent event) {
@@ -216,9 +224,18 @@ public class DanhSachCuaHangFragment extends Fragment {
     boolean shouldAllowBack = false;
     public void onBackPressed(){
         if (!shouldAllowBack){
-
         }else {
-            onBackPressed();
+
         }
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
+        storeAdapter.notifyDataSetChanged();
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,7 @@
         android:screenOrientation="portrait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center|top"
         android:orientation="vertical">
 
         <ImageView
@@ -25,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="362dp"
+            android:layout_height="427dp"
             android:orientation="vertical">
 
 
@@ -37,178 +38,162 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tencuahang">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edttencuahang"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="match_parent">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edttencuahang"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/tencuahang">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/diachi">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtdiachi"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtdiachi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/diachi">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edttenchuho"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tenchusuhuu">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tenchusuhuu">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edttenchuho"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtTenDangNhap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tendangnhap">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tendangnhap">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtTenDangNhap"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtsdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/sodt">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sodt">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtsdt"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall"
-                        android:inputType="phone">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtngaydk"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/ngaydk">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ngaydk">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtngaydk"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtmatkhau"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/matkhau">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/matkhau">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtmatkhau"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
+                        android:layout_height="wrap_content">
 
-                    </EditText>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtmatkhau1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/matkhau1">
 
-                </LinearLayout>
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="43dp"
-                        android:text="@string/matkhau1">
-
-                    </TextView>
-
-                    <EditText
-                        android:id="@+id/edtmatkhau1"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/btnall">
-
-                    </EditText>
 
                 </LinearLayout>
 

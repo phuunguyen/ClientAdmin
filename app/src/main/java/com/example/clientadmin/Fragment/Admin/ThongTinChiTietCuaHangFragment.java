@@ -4,6 +4,7 @@ package com.example.clientadmin.Fragment.Admin;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
@@ -31,12 +33,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientadmin.DrawerLocker;
+import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.StoreAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,8 +74,10 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     ImageButton imgVEdit, imgVSave, imgDelete, imgchoosephoto;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     DatabaseReference Table_Store = mData.child("Store");
+    DatabaseReference Table_Product = mData.child("Product");
 
     Store store = new Store();
+    Product product = new Product();
     int REQUEST_CHOOSE_PHOTO = 1;
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     SharedPreferences sharedPreferences;
@@ -92,7 +100,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_thong_tin_chi_tiet_cua_hang, container, false);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+       // ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((DrawerLocker) getActivity()).setDrawerLocked(true);
 
@@ -126,14 +134,6 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
     }
 
     private void setEvent() {
-        imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
         imgVEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -296,6 +296,13 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
             }
         });
 
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                xoaStoreAlertDialog();
+            }
+        });
+
 
     }
 
@@ -395,6 +402,85 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
         return false;
     }
 
+    public void xoaStoreAlertDialog() {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Xóa cửa hàng")
+                .setMessage("Bạn có muốn xóa không?")
+                .setCancelable(false)
+                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        deleteStore();
+                        imgStore.setImageResource(0);
+                        txtTenCH.setText("");
+                        txtDiachi.setText("");
+                        txtTenChuSH.setText("");
+                        txtSoDT.setText("");
+                        txtTenDN.setText("");
+                        txtNgayDK.setText("");
+                        Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(root).navigate(R.id.action_thongTinChiTietCuaHangFragment_to_danhSachCuaHangFragment);
+                    }
+                }).show();
+    }
+    public void deleteStore() {
+        sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_ID_STORE",
+                Context.MODE_PRIVATE);
+        idStore = sharedPreferences.getString("ID_STORE", "");
+
+        Table_Store.child(idStore).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                 Table_Store.child(idStore).removeValue();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        Table_Product.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(dataSnapshot.child("id_store").getValue().toString().equals(idStore)){
+                    Table_Product.child("Product" + dataSnapshot.child("id_product").getValue().toString()).removeValue();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

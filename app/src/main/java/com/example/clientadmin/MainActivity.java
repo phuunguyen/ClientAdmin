@@ -40,21 +40,21 @@ public class MainActivity extends AppCompatActivity implements DrawerLocker {
         setSupportActionBar(toolbar);
 
 
-        //Thêm icon vao actionbar
-        //Lấy chiều cao của ActionBar
-        TypedArray styledAttributes =
-                getTheme().obtainStyledAttributes(new int[] { android.R.attr.actionBarSize });
-        int actionBarSize = (int) styledAttributes.getDimension(0, 0);
-        styledAttributes.recycle();
-
-        //Tạo Drawable mới bằng cách thu/phóng
-        Drawable drawable= getResources().getDrawable(R.drawable.logoapp);
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        Drawable newdrawable = new BitmapDrawable(getResources(),
-                Bitmap.createScaledBitmap(bitmap, actionBarSize,  actionBarSize, true));
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(newdrawable);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        //Thêm icon vao actionbar
+//        //Lấy chiều cao của ActionBar
+//        TypedArray styledAttributes =
+//                getTheme().obtainStyledAttributes(new int[] { android.R.attr.actionBarSize });
+//        int actionBarSize = (int) styledAttributes.getDimension(0, 0);
+//        styledAttributes.recycle();
+//
+//        //Tạo Drawable mới bằng cách thu/phóng
+//        Drawable drawable= getResources().getDrawable(R.drawable.logoapp);
+//        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+//        Drawable newdrawable = new BitmapDrawable(getResources(),
+//                Bitmap.createScaledBitmap(bitmap, actionBarSize,  actionBarSize, true));
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(newdrawable);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
