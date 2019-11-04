@@ -118,8 +118,6 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
         txtTenDN = (TextView) root.findViewById(R.id.txttendn);
         txtSoDT = (TextView) root.findViewById(R.id.txtsdt);
         txtNgayDK = (TextView) root.findViewById(R.id.txtngaydk);
-        txtTongDH = (TextView)root.findViewById(R.id.txttongdonhang);
-        txtTienHoaHong = (TextView)root.findViewById(R.id.txttienhoahong);
 
         edtTenCH = (EditText) root.findViewById(R.id.edttencuahang);
         edtDiaChi = (EditText) root.findViewById(R.id.edtdiachi);
@@ -370,6 +368,36 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
             }
         });
 
+        final int[] count = {0};
+        Table_Cart.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(dataSnapshot.child("id_store").getValue().toString().equals(idStore)){
+                    count[0]++;
+                }
+                txtTongDH.setText(count[0] + "");
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void chonngay() {
