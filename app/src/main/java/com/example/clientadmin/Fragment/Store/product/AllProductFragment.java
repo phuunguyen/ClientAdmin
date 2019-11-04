@@ -62,6 +62,17 @@ public class AllProductFragment extends Fragment {
     }
 
     private void setEvent() {
+
+//        khoiTao();
+        productAdapter = new ProductAdapter(data, getContext());
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(productAdapter);
+    }
+
+    private void loadData(){
         final String idStore = sharedPreferences.getString("ID_Login", null);
         mData.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
@@ -93,13 +104,6 @@ public class AllProductFragment extends Fragment {
 
             }
         });
-//        khoiTao();
-        productAdapter = new ProductAdapter(data, getContext());
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(productAdapter);
     }
 
     private void addProduct(DataSnapshot dataSnapshot) {
@@ -119,7 +123,9 @@ public class AllProductFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
     }
 }

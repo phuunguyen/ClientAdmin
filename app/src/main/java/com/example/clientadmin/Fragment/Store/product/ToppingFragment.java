@@ -61,6 +61,17 @@ public class ToppingFragment extends Fragment {
     }
 
     private void setEvent() {
+
+//        khoiTao();
+        productAdapter = new ProductAdapter(data, getContext());
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(productAdapter);
+    }
+
+    private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         final String idStore = sharedPreferences.getString("ID_Login", null);
@@ -94,13 +105,6 @@ public class ToppingFragment extends Fragment {
 
             }
         });
-//        khoiTao();
-        productAdapter = new ProductAdapter(data, getContext());
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(productAdapter);
     }
 
     private void addProduct(DataSnapshot dataSnapshot) {

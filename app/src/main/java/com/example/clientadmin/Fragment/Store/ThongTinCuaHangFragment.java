@@ -89,7 +89,7 @@ public class ThongTinCuaHangFragment extends Fragment {
                     txtDC.setText(dataSnapshot.child("address").getValue().toString());
                     txtSDT.setText(dataSnapshot.child("phone").getValue().toString());
                     txtTenChu.setText(dataSnapshot.child("bossName").getValue().toString());
-                    txtEmail.setText(dataSnapshot.child("username").getValue().toString());
+                    txtEmail.setText(dataSnapshot.child("userName").getValue().toString());
                     txtNDK.setText(dataSnapshot.child("registerDay").getValue().toString());
                     float rating = Float.parseFloat(dataSnapshot.child("rating").getValue().toString());
                     ratingBar.setRating(rating);
