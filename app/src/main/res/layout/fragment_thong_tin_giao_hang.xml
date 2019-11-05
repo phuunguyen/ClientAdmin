@@ -29,7 +29,7 @@
 
             <TextView
                 android:textStyle="bold"
-                android:layout_width="130dp"
+                android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:text="Mã Đơn Hàng"
                 android:background="@drawable/khung"
@@ -37,7 +37,7 @@
 
             <TextView
                 android:textStyle="bold"
-                android:layout_width="130dp"
+                android:layout_width="140dp"
                 android:layout_height="30dp"
                 android:text="Ngày"
                 android:background="@drawable/khung"

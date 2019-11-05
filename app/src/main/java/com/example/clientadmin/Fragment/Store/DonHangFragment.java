@@ -40,7 +40,6 @@ public class DonHangFragment extends Fragment {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference("Cart");
-    DatabaseReference mPro = database.getReference("Product");
 
     View view;
 
@@ -127,7 +126,7 @@ public class DonHangFragment extends Fragment {
     public void showDH(String maDH, String ngayTao, String idUser, String total) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("***********  Thông Tin Đơn Hàng  ***********");
-        builder.setMessage(maDH + "\n" +  "Người đặt " + idUser + "\n" + "Ngày " + ngayTao + "\n" + "Giá đơn hàng " + total);
+        builder.setMessage(maDH + "\n" +  "Người đặt " + idUser + "\n" + "Thời gian " + ngayTao + "\n" + "Giá đơn hàng " + total);
 
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
