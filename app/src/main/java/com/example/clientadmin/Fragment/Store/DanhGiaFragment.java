@@ -104,7 +104,6 @@ public class DanhGiaFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-
                     txtRating.setText((int)(double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                     rtDG.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
                 }

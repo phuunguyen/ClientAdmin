@@ -40,7 +40,7 @@ public class ThongTinGiaoHangFragment extends Fragment {
     RecyclerView recyclerView;
     TrangThaiAdapter adapter;
 
-    List<Cart> data = new ArrayList<>();
+    ArrayList<Cart> data = new ArrayList<>();
 
     ImageButton btnXacNhanDH, btnGiaoHang, btnHoanThanh;
 
@@ -133,4 +133,5 @@ public class ThongTinGiaoHangFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 }
