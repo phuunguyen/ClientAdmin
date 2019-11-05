@@ -123,4 +123,10 @@ public class CoffeeFragment extends Fragment {
         productAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
+    }
 }

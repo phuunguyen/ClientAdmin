@@ -122,4 +122,10 @@ public class BubbleTeaFragment extends Fragment {
         productAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
+    }
 }
