@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.clientadmin.Fragment.Object.Cart;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,8 @@ public class ThongTinGiaoHangFragment extends Fragment {
     TrangThaiAdapter adapter;
 
     List<Cart> data = new ArrayList<>();
+
+    ImageButton btnXacNhanDH, btnGiaoHang, btnHoanThanh;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference("Cart");
@@ -55,6 +59,9 @@ public class ThongTinGiaoHangFragment extends Fragment {
 
     private void setControl() {
         recyclerView = view.findViewById(R.id.rclTrangThai);
+        btnXacNhanDH = view.findViewById(R.id.cbXacNhanDH);
+        btnHoanThanh = view.findViewById(R.id.cbHoanThanh);
+        btnGiaoHang = view.findViewById(R.id.cbGiaoHang);
     }
 
     @Override
@@ -76,10 +83,10 @@ public class ThongTinGiaoHangFragment extends Fragment {
                         Cart cart = new Cart();
                         cart.setId_DonHang(dataSnapshot.child("id_donhang").getValue().toString());
                         cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
+
                         data.add(cart);
                         adapter.notifyDataSetChanged();
                     }
-
             }
 
             @Override
@@ -116,7 +123,6 @@ public class ThongTinGiaoHangFragment extends Fragment {
         adapter = new TrangThaiAdapter(data, getContext());
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }

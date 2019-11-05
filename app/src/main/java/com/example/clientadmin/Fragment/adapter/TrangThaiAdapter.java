@@ -9,14 +9,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clientadmin.Fragment.Object.Cart;
 import com.example.clientadmin.Model.Product;
 
 import com.example.clientadmin.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,21 +60,55 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.Tran
             }
         });
 
-        holder.cbGiaoHang.setOnClickListener(new View.OnClickListener() {
+        //load du lieu va set dieu kien de? click
+        mData.child(data.get(position).getId_DonHang()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                holder.cbGiaoHang.setBackgroundResource(R.drawable.hlcheck);
-                mData.child(data.get(position).getId_DonHang()).child("delivery").setValue("yes");
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.child("check").getValue().toString().equals("yes")) {
+                        holder.cbXacNhanDH.setBackgroundResource(R.drawable.hlcheck);
+                        holder.cbGiaoHang.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                holder.cbGiaoHang.setBackgroundResource(R.drawable.hlcheck);
+                                mData.child(data.get(position).getId_DonHang()).child("delivery").setValue("yes");
+                            }
+                        });
+                    }
+
+                    if (dataSnapshot.child("delivery").getValue().toString().equals("yes")) {
+                        holder.cbGiaoHang.setBackgroundResource(R.drawable.hlcheck);
+                        holder.cbHoanThanh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                holder.cbHoanThanh.setBackgroundResource(R.drawable.hlcheck);
+                                mData.child(data.get(position).getId_DonHang()).child("finish").setValue("yes");
+                            }
+                        });
+                    }
+
+                    if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
+                        holder.cbHoanThanh.setBackgroundResource(R.drawable.hlcheck);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
-        holder.cbHoanThanh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.cbHoanThanh.setBackgroundResource(R.drawable.hlcheck);
-                mData.child(data.get(position).getId_DonHang()).child("finish").setValue("yes");
-            }
-        });
+
+
+
+
+
+
+
+
     }
 
     @Override
@@ -79,9 +118,10 @@ public class TrangThaiAdapter extends RecyclerView.Adapter<TrangThaiAdapter.Tran
 
     public class TrangThaiViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaDH, txtNgay;
-        ImageButton cbXacNhanDH, cbGiaoHang, cbHoanThanh;;
+        ImageButton cbXacNhanDH, cbGiaoHang, cbHoanThanh;
+        ;
 
-        public TrangThaiViewHolder (View itemView) {
+        public TrangThaiViewHolder(View itemView) {
             super(itemView);
             txtMaDH = itemView.findViewById(R.id.txtMaDH);
             txtNgay = itemView.findViewById(R.id.txtNgay);

@@ -40,6 +40,7 @@ public class DonHangFragment extends Fragment {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference("Cart");
+    DatabaseReference mPro = database.getReference("Product");
 
     View view;
 
@@ -67,7 +68,7 @@ public class DonHangFragment extends Fragment {
         lvDonHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showDH(data.get(i).getId_DonHang(), data.get(i).getDate());
+                showDH(data.get(i).getId_DonHang(), data.get(i).getDate(), data.get(i).getId_User(), data.get(i).getTotal_price());
             }
         });
         adapter = new DonHangAdapter(getContext(), R.layout.list_donhang, data);
@@ -90,10 +91,14 @@ public class DonHangFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (id_Store.equals(dataSnapshot.child("id_store").getValue())) {
                     Cart cart = new Cart();
-                    cart.setId_DonHang("Mã Đơn Hàng " + dataSnapshot.child("id_donhang").getValue().toString());
-                    cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
-                    data.add(cart);
-                    adapter.notifyDataSetChanged();
+                    if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
+                        cart.setId_DonHang("Mã Đơn Hàng " + dataSnapshot.child("id_donhang").getValue().toString());
+                        cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
+                        cart.setId_User(dataSnapshot.child("id_user").getValue().toString());
+                        cart.setTotal_price(dataSnapshot.child("total_price").getValue().toString());
+                        data.add(cart);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -119,10 +124,10 @@ public class DonHangFragment extends Fragment {
         });
     }
 
-    public void showDH(String maDH, String ngayTao) {
+    public void showDH(String maDH, String ngayTao, String idUser, String total) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Thông Tin Đơn Hàng");
-        builder.setMessage(maDH + "\n" + "Ngày " + ngayTao);
+        builder.setTitle("***********  Thông Tin Đơn Hàng  ***********");
+        builder.setMessage(maDH + "\n" +  "Người đặt " + idUser + "\n" + "Ngày " + ngayTao + "\n" + "Giá đơn hàng " + total);
 
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
