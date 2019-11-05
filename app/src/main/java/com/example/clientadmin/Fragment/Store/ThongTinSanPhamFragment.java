@@ -2,28 +2,25 @@ package com.example.clientadmin.Fragment.Store;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
+import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
+import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
+import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
+import com.example.clientadmin.R;
+
+import com.example.clientadmin.adapter.ViewPagerAdapter;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
-import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
-import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
-import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
-import com.example.clientadmin.MainActivity;
-import com.example.clientadmin.R;
-import com.example.clientadmin.adapter.ViewPagerAdapter;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.

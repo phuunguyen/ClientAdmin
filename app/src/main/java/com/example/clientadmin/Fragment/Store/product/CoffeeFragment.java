@@ -35,7 +35,7 @@ public class CoffeeFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     ProductAdapter productAdapter;
-    List<Product> data = new ArrayList<>();
+    List<Product> data;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
 
@@ -64,6 +64,7 @@ public class CoffeeFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         final String idStore = sharedPreferences.getString("ID_Login", null);
+        data = new ArrayList<>();
         mData.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -106,13 +107,19 @@ public class CoffeeFragment extends Fragment {
     private void addProduct(DataSnapshot dataSnapshot) {
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        if (dataSnapshot.child("product_image").getValue() != null) {
+        if(dataSnapshot.child("product_image").getValue() == null){
+
+        }else {
             product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         }
-        if (dataSnapshot.child("product_name").getValue() != null) {
+        if (dataSnapshot.child("product_name").getValue() == null){
+
+        }else {
             product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
         }
-        if (dataSnapshot.child("price").getValue() != null) {
+        if(dataSnapshot.child("price").getValue() == null){
+
+        }else {
             product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
         }
         data.add(product);
