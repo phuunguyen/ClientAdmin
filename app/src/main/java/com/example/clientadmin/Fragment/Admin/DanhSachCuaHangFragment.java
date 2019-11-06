@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,33 +109,19 @@ public class DanhSachCuaHangFragment extends Fragment {
 
     public void loadData(){
 
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Store store = new Store();
-                store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
-                store.setImage(dataSnapshot.child("image").getValue().toString());
-                store.setNameStore(dataSnapshot.child("store_Name").getValue().toString());
-                store.setAddress(dataSnapshot.child("address").getValue().toString());
-                store.setRating(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()));
-
-                data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Store store = new Store();
+                    store.setIdStore(snapshot.child("id_Store").getValue().toString());
+                    store.setImage(snapshot.child("image").getValue().toString());
+                    store.setNameStore(snapshot.child("store_Name").getValue().toString());
+                    store.setAddress(snapshot.child("address").getValue().toString());
+                    store.setRating(Double.parseDouble(snapshot.child("rating").getValue().toString()));
+                    data.add(store);
+                }
                 storeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -145,35 +132,21 @@ public class DanhSachCuaHangFragment extends Fragment {
     }
 
     public void loadDataSearch(final String storeName){
-        final String idStore = sharedPreferences.getString("ID_Login", null);
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                final Store store = new Store();
-                if (dataSnapshot.child("store_Name").getValue().toString().equals(storeName)) {
-                    store.setIdStore(dataSnapshot.child("id_Store").getValue().toString());
-                    store.setImage(dataSnapshot.child("image").getValue().toString());
-                    store.setNameStore(dataSnapshot.child("store_Name").getValue().toString());
-                    store.setAddress(dataSnapshot.child("address").getValue().toString());
-                    store.setRating((double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
-                    data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    final Store store = new Store();
+                    if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                        store.setIdStore(snapshot.child("id_Store").getValue().toString());
+                        store.setImage(snapshot.child("image").getValue().toString());
+                        store.setNameStore(snapshot.child("store_Name").getValue().toString());
+                        store.setAddress(snapshot.child("address").getValue().toString());
+                        store.setRating((double) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                        data.add(store);
+                    }
                 }
                 storeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override

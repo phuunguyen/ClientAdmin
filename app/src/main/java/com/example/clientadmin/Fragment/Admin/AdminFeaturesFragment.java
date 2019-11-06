@@ -13,9 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.clientadmin.Fragment.Admin.DangKyCuaHangFragment;
-import com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment;
-import com.example.clientadmin.Fragment.Admin.LichSuGiaoDichFragment;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -30,7 +27,6 @@ public class AdminFeaturesFragment extends Fragment {
     private int[] tabIcons = {
             R.drawable.ic_add_circle_outline_black_24dp,
             R.drawable.ic_list_black_24dp,
-            R.drawable.ic_history_black_24dp
     };
 
     @Override
@@ -55,14 +51,12 @@ public class AdminFeaturesFragment extends Fragment {
     private void setupTabIcon(){
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
     private void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new DangKyCuaHangFragment(), "");
         adapter.addFragment(new DanhSachCuaHangFragment(), "");
-        adapter.addFragment(new LichSuGiaoDichFragment(), "");
         viewPager.setAdapter(adapter);
     }
 }
