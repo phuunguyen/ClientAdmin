@@ -227,7 +227,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 store.setAddress(edtDiaChi.getText().toString());
                 store.setPhone(edtSDT.getText().toString());
                // store.setEmail(edtEmail.getText().toString());
-                store.setUserName(edtTenDangNhap.getText().toString());
+                store.setUsername(edtTenDangNhap.getText().toString());
 
                 if (imgStore.getDrawable() == null){
                     Toast.makeText(getActivity(), "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();

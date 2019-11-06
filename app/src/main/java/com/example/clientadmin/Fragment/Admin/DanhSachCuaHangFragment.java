@@ -33,7 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clientadmin.DrawerLocker;
-import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.StoreAdapter;
@@ -85,7 +84,7 @@ public class DanhSachCuaHangFragment extends Fragment {
 
     public void setControl(){
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_AllProduct);
-        //edtSearch = (AutoCompleteTextView)view.findViewById(R.id.searchBox);
+        edtSearch = (AutoCompleteTextView)view.findViewById(R.id.searchBox);
         sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
     }
@@ -100,28 +99,28 @@ public class DanhSachCuaHangFragment extends Fragment {
         recyclerView.setAdapter(storeAdapter);
 
 
-//        edtSearch.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//                final int DRAWABLE_LEFT = 0;
-//                final int DRAWABLE_TOP = 1;
-//                final int DRAWABLE_RIGHT = 2;
-//                final int DRAWABLE_BOTTOM = 3;
-//
-//                if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                        data.clear();
-//                        if (edtSearch.getText().toString().isEmpty()) {
-//                            loadData();
-//                        } else {
-//                            loadDataSearch(edtSearch.getText().toString());
-//                        }
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+        edtSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edtSearch.getRight() - edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        data.clear();
+                        if (edtSearch.getText().toString().isEmpty()) {
+                            loadData();
+                        } else {
+                            loadDataSearch(edtSearch.getText().toString());
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         storeAdapter.setOnItemClickListener(new StoreAdapter.OnItemClickListener() {
             @Override
@@ -147,33 +146,20 @@ public class DanhSachCuaHangFragment extends Fragment {
 
     public void loadData(){
 
-        mData.child("Store").addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Store store = new Store();
-                store.setId_Store(dataSnapshot.child("id_Store").getValue().toString());
-                store.setImage(dataSnapshot.child("image").getValue().toString());
-                store.setStore_Name(dataSnapshot.child("store_Name").getValue().toString());
-                store.setAddress(dataSnapshot.child("address").getValue().toString());
-                store.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
-
-                data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Store store = new Store();
+                    store.setId_Store(snapshot.child("id_Store").getValue().toString());
+                    store.setImage(snapshot.child("image").getValue().toString());
+                    store.setStore_Name(snapshot.child("store_Name").getValue().toString());
+                    store.setAddress(snapshot.child("address").getValue().toString());
+                    store.setRating((float) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                    data.add(store);
+                }
                 storeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -184,35 +170,22 @@ public class DanhSachCuaHangFragment extends Fragment {
     }
 
     public void loadDataSearch(final String storeName){
-        final String idStore = sharedPreferences.getString("ID_Login", null);
-        mData.addChildEventListener(new ChildEventListener() {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                final Store store = new Store();
-                if (dataSnapshot.child("store_Name").getValue().toString().equals(storeName)) {
-                    store.setId_Store(dataSnapshot.child("id_Store").getValue().toString());
-                    store.setImage(dataSnapshot.child("image").getValue().toString());
-                    store.setStore_Name(dataSnapshot.child("store_Name").getValue().toString());
-                    store.setAddress(dataSnapshot.child("address").getValue().toString());
-                    store.setRating((float) Math.round(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
-                    data.add(store);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    final Store store = new Store();
+                    if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                        store.setId_Store(snapshot.child("id_Store").getValue().toString());
+                        store.setImage(snapshot.child("image").getValue().toString());
+                        store.setStore_Name(snapshot.child("store_Name").getValue().toString());
+                        store.setAddress(snapshot.child("address").getValue().toString());
+                        store.setRating((float) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                        data.add(store);
+                    }
                 }
                 storeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -222,19 +195,10 @@ public class DanhSachCuaHangFragment extends Fragment {
         });
     }
 
-    boolean shouldAllowBack = false;
-    public void onBackPressed(){
-        if (!shouldAllowBack){
-        }else {
-
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         data.clear();
         loadData();
-        storeAdapter.notifyDataSetChanged();
     }
 }

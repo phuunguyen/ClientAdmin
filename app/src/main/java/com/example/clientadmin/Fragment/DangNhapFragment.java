@@ -195,7 +195,7 @@ public class DangNhapFragment extends Fragment {
                     }
                 } else if (rbcuahang.isChecked()) {
                     for (int i = 0; i < arrStore.size(); i++) {
-                        if (arrStore.get(i).getUserName().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
+                        if (arrStore.get(i).getUsername().equals(edtTaiKhoan.getText().toString()) && arrStore.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             //Log.d("store", arrStore.get(i).getBossName());
                             Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_nav_tt_cuahang);
                             break;
