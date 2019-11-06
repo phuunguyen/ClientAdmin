@@ -50,6 +50,7 @@
     <string name="coffee">Coffee</string>
     <string name="TenSP">Tên Sản Phẩm</string>
     <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idMenuTopping">003</string>
     <string name="idMenuTraSua">002</string>
     <string name="idMenuCoffee">001</string>
     <string name="topping">Topping</string>
@@ -64,18 +65,6 @@
         <item name="value3">Topping</item>
     </string-array>
 
-    <string-array name="spinner_type_product">
-        <item name="value1">Coffee</item>
-        <item name="value2">Trà sữa</item>
-        <item name="value3">Topping</item>
-    </string-array>
-
-    <string-array name="menu_product_value">
-        <item name="value0">Tất cả</item>
-        <item name="value1">Coffee</item>
-        <item name="value2">Trà sữa</item>
-        <item name="value3">Topping</item>
-    </string-array>
 
     <string-array name="menu_product_value">
         <item name="value0">Tất cả</item>
