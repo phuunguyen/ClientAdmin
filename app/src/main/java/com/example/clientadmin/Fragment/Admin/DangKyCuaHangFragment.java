@@ -82,7 +82,7 @@ public class DangKyCuaHangFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_dang_ky_cua_hang, container, false);
         setControl();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
     }

@@ -76,7 +76,7 @@ public class DanhSachCuaHangFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_danh_sach_cua_hang, container, false);
         //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         ((DrawerLocker) getActivity()).setDrawerLocked(true);
         setControl();
         return view;

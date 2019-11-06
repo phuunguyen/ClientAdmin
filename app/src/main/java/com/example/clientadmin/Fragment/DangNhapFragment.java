@@ -186,7 +186,7 @@ public class DangNhapFragment extends Fragment {
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_danhSachCuaHangFragment);
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_adminFeaturesFragment);
                             break;
                         } else {
                             Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
