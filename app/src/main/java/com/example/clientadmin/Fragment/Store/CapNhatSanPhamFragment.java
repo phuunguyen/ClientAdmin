@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -106,7 +107,13 @@ public class CapNhatSanPhamFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmDialog(idProduct);
+                if (edtGiaSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
+                } else if (edtTenSP.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Mời bạn nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+                } else {
+                    confirmDialog(idProduct);
+                }
             }
         });
     }
@@ -121,7 +128,7 @@ public class CapNhatSanPhamFragment extends Fragment {
                     if (productTemp.getId_product().equals(idProduct)) {
                         Picasso.get().load(productTemp.getProduct_image()).into(imgProduct);
                         edtTenSP.setText(productTemp.getProduct_name());
-                        edtGiaSP.setText((int)productTemp.getPrice() + "");
+                        edtGiaSP.setText((int) productTemp.getPrice() + "");
 
                         Log.d("---", productTemp.getId_menu());
                         if (productTemp.getId_menu().equals("001")) {
@@ -219,33 +226,31 @@ public class CapNhatSanPhamFragment extends Fragment {
     }
 
     public void confirmDialog(final String idProduct) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Cập nhật sản phẩm");
-        builder.setMessage("Bạn có muốn cập nhật sản phẩm này không?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Cập nhật sản phẩm")
+                .setMessage("Bạn có muốn cập nhật sản phẩm này không?")
+                .setCancelable(false)
+                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
-                mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
-                if (spinTypeProduct.getSelectedItemPosition() == 0) {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
-                } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
-                } else {
-                    mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
-                }
-                uploadImage(idProduct);
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+                    }
+                })
+                .setNegativeButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        mData.child("Product").child("Product" + idProduct).child("product_name").setValue(edtTenSP.getText().toString());
+                        mData.child("Product").child("Product" + idProduct).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
+                        if (spinTypeProduct.getSelectedItemPosition() == 0) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("001");
+                        } else if (spinTypeProduct.getSelectedItemPosition() == 1) {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("002");
+                        } else {
+                            mData.child("Product").child("Product" + idProduct).child("id_menu").setValue("003");
+                        }
+                        uploadImage(idProduct);
+                    }
+                }).show();
     }
 }

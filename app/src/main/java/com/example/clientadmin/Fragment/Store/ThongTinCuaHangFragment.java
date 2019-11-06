@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,10 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.object.Rating;
+import com.example.clientadmin.Object.Rating;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +52,7 @@ public class ThongTinCuaHangFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_thong_tin_cua_hang, container, false);
         setControl();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         return view;
     }
 
@@ -88,7 +89,7 @@ public class ThongTinCuaHangFragment extends Fragment {
                     txtDC.setText(dataSnapshot.child("address").getValue().toString());
                     txtSDT.setText(dataSnapshot.child("phone").getValue().toString());
                     txtTenChu.setText(dataSnapshot.child("bossName").getValue().toString());
-//                    txtEmail.setText(dataSnapshot.child("username").getValue().toString());
+                    txtEmail.setText(dataSnapshot.child("userName").getValue().toString());
                     txtNDK.setText(dataSnapshot.child("registerDay").getValue().toString());
                     float rating = Float.parseFloat(dataSnapshot.child("rating").getValue().toString());
                     ratingBar.setRating(rating);

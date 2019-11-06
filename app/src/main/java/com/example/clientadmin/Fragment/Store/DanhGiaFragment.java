@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.clientadmin.R;
 import com.example.clientadmin.adapter.Adapter_DanhGia;
-import com.example.clientadmin.object.Rating;
+import com.example.clientadmin.Object.Rating;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +52,7 @@ public class DanhGiaFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_danh_gia, container, false);
         setControl();
-        return  view;
+        return view;
     }
 
     @Override
@@ -63,12 +63,13 @@ public class DanhGiaFragment extends Fragment {
         loadData();
 
     }
-    public  void loadData(){
+
+    public void loadData() {
         Table_Cmt.child(idLogin).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Rating rating = new Rating();
-                rating.setId_User(dataSnapshot.child("id_User").getValue().toString());
+                rating.setId_User(dataSnapshot.child("id_Name").getValue().toString());
                 rating.setComment(dataSnapshot.child("comment").getValue().toString());
                 rating.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
                 data.add(rating);
@@ -96,13 +97,13 @@ public class DanhGiaFragment extends Fragment {
 
             }
         });
-}
+    }
 
-    public void showDanhGia(){
+    public void showDanhGia() {
         Table_Store.child(idLogin).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
+                if (dataSnapshot.getValue() != null) {
 
                     txtRating.setText((int)(double) Math.round(Double.parseDouble(dataSnapshot.child("rating").getValue().toString()) * 10) / 10);
                     rtDG.setRating(Float.parseFloat(dataSnapshot.child("rating").getValue().toString()));
@@ -117,11 +118,11 @@ public class DanhGiaFragment extends Fragment {
 
     }
 
-    public void setControl(){
-        txtRating = (TextView)view.findViewById(R.id.txtRating);
-        rtDG = (RatingBar)view.findViewById(R.id.rtbDG);
-        rtDG1 = (RatingBar)view.findViewById(R.id.rtbDanhGia);
-        lv = (ListView)view.findViewById(R.id.lvDG);
+    public void setControl() {
+        txtRating = (TextView) view.findViewById(R.id.txtRating);
+        rtDG = (RatingBar) view.findViewById(R.id.rtbDG);
+        rtDG1 = (RatingBar) view.findViewById(R.id.rtbDanhGia);
+        lv = (ListView) view.findViewById(R.id.lvDG);
         sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         idLogin = sharedPreferences.getString("ID_Login", "");

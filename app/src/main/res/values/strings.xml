@@ -17,40 +17,6 @@
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="logout">Logout</string>
-    <string name="TitleThemSP">Thêm Sản Phẩm</string>
-    <string name="GiaSP">Giá Sản Phẩm</string>
-    <string name="loaiSP">Loại Sản Phẩm</string>
-    <string name="TraSua">Trà Sữa</string>
-    <string name="coffee">Coffee</string>
-    <string name="TenSP">Tên Sản Phẩm</string>
-    <string name="HinhSP">Hình Sản Phẩm</string>
-    <string name="idMenuTopping">003</string>
-    <string name="idMenuTraSua">002</string>
-    <string name="idMenuCoffee">001</string>
-    <string name="topping">Topping</string>
-    <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
-    <string name="btnThemSP">Thêm sản phẩm</string>
-
-    <string-array name="spinner_type_product">
-        <item name="value1">Coffee</item>
-        <item name="value2">Trà sữa</item>
-        <item name="value3">Topping</item>
-    </string-array>
-
-    <string-array name="menu_product_value">
-        <item name="value0">Tất cả</item>
-        <item name="value1">Coffee</item>
-        <item name="value2">Trà sữa</item>
-        <item name="value3">Topping</item>
-    </string-array>
-
-    <string-array name="Sort">
-        <item name="value0">Sắp xếp theo</item>
-        <item name="value1">Đánh giá</item>
-        <item name="value2">Tên cửa hàng</item>
-    </string-array>
-
     <string name="TTCH">Thông tin cửa hàng</string>
     <string name="TTCuaHang">Tên cửa hàng</string>
     <string name="DCCH">Địa chỉ</string>
@@ -75,7 +41,39 @@
     <string name="email">"Email"</string>
     <string name="sodt">"Số điện thoại"</string>
     <string name="ngaydk">Ngày đăng ký</string>
-    <string name="nameStore">Tên cửa hàng</string>
-    <string name="adminAdress">Địa chỉ cửa hàng</string>
 
+    <string name="logout">Logout</string>
+    <string name="TitleThemSP">Thêm Sản Phẩm</string>
+    <string name="GiaSP">Giá Sản Phẩm</string>
+    <string name="loaiSP">Loại Sản Phẩm</string>
+    <string name="TraSua">Trà Sữa</string>
+    <string name="coffee">Coffee</string>
+    <string name="TenSP">Tên Sản Phẩm</string>
+    <string name="HinhSP">Hình Sản Phẩm</string>
+    <string name="idMenuTraSua">002</string>
+    <string name="idMenuCoffee">001</string>
+    <string name="topping">Topping</string>
+    <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
+    <string name="btnThemSP">Thêm sản phẩm</string>
+    <string name="nameStore">Tên cửa hàng</string>
+    <string name="adminAdress">Địa Chỉ Cửa hàng</string>
+
+    <string-array name="spinner_type_product">
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
+
+    <string-array name="menu_product_value">
+        <item name="value0">Tất cả</item>
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
+
+    <string-array name="adminItem">
+        <item name="value0">Danh sách cửa hàng</item>
+        <item name="value1">Đăng ký cửa hàng</item>
+        <item name="value2">Lịch sử giao dịch</item>
+    </string-array>
 </resources>

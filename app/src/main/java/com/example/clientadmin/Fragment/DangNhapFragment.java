@@ -11,26 +11,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment;
-import com.example.clientadmin.Fragment.Admin.ThongTinChiTietCuaHangFragment;
+import com.example.clientadmin.DrawerLocker;
+import com.example.clientadmin.Object.Admin;
+import com.example.clientadmin.Object.Store;
 import com.example.clientadmin.R;
-import com.example.clientadmin.object.Admin;
-import com.example.clientadmin.object.Store;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +34,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -48,8 +47,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangNhapFragment extends Fragment {
 
-    EditText edtTaiKhoan, edtMatKhau;
-    Button btnDangNhap;
+    TextInputEditText edtTaiKhoan, edtMatKhau;
+    MaterialButton btnDangNhap;
     RadioButton rbquanly, rbcuahang;
     ImageView imgStore;
     View root;
@@ -68,13 +67,15 @@ public class DangNhapFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_dang_nhap, container, false);
         setConTrol();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((DrawerLocker)getActivity()).setDrawerLocked(true);
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         setEvent();
     }
 
@@ -118,7 +119,9 @@ public class DangNhapFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                arrStore.clear();
+                Store store = dataSnapshot.getValue(Store.class);
+                arrStore.add(store);
             }
 
             @Override
@@ -199,7 +202,7 @@ public class DangNhapFragment extends Fragment {
                         if (arrAdmin.get(i).getName().equals(edtTaiKhoan.getText().toString())
                                 && arrAdmin.get(i).getPassword().equals(edtMatKhau.getText().toString())) {
                             Toast.makeText(getActivity(), "dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_danhSachCuaHangFragment);
+                            Navigation.findNavController(view).navigate(R.id.action_dangNhapFragment_to_adminFeaturesFragment);
                             break;
                         } else {
                             Toast.makeText(getActivity(), "Dang nhap khong thanh cong", Toast.LENGTH_SHORT).show();
@@ -233,22 +236,19 @@ public class DangNhapFragment extends Fragment {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        View view;
-        if (item.getItemId() == R.id.thongtincuahang){
-            Toast.makeText(getContext(), "dasdd",Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void setConTrol() {
         rbcuahang = (RadioButton) root.findViewById(R.id.rbcuahang);
         rbquanly = (RadioButton) root.findViewById(R.id.rbquanly);
-        edtTaiKhoan = (EditText) root.findViewById(R.id.edtName);
-        edtMatKhau = (EditText) root.findViewById(R.id.edtPassword);
-        btnDangNhap = (Button) root.findViewById(R.id.btnDangNhap);
+        edtTaiKhoan = (TextInputEditText) root.findViewById(R.id.edtName);
+        edtMatKhau = (TextInputEditText) root.findViewById(R.id.edtPassword);
+        btnDangNhap = (MaterialButton) root.findViewById(R.id.btnDangNhap);
         imgStore = (ImageView) root.findViewById(R.id.imgStore);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((DrawerLocker)getActivity()).setDrawerLocked(false);
     }
 }

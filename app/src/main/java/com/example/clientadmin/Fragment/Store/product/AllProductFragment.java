@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.adapter.ProductAdapter;
 import com.example.clientadmin.Model.Product;
+import com.example.clientadmin.adapter.ProductAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

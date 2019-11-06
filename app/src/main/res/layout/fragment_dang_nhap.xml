@@ -8,10 +8,11 @@
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/imgStore"
             android:layout_width="150dp"
@@ -21,10 +22,10 @@
         </ImageView>
 
         <RadioGroup
-            android:gravity="center"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rbquanly"
@@ -32,59 +33,70 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/Quanly"></RadioButton>
+
             <RadioButton
                 android:id="@+id/rbcuahang"
-                android:layout_marginLeft="40dp"
-                android:text="@string/Cuahang"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioButton>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="@string/Cuahang"></RadioButton>
         </RadioGroup>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="350dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:background="@drawable/btnall"
-                android:id="@+id/edtName"
-                android:hint="@string/taikhoan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </EditText>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:background="@drawable/btnall"
-                android:hint="@string/matkhau"
-                android:id="@+id/edtPassword"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </EditText>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_marginTop="5dp"
-            android:id="@+id/btnDangNhap"
-            android:layout_width="103dp"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/taikhoan">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/matkhau"
+                    android:inputType="textPassword">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDangNhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@drawable/btnthaydoi"
             android:text="@string/dangnhap">
 
-        </Button>
-
-
+        </com.google.android.material.button.MaterialButton>
 
 
     </LinearLayout>

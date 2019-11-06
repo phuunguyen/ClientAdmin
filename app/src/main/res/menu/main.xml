@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Thông tin cửa hàng" android:id="@+id/thongtincuahang"></item>
-    <item android:title="Danh sách cửa hàng" android:id="@+id/danhsachcuahang"></item>
-    <item android:title="Đăng ký cửa hàng" android:id="@+id/dangkycuahang"></item>
-    <item android:title="Lịch sử giao dịch" android:id="@+id/lichsugiaodich"></item>
-    <item android:title="Đăng xuất" android:id="@+id/dangxuat"></item>
 
-    </menu>
+</menu>
