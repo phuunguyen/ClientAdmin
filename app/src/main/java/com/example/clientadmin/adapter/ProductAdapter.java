@@ -19,9 +19,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clientadmin.R;
+
 import com.example.clientadmin.Model.Product;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -98,25 +98,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public void xoaSanPhamAlertDialog(String productName, final String idProduct, final int position) {
-        new MaterialAlertDialogBuilder(context)
-                .setTitle("Xóa sản phẩm")
-                .setMessage("Bạn có muốn xóa " + productName + " không?")
-                .setCancelable(false)
-                .setPositiveButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Xóa sản phẩm");
+        builder.setMessage("Bạn có muốn xóa " + productName + " không?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                })
-                .setNegativeButton("Xóa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        myRef.child("Product").child("Product" + idProduct).removeValue();
-                        remove(position);
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
+            }
+        });
+        builder.setNegativeButton("Xóa", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                myRef.child("Product").child("Product" + idProduct).removeValue();
+                remove(position);
+                Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void remove(int postion) {

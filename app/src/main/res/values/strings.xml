@@ -55,6 +55,14 @@
     <string name="topping">Topping</string>
     <string name="btnUpdateProduct">Cập nhật sản phẩm</string>
     <string name="btnThemSP">Thêm sản phẩm</string>
+    <string name="nameStore">Tên cửa hàng</string>
+    <string name="adminAdress">Địa Chỉ Cửa hàng</string>
+
+    <string-array name="spinner_type_product">
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
 
     <string-array name="spinner_type_product">
         <item name="value1">Coffee</item>
@@ -69,4 +77,16 @@
         <item name="value3">Topping</item>
     </string-array>
 
+    <string-array name="menu_product_value">
+        <item name="value0">Tất cả</item>
+        <item name="value1">Coffee</item>
+        <item name="value2">Trà sữa</item>
+        <item name="value3">Topping</item>
+    </string-array>
+
+    <string-array name="adminItem">
+        <item name="value0">Danh sách cửa hàng</item>
+        <item name="value1">Đăng ký cửa hàng</item>
+        <item name="value2">Lịch sử giao dịch</item>
+    </string-array>
 </resources>
