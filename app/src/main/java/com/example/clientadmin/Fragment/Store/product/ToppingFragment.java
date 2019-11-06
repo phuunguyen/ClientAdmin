@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,29 +76,17 @@ public class ToppingFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         final String idStore = sharedPreferences.getString("ID_Login", null);
-        mData.child("Product").addChildEventListener(new ChildEventListener() {
+        mData.child("Product").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot.child("id_store").getValue() != null) {
-                    if (dataSnapshot.child("id_menu").getValue().toString().equals("003") && dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
-                        addProduct(dataSnapshot);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    if (snapshot.child("id_store").getValue() != null) {
+                        if (snapshot.child("id_menu").getValue().toString().equals("003") && snapshot.child("id_store").getValue().toString().equals(idStore)) {
+                            addProduct(snapshot);
+                        }
                     }
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
