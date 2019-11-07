@@ -75,23 +75,23 @@
         android:id="@+id/danhSachCuaHangFragment"
         android:name="com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment"
         android:label="Danh sách cửa hàng"
-        tools:layout="@layout/fragment_danh_sach_cua_hang" >
-        <action
-            android:id="@+id/action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment"
-            app:destination="@id/thongTinChiTietCuaHangFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_danh_sach_cua_hang" />
     <fragment
         android:id="@+id/thongTinChiTietCuaHangFragment"
         android:name="com.example.clientadmin.Fragment.Admin.ThongTinChiTietCuaHangFragment"
         android:label="Thông tin chi tiết cửa hàng"
         tools:layout="@layout/fragment_thong_tin_chi_tiet_cua_hang" >
         <action
-            android:id="@+id/action_thongTinChiTietCuaHangFragment_to_danhSachCuaHangFragment"
-            app:destination="@id/danhSachCuaHangFragment" />
+            android:id="@+id/action_thongTinChiTietCuaHangFragment_to_adminFeaturesFragment"
+            app:destination="@id/adminFeaturesFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminFeaturesFragment"
         android:name="com.example.clientadmin.Fragment.Admin.AdminFeaturesFragment"
         android:label="fragment_admin_features"
-        tools:layout="@layout/fragment_admin_features" />
+        tools:layout="@layout/fragment_admin_features" >
+        <action
+            android:id="@+id/action_adminFeaturesFragment_to_thongTinChiTietCuaHangFragment"
+            app:destination="@id/thongTinChiTietCuaHangFragment" />
+    </fragment>
 </navigation>

@@ -461,7 +461,7 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
                         txtTenDN.setText("");
                         txtNgayDK.setText("");
                         Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(root).navigate(R.id.action_thongTinChiTietCuaHangFragment_to_danhSachCuaHangFragment);
+                        Navigation.findNavController(root).navigate(R.id.action_thongTinChiTietCuaHangFragment_to_adminFeaturesFragment);
                     }
                 }).show();
     }

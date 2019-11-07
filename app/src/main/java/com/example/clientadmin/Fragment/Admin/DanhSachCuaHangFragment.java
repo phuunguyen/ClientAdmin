@@ -128,7 +128,7 @@ public class DanhSachCuaHangFragment extends Fragment {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFERENCES_ID_STORE", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("ID_STORE", data.get(position).getId_Store()).apply();
-                Navigation.findNavController(view).navigate(R.id.action_danhSachCuaHangFragment_to_thongTinChiTietCuaHangFragment);
+                Navigation.findNavController(view).navigate(R.id.action_adminFeaturesFragment_to_thongTinChiTietCuaHangFragment);
 
             }
         });
