@@ -78,4 +78,19 @@
         <item name="value1">Đăng ký cửa hàng</item>
         <item name="value2">Lịch sử giao dịch</item>
     </string-array>
+
+
+
+
+    //Thông tin chi tiết cửa hàng
+    <string name="tongdonhang">Tổng đơn hàng</string>
+    <string name="tienhoahong">Tiền hoa hồng</string>
+    <string name="xacnhanthanhtoan">Xác nhận thanh toán</string>
+
+    //actionbar
+    <string name="dktk">Đăng ký tài khoản</string>
+    <string name="dscuahang">Danh sách cửa hàng</string>
+    <string name="lichsu">Lịch sử giao dịch</string>
+    <string name="dangxuat">Đăng xuất</string>
+
 </resources>
