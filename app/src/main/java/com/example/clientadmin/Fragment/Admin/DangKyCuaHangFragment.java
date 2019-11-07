@@ -62,7 +62,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class DangKyCuaHangFragment extends Fragment {
     View root;
-    TextInputEditText edtTenCH, edtDiaChi, edtTenDangNhap, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau, edtNhapLaiMK;
+    TextInputEditText edtTenCH, edtDiaChi, edtTenDangNhap, edtSDT, edtTenChuSoHuu, edtNgDK, edtMatkhau;
     Button btnDK;
     ImageView imgStore;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
@@ -134,7 +134,6 @@ public class DangKyCuaHangFragment extends Fragment {
         edtNgDK = (TextInputEditText) root.findViewById(R.id.edtngaydk);
         btnDK = (Button) root.findViewById(R.id.btndangky);
         edtMatkhau = (TextInputEditText) root.findViewById(R.id.edtmatkhau);
-        edtNhapLaiMK = (TextInputEditText) root.findViewById(R.id.edtmatkhau1);
         imgStore = (ImageView)root.findViewById(R.id.img);
     }
 
@@ -183,7 +182,6 @@ public class DangKyCuaHangFragment extends Fragment {
                 String tenchuho = edtTenChuSoHuu.getText().toString().trim();
                 String ngaydk = edtNgDK.getText().toString().trim();
                 String mk = edtMatkhau.getText().toString().trim();
-                String nhaplaimk = edtNhapLaiMK.getText().toString().trim();
 
                 if(!isEmptyOrNull(tench)){
                     Toast.makeText(getActivity(), "Vui lòng nhập tên cửa hàng!", Toast.LENGTH_SHORT).show();
@@ -213,10 +211,6 @@ public class DangKyCuaHangFragment extends Fragment {
                     Toast.makeText(getActivity(), "Mật khẩu của bạn phải từ 6 kí tự trở lên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!isValidPassword(nhaplaimk)){
-                    Toast.makeText(getActivity(), "Mật khẩu nhập lại của bạn phải từ 6 kí tự trở lên!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if (!isValidPhoneNumber(sodt)) {
                     Toast.makeText(getActivity(), "Vui lòng kiểm tra lại số điện thoại của bạn!", Toast.LENGTH_SHORT).show();
                     return;
@@ -226,7 +220,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 store.setId_Store("Store" + i);
                 store.setAddress(edtDiaChi.getText().toString());
                 store.setPhone(edtSDT.getText().toString());
-               // store.setEmail(edtEmail.getText().toString());
+                // store.setEmail(edtEmail.getText().toString());
                 store.setUserName(edtTenDangNhap.getText().toString());
 
                 if (imgStore.getDrawable() == null){
@@ -266,15 +260,10 @@ public class DangKyCuaHangFragment extends Fragment {
                 }
                 store.setStore_Name(edtTenCH.getText().toString());
                 store.setBossName(edtTenChuSoHuu.getText().toString());
-                store.setRigsterDay(edtNgDK.getText().toString());
+                store.setRegisterDay(edtNgDK.getText().toString());
                 store.setPassword(edtMatkhau.getText().toString());
-                if (edtMatkhau.getText().toString().equals(edtNhapLaiMK.getText().toString())) {
-                    Table_Store.child("Store" + i).setValue(store);
-                    Toast.makeText(getContext(), "Dang ki thanh cong", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(getContext(), "Sai mat khau vui long nhap lai", Toast.LENGTH_SHORT).show();
-                }
+                Table_Store.child("Store" + i).setValue(store);
+                Toast.makeText(getContext(), "Dang ki thanh cong", Toast.LENGTH_SHORT).show();
                 mData.child("MaxID").child("MaxID_Store").setValue(i);
             }
         });

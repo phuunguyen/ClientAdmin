@@ -19,8 +19,9 @@
             android:id="@+id/img"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_account_circle_black_24dp">
+            android:background="@drawable/ic_account_circle_black_24dp">
 
         </ImageView>
 
@@ -108,7 +109,7 @@
                             android:id="@+id/edtTenDangNhap"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Mật khẩu">
+                            android:hint="@string/tendangnhap">
 
                         </com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -167,6 +168,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtmatkhau"
+                            android:inputType="textPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/matkhau">
@@ -175,29 +177,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtmatkhau1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/matkhau1">
-
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                </LinearLayout>
-
-
             </LinearLayout>
 
         </LinearLayout>
