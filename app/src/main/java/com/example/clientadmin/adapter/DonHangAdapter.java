@@ -1,4 +1,4 @@
-package com.example.clientadmin.Fragment.adapter;
+package com.example.clientadmin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.clientadmin.Fragment.Object.Cart;
+import com.example.clientadmin.Object.Cart;
 import com.example.clientadmin.R;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Thông Tin Giao Hàng"
+        android:text="@string/ttgiaohang"
         android:textStyle="bold"
         android:gravity="center"
         android:textSize="20sp"/>
@@ -31,7 +31,7 @@
                 android:textStyle="bold"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:text="Mã Đơn Hàng"
+                android:text="@string/madh"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
 
@@ -39,7 +39,7 @@
                 android:textStyle="bold"
                 android:layout_width="140dp"
                 android:layout_height="30dp"
-                android:text="Ngày"
+                android:text="@string/ngay"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
 
@@ -47,7 +47,7 @@
                 android:textStyle="bold"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
-                android:text="Xác Nhận Đơn Hàng"
+                android:text="@string/xacnhandh"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
             <TextView
@@ -55,7 +55,7 @@
 
                 android:layout_width="115dp"
                 android:layout_height="30dp"
-                android:text="Giao Hàng"
+                android:text="@string/giaohang"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
 
@@ -63,7 +63,7 @@
                 android:textStyle="bold"
                 android:layout_width="110dp"
                 android:layout_height="30dp"
-                android:text="Hoàn Thành"
+                android:text="@string/hoanthanh"
                 android:background="@drawable/khung"
                 android:gravity="center"/>
 

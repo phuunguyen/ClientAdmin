@@ -59,20 +59,11 @@
         android:label="Đăng nhập"
         tools:layout="@layout/fragment_dang_nhap" >
         <action
-            android:id="@+id/action_dangNhapFragment_to_dangkyFragment"
-            app:destination="@id/dangkyFragment" />
-        <action
             android:id="@+id/action_dangNhapFragment_to_nav_tt_cuahang"
             app:destination="@id/nav_tt_cuahang" />
         <action
             android:id="@+id/action_dangNhapFragment_to_adminFeaturesFragment"
             app:destination="@id/adminFeaturesFragment" />
-        <action
-            android:id="@+id/action_dangNhapFragment_to_danhSachCuaHangFragment"
-            app:destination="@id/danhSachCuaHangFragment" />
-        <action
-            android:id="@+id/action_dangNhapFragment_to_lichSuGiaoDichFragment"
-            app:destination="@id/lichSuGiaoDichFragment" />
     </fragment>
 
     <fragment
@@ -81,18 +72,26 @@
         android:label="Đăng ký"
         tools:layout="@layout/fragment_dang_ky_cua_hang" />
     <fragment
+        android:id="@+id/danhSachCuaHangFragment"
+        android:name="com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment"
+        android:label="Danh sách cửa hàng"
+        tools:layout="@layout/fragment_danh_sach_cua_hang" />
+    <fragment
+        android:id="@+id/thongTinChiTietCuaHangFragment"
+        android:name="com.example.clientadmin.Fragment.Admin.ThongTinChiTietCuaHangFragment"
+        android:label="Thông tin chi tiết cửa hàng"
+        tools:layout="@layout/fragment_thong_tin_chi_tiet_cua_hang" >
+        <action
+            android:id="@+id/action_thongTinChiTietCuaHangFragment_to_adminFeaturesFragment"
+            app:destination="@id/adminFeaturesFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/adminFeaturesFragment"
         android:name="com.example.clientadmin.Fragment.Admin.AdminFeaturesFragment"
         android:label="fragment_admin_features"
-        tools:layout="@layout/fragment_admin_features" />
-    <fragment
-        android:id="@+id/danhSachCuaHangFragment"
-        android:name="com.example.clientadmin.Fragment.Admin.DanhSachCuaHangFragment"
-        android:label="fragment_danh_sach_cua_hang"
-        tools:layout="@layout/fragment_danh_sach_cua_hang" />
-    <fragment
-        android:id="@+id/lichSuGiaoDichFragment"
-        android:name="com.example.clientadmin.Fragment.Admin.LichSuGiaoDichFragment"
-        android:label="fragment_lich_su_giao_dich"
-        tools:layout="@layout/fragment_lich_su_giao_dich" />
+        tools:layout="@layout/fragment_admin_features" >
+        <action
+            android:id="@+id/action_adminFeaturesFragment_to_thongTinChiTietCuaHangFragment"
+            app:destination="@id/thongTinChiTietCuaHangFragment" />
+    </fragment>
 </navigation>

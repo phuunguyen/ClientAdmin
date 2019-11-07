@@ -12,7 +12,7 @@
 
     </solid>
     <stroke
-        android:color="@color/black"
+        android:color="#24CE2C"
         android:width="1dp">
 
     </stroke>
