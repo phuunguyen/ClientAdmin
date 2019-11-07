@@ -15,18 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.clientadmin.Fragment.Object.Cart;
-import com.example.clientadmin.Fragment.adapter.DonHangAdapter;
+import com.example.clientadmin.Object.Cart;
+import com.example.clientadmin.adapter.DonHangAdapter;
 import com.example.clientadmin.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -90,14 +88,16 @@ public class DonHangFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (id_Store.equals(dataSnapshot.child("id_store").getValue())) {
                     Cart cart = new Cart();
-                    if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
-                        cart.setId_DonHang("Mã Đơn Hàng " + dataSnapshot.child("id_donhang").getValue().toString());
-                        cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
-                        cart.setId_User(dataSnapshot.child("id_user").getValue().toString());
-                        cart.setTotal_price(dataSnapshot.child("total_price").getValue().toString());
-                        data.add(cart);
-                        adapter.notifyDataSetChanged();
-                    }
+                    try {
+                        if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
+                            cart.setId_DonHang("Mã Đơn Hàng " + dataSnapshot.child("id_donhang").getValue().toString());
+                            cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
+                            cart.setId_User(dataSnapshot.child("id_user").getValue().toString());
+                            cart.setTotal_price(dataSnapshot.child("total_price").getValue().toString());
+                            data.add(cart);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }catch (Exception e){}
                 }
             }
 
