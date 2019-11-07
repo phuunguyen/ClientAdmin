@@ -93,7 +93,7 @@ public class DonHangFragment extends Fragment {
                             cart.setId_DonHang("Mã đơn hàng: " + dataSnapshot.child("id_donhang").getValue().toString());
                             cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
                             cart.setId_User(dataSnapshot.child("id_user").getValue().toString());
-                            cart.setTotal_price(dataSnapshot.child("price").getValue().toString());
+                            cart.setTotal_price(dataSnapshot.child("total").getValue().toString());
                             data.add(cart);
                             adapter.notifyDataSetChanged();
                         }
