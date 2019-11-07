@@ -81,7 +81,7 @@ public class CoffeeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if (snapshot.child("id_store").getValue() != null) {
+                    if (snapshot.child("id_store").getValue() != null && snapshot.child("id_menu").getValue() != null) {
                         if (snapshot.child("id_menu").getValue().toString().equals("001") && snapshot.child("id_store").getValue().toString().equals(idStore)) {
                             addProduct(snapshot);
                         }
