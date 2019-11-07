@@ -219,6 +219,7 @@ public class CapNhatSanPhamFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         String photoLink = uri.toString();
                         mData.child("Product").child("Product" + idProduct).child("product_image").setValue(photoLink);
+                        getActivity().onBackPressed();
                     }
                 });
                 Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();

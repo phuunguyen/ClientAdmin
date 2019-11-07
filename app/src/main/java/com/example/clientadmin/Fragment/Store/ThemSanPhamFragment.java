@@ -184,6 +184,7 @@ public class ThemSanPhamFragment extends Fragment {
                         }else{
                             mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuTopping));
                         }
+                        getActivity().onBackPressed();
                     }
                 });
             }
