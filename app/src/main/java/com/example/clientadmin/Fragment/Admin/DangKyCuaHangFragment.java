@@ -260,7 +260,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 }
                 store.setStore_Name(edtTenCH.getText().toString());
                 store.setBossName(edtTenChuSoHuu.getText().toString());
-                store.setRigsterDay(edtNgDK.getText().toString());
+                store.setRegisterDay(edtNgDK.getText().toString());
                 store.setPassword(edtMatkhau.getText().toString());
                 Table_Store.child("Store" + i).setValue(store);
                 Toast.makeText(getContext(), "Dang ki thanh cong", Toast.LENGTH_SHORT).show();
