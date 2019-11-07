@@ -284,7 +284,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 edtNgDK.setText(simpleDateFormat.format(calendar.getTime()));
             }
-        }, ngay, thang, nam);
+        }, nam, thang, ngay);
         datePickerDialog.show();
     }
     private boolean isEmptyOrNull(String text) {

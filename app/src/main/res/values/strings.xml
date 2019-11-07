@@ -108,8 +108,7 @@
     <string name="nguoidat">Người Đặt</string>
     <string name="thoigian">Thời Gian</string>
     <string name="giadh">Giá Đơn Hàng</string>
-
-
+    <string name="tendangnhap">Tên đăng nhập</string>
 
 
 </resources>
