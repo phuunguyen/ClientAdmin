@@ -90,7 +90,7 @@ public class DonHangFragment extends Fragment {
                     Cart cart = new Cart();
                     try {
                         if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
-                            cart.setId_DonHang("Mã đơn hàng " + dataSnapshot.child("id_donhang").getValue().toString());
+                            cart.setId_DonHang("Mã đơn hàng: " + dataSnapshot.child("id_donhang").getValue().toString());
                             cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
                             cart.setId_User(dataSnapshot.child("id_user").getValue().toString());
                             cart.setTotal_price(dataSnapshot.child("price").getValue().toString());
@@ -126,7 +126,7 @@ public class DonHangFragment extends Fragment {
     public void showDH(String maDH, String ngayTao, String idUser, String total) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("***********  Thông Tin Đơn Hàng  ***********");
-        builder.setMessage(maDH + "\n" + "Người đặt " + idUser + "\n" + "Thời gian " + ngayTao + "\n" + "Giá " + total);
+        builder.setMessage(maDH + "\n" + "Người đặt: " + idUser + "\n" + "Thời gian: " + ngayTao + "\n" + "Giá: " + total);
 
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
