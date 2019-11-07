@@ -1,8 +1,10 @@
 package com.example.clientadmin.Fragment.Store;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,10 @@ public class ThongTinCuaHangFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_thong_tin_cua_hang, container, false);
         setControl();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        Activity a = getActivity();
+        if(a != null) {
+            a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         return view;
     }
 

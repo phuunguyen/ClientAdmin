@@ -1,22 +1,19 @@
-package com.example.clientadmin.Fragment.adapter;
+package com.example.clientadmin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.clientadmin.Fragment.Object.Cart;
+import com.example.clientadmin.Object.Cart;
 import com.example.clientadmin.Model.Product;
 
 import com.example.clientadmin.R;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
