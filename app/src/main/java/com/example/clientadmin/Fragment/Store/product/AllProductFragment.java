@@ -16,13 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.clientadmin.R;
-import com.example.clientadmin.Model.Product;
 import com.example.clientadmin.adapter.ProductAdapter;
+import com.example.clientadmin.Model.Product;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
 public class AllProductFragment extends Fragment {
     RecyclerView mRecyclerView;
     ProductAdapter productAdapter;
-    List<Product> data;
+    List<Product> data = new ArrayList<>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
 
@@ -62,38 +63,7 @@ public class AllProductFragment extends Fragment {
     }
 
     private void setEvent() {
-        final String idStore = sharedPreferences.getString("ID_Login", null);
-        data = new ArrayList<>();
-        mData.child("Product").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot.child("id_store").getValue() != null) {
-                    if (dataSnapshot.child("id_store").getValue().toString().equals(idStore)) {
-                        addProduct(dataSnapshot);
-                    }
-                }
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 //        khoiTao();
         productAdapter = new ProductAdapter(data, getContext());
         mRecyclerView.setHasFixedSize(true);
@@ -103,25 +73,48 @@ public class AllProductFragment extends Fragment {
         mRecyclerView.setAdapter(productAdapter);
     }
 
+    private void loadData(){
+        final String idStore = sharedPreferences.getString("ID_Login", null);
+        mData.child("Product").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    if (snapshot.child("id_store").getValue() != null) {
+                        if (snapshot.child("id_store").getValue().toString().equals(idStore)) {
+                            addProduct(snapshot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void addProduct(DataSnapshot dataSnapshot) {
         Product product = new Product();
         product.setId_product(dataSnapshot.child("id_product").getValue().toString());
-        if (dataSnapshot.child("product_image").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("product_image").getValue() != null) {
             product.setProduct_image(dataSnapshot.child("product_image").getValue().toString());
         }
-        if (dataSnapshot.child("product_name").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("product_name").getValue() != null) {
             product.setProduct_name(dataSnapshot.child("product_name").getValue().toString());
         }
-        if (dataSnapshot.child("price").getValue() == null) {
-
-        } else {
+        if (dataSnapshot.child("price").getValue() != null) {
             product.setPrice(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
         }
         data.add(product);
         productAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        loadData();
     }
 }

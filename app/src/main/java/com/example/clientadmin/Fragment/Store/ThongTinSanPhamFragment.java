@@ -2,25 +2,30 @@ package com.example.clientadmin.Fragment.Store;
 
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
-import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
-import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
-import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
-import com.example.clientadmin.R;
-
-import com.example.clientadmin.adapter.ViewPagerAdapter;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
+
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.clientadmin.Fragment.Store.product.AllProductFragment;
+import com.example.clientadmin.Fragment.Store.product.BubbleTeaFragment;
+import com.example.clientadmin.Fragment.Store.product.CoffeeFragment;
+import com.example.clientadmin.Fragment.Store.product.ToppingFragment;
+import com.example.clientadmin.MainActivity;
+import com.example.clientadmin.R;
+import com.example.clientadmin.adapter.ViewPagerAdapter;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +35,7 @@ public class ThongTinSanPhamFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private View root;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private MaterialButton btnAddProduct;
 
     private String[] menu_product;
@@ -47,6 +53,21 @@ public class ThongTinSanPhamFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setEvent();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        setEvent();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+        swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     private void setEvent() {
@@ -72,6 +93,7 @@ public class ThongTinSanPhamFragment extends Fragment {
 
     private void setControl() {
         viewPager = (ViewPager) root.findViewById(R.id.viewpager);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container);
         tabLayout = (TabLayout) root.findViewById(R.id.tabs);
         btnAddProduct = (MaterialButton) root.findViewById(R.id.btnAddProduct);
     }
