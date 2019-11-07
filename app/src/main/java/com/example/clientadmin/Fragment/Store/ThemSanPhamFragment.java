@@ -175,7 +175,7 @@ public class ThemSanPhamFragment extends Fragment {
                         mData.child("Product").child("Product"+i).child("product_image").setValue(photoLink);
                         mData.child("Product").child("Product" + i).child("id_product").setValue(String.valueOf(i));
                         mData.child("Product").child("Product" + i).child("product_name").setValue(edtNameSP.getText().toString());
-                        mData.child("Product").child("Product" + i).child("id_store ").setValue(String.valueOf(idStore));
+                        mData.child("Product").child("Product" + i).child("id_store").setValue(String.valueOf(idStore));
                         mData.child("Product").child("Product" + i).child("price").setValue(Double.parseDouble(edtGiaSP.getText().toString()));
                         if (spinner.getSelectedItemPosition() == 0){
                             mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuCoffee));
