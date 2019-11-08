@@ -129,8 +129,6 @@ public class ThemSanPhamFragment extends Fragment {
                 if (!edtNameSP.getText().toString().isEmpty() && !edtGiaSP.getText().toString().isEmpty() && imgSP.getDrawable() != null){
                     i++;
                     upLoadImg(i);
-                    Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
-
                 }
 
             }
@@ -186,6 +184,7 @@ public class ThemSanPhamFragment extends Fragment {
                         }else{
                             mData.child("Product").child("Product" + i).child("id_menu").setValue(getText(R.string.idMenuTopping));
                         }
+                        Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
                         getActivity().onBackPressed();
                     }
                 });
