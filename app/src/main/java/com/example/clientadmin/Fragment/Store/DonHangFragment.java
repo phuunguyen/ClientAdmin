@@ -79,7 +79,7 @@ public class DonHangFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    private void loadData (){
+    private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
         final String id_Store = sharedPreferences.getString("ID_Login", "");
@@ -88,7 +88,7 @@ public class DonHangFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (id_Store.equals(dataSnapshot.child("id_store").getValue())) {
                     Cart cart = new Cart();
-                   // try {
+                    try {
                         if (dataSnapshot.child("finish").getValue().toString().equals("yes")) {
                             cart.setId_DonHang("Mã đơn hàng: " + dataSnapshot.child("id_donhang").getValue().toString());
                             cart.setDate(dataSnapshot.child("ngaytao").getValue().toString());
@@ -97,9 +97,8 @@ public class DonHangFragment extends Fragment {
                             data.add(cart);
                             adapter.notifyDataSetChanged();
                         }
-                  //  }catch (Exception e){}
+                    } catch (Exception e) {}
                 }
-                //t nho t commit r ma` ta
             }
 
             @Override
