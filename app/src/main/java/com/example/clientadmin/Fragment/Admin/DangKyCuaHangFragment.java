@@ -302,7 +302,7 @@ public class DangKyCuaHangFragment extends Fragment {
     }
 
     private boolean isValidPassword(String password) {
-        if (password != null && password.length() > 6) {
+        if (password != null && password.length() >= 6) {
             return true;
         }
         return false;

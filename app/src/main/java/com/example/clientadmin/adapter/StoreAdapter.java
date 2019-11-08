@@ -31,7 +31,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     private List<Store> data = new ArrayList<>();
 
 
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
@@ -51,9 +50,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StoreViewHolder holder, final int position) {
-        if(!data.get(position).getImage().isEmpty()){
-            Picasso.get().load(data.get(position).getImage()).into(holder.img);
-        }
+        Picasso.get().load(data.get(position).getImage()).into(holder.img);
         holder.txtNameAdminStore.setText(data.get(position).getStore_Name());
         holder.txtAdminAddress.setText(data.get(position).getAddress());
         holder.txtAdminRating.setText(data.get(position).getRating() + "");
@@ -71,10 +68,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 //        });
 
 
-
-
-
-
     }
 
     @Override
@@ -82,7 +75,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return data.size();
     }
 
-    public class StoreViewHolder extends RecyclerView.ViewHolder{
+    public class StoreViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView txtNameAdminStore;
         TextView txtAdminAddress;
@@ -90,10 +83,10 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
         public StoreViewHolder(final View itemView) {
             super(itemView);
-            img = (ImageView)itemView.findViewById(R.id.imgStore);
-            txtAdminAddress = (TextView)itemView.findViewById(R.id.edtAddressAdmin);
-            txtNameAdminStore = (TextView)itemView.findViewById(R.id.edtNameStore);
-            txtAdminRating = (TextView)itemView.findViewById(R.id.ratingAdmin);
+            img = (ImageView) itemView.findViewById(R.id.imgStore);
+            txtAdminAddress = (TextView) itemView.findViewById(R.id.edtAddressAdmin);
+            txtNameAdminStore = (TextView) itemView.findViewById(R.id.edtNameStore);
+            txtAdminRating = (TextView) itemView.findViewById(R.id.ratingAdmin);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,7 +95,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
                         listener.onItemClick(itemView, getLayoutPosition());
                 }
             });
-
 
 
         }
@@ -117,7 +109,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
 
 
 }
