@@ -114,6 +114,7 @@ public class DangKyCuaHangFragment extends Fragment {
                 InputStream is = getActivity().getContentResolver().openInputStream(imgeUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(is);
                 imgStore.setImageBitmap(bitmap);
+                imgStore.getBackground().setAlpha(0);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
