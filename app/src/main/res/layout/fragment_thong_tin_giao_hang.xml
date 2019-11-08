@@ -1,86 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Fragment.Store.ThongTinGiaoHangFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/ttgiaohang"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="20sp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="15dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/ttgiaohang"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:orientation="horizontal">
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
 
-
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="120dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="@string/madh"
-                android:background="@drawable/khung"
-                android:gravity="center"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="140dp"
-                android:layout_height="30dp"
-                android:text="@string/ngay"
-                android:background="@drawable/khung"
-                android:gravity="center"/>
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="170dp"
-                android:layout_height="30dp"
-                android:text="@string/xacnhandh"
-                android:background="@drawable/khung"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/khung"
+                    android:gravity="center"
+                    android:text="@string/madh"
+                    android:textStyle="bold" />
 
-                android:layout_width="115dp"
-                android:layout_height="30dp"
-                android:text="@string/giaohang"
-                android:background="@drawable/khung"
-                android:gravity="center"/>
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/khung"
+                    android:gravity="center"
+                    android:text="@string/ngay"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="110dp"
-                android:layout_height="30dp"
-                android:text="@string/hoanthanh"
-                android:background="@drawable/khung"
-                android:gravity="center"/>
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/khung"
+                    android:gravity="center"
+                    android:text="@string/xacnhandh"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="115dp"
+
+                    android:layout_height="30dp"
+                    android:background="@drawable/khung"
+                    android:gravity="center"
+                    android:text="@string/giaohang"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/khung"
+                    android:gravity="center"
+                    android:text="@string/hoanthanh"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rclTrangThai"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rclTrangThai"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
-
-
-
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
