@@ -365,16 +365,7 @@
                 android:layout_width="125dp"
                 android:layout_height="match_parent">
 
-                <CheckBox
-                    android:id="@+id/cbxacnhantt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/xacnhanthanhtoan"
-                    android:textColorHighlight="#F4511E"
-                    android:textColorLink="#F4511E">
 
-                </CheckBox>
             </LinearLayout>
 
             <LinearLayout

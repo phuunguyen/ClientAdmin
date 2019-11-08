@@ -57,6 +57,7 @@ public class ThemSanPhamFragment extends Fragment {
     private ImageView imgSP;
     private EditText edtNameSP, edtGiaSP;
     private Button btnThem;
+    private MaterialButton btnChonHinh;
     private Spinner spinner;
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
@@ -88,6 +89,7 @@ public class ThemSanPhamFragment extends Fragment {
         btnThem = (Button)root.findViewById(R.id.btnThem);
         spinner = (Spinner)root.findViewById(R.id.spinner_type_product);
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        btnChonHinh = (MaterialButton)root.findViewById(R.id.btnChonHinh);
     }
 
     public void setEvent(){
@@ -120,7 +122,7 @@ public class ThemSanPhamFragment extends Fragment {
                 if (edtGiaSP.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "Hãy nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
                 }
-                if (imgSP.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_launcher_background).getConstantState()){
+                if (imgSP.getDrawable() == null){
                     Toast.makeText(getContext(), "Hãy chọn hình ảnh", Toast.LENGTH_SHORT).show();
                 }
 
@@ -133,9 +135,9 @@ public class ThemSanPhamFragment extends Fragment {
 
             }
         });
-        imgSP.setOnClickListener(new View.OnClickListener() {
+        btnChonHinh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 choosePhoto();
             }
         });
