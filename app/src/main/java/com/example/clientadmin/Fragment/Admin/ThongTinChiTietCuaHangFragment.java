@@ -372,23 +372,6 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
 
     }
 
-    public void chonngay() {
-        final Calendar calendar = Calendar.getInstance();
-        int ngay = calendar.get(Calendar.DATE);
-        int thang = calendar.get(Calendar.MONTH);
-        int nam = calendar.get(Calendar.YEAR);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                edtNgayDK.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        }, ngay, thang, nam);
-        datePickerDialog.show();
-    }
-
     public void choosePhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -522,4 +505,20 @@ public class ThongTinChiTietCuaHangFragment extends Fragment {
         ((DrawerLocker) getActivity()).setDrawerLocked(false);
     }
 
+    public void chonngay() {
+        final Calendar calendar = Calendar.getInstance();
+        int ngay = calendar.get(Calendar.DATE);
+        int thang = calendar.get(Calendar.MONTH);
+        int nam = calendar.get(Calendar.YEAR);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                calendar.set(i, i1, i2);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                edtNgayDK.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        }, nam, thang, ngay);
+        datePickerDialog.show();
+    }
 }

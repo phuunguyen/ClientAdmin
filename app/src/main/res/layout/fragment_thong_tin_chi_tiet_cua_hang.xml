@@ -72,6 +72,7 @@
                     android:text="Gong Cha">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/edttencuahang"
                     android:layout_width="match_parent"
@@ -245,11 +246,13 @@
                     android:text="1/11/2019">
 
                 </TextView>
+
                 <EditText
                     android:id="@+id/edtngaydk"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="@drawable/btnall"
+                    android:focusable="false"
                     android:inputType="datetime"
                     android:visibility="gone">
 
@@ -276,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center|left"
-                    android:text="7">
+                    android:text="0">
 
                 </TextView>
 
@@ -311,7 +314,7 @@
                     android:layout_height="30dp"
                     android:gravity="center|left"
                     android:inputType="datetime"
-                    android:text="2000">
+                    android:text="0">
 
                 </TextView>
 
@@ -340,21 +343,21 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:layout_marginLeft="20dp"
                     android:id="@+id/imgedit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/ic_edit">
 
                 </ImageButton>
 
                 <ImageButton
-                    android:layout_marginLeft="10dp"
-                    android:visibility="gone"
                     android:id="@+id/imgsave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_save">
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ic_save"
+                    android:visibility="gone">
 
                 </ImageButton>
 
@@ -370,8 +373,8 @@
 
             <LinearLayout
                 android:layout_width="140dp"
-                android:gravity="right"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="right">
 
                 <ImageButton
                     android:id="@+id/imgdelete"

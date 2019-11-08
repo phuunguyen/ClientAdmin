@@ -197,6 +197,9 @@ public class DangNhapFragment extends Fragment {
 //                    return;
 //                }
 
+                //CLGT??? Chay di
+
+
                 if (rbquanly.isChecked()) {
                     for (int i = 0; i < arrAdmin.size(); i++) {
                         // Log.d("admin", arrAdmin.get(i).getName());

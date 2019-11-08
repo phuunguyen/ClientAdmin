@@ -51,7 +51,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StoreViewHolder holder, final int position) {
-        Picasso.get().load(data.get(position).getImage()).into(holder.img);
+        if(!data.get(position).getImage().isEmpty()){
+            Picasso.get().load(data.get(position).getImage()).into(holder.img);
+        }
         holder.txtNameAdminStore.setText(data.get(position).getStore_Name());
         holder.txtAdminAddress.setText(data.get(position).getAddress());
         holder.txtAdminRating.setText(data.get(position).getRating() + "");

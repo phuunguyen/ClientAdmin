@@ -57,6 +57,8 @@ public class DanhSachCuaHangFragment extends Fragment {
     AutoCompleteTextView edtSearch;
     StoreAdapter storeAdapter;
     View view;
+    private ArrayList<String> listStoreName = new ArrayList<>();
+    private ArrayAdapter adapterStoreName;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mData = database.getReference();
@@ -82,15 +84,16 @@ public class DanhSachCuaHangFragment extends Fragment {
         return view;
     }
 
-    public void setControl(){
+    public void setControl() {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_AllProduct);
-        edtSearch = (AutoCompleteTextView)view.findViewById(R.id.searchBox);
+        edtSearch = (AutoCompleteTextView) view.findViewById(R.id.searchBox);
         sharedPreferences = getContext().getSharedPreferences("SHARED_PREFERENCES_LOGIN",
                 Context.MODE_PRIVATE);
     }
 
 
-    public void setEvent(){
+    public void setEvent() {
+        loadNameStore();
         storeAdapter = new StoreAdapter(data, getContext());
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -144,17 +147,49 @@ public class DanhSachCuaHangFragment extends Fragment {
 //        });
     }
 
-    public void loadData(){
+    public void loadData() {
 
         mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
-                try {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
                         Store store = new Store();
                         store.setId_Store(snapshot.child("id_Store").getValue().toString());
-                        if(snapshot.child("image").getValue() != null) {
+                        if (snapshot.child("image").getValue() != null) {
+                            store.setImage(snapshot.child("image").getValue().toString());
+                        }
+                        store.setStore_Name(snapshot.child("store_Name").getValue().toString());
+                        store.setAddress(snapshot.child("address").getValue().toString());
+                        store.setRating((float) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
+                        data.add(store);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                storeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void loadDataSearch(final String storeName) {
+        mData.child("Store").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    final Store store = new Store();
+                    if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
+                        store.setId_Store(snapshot.child("id_Store").getValue().toString());
+                        if (snapshot.child("image").getValue() != null) {
                             store.setImage(snapshot.child("image").getValue().toString());
                         }
                         store.setStore_Name(snapshot.child("store_Name").getValue().toString());
@@ -162,8 +197,6 @@ public class DanhSachCuaHangFragment extends Fragment {
                         store.setRating((float) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
                         data.add(store);
                     }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
                 }
                 storeAdapter.notifyDataSetChanged();
             }
@@ -175,25 +208,17 @@ public class DanhSachCuaHangFragment extends Fragment {
         });
     }
 
-    public void loadDataSearch(final String storeName){
+    private void loadNameStore() {
         mData.child("Store").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    final Store store = new Store();
-                    if (snapshot.child("store_Name").getValue().toString().equals(storeName)) {
-                        store.setId_Store(snapshot.child("id_Store").getValue().toString());
-                        if(snapshot.child("image").getValue() != null) {
-                            store.setImage(snapshot.child("image").getValue().toString());
-                        }
-                        store.setStore_Name(snapshot.child("store_Name").getValue().toString());
-                        store.setAddress(snapshot.child("address").getValue().toString());
-                        store.setRating((float) Math.round(Double.parseDouble(snapshot.child("rating").getValue().toString()) * 10) / 10);
-                        data.add(store);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
+                        listStoreName.add(snapshot.child("store_Name").getValue().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                storeAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -201,6 +226,9 @@ public class DanhSachCuaHangFragment extends Fragment {
 
             }
         });
+        adapterStoreName = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listStoreName);
+        edtSearch.setAdapter(adapterStoreName);
+        edtSearch.setThreshold(1);
     }
 
     @Override
